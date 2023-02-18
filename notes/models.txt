@@ -1,0 +1,57 @@
+from django.db import models
+from django.utils import timezone
+from ckeditor.fields import RichTextField
+
+class User(models.Model):
+
+    EXPERTISE = {
+        (0, 'visual arts'),
+        (1, 'literary arts'),
+        (2, 'performing arts'),
+        (3, 'science'),
+    }
+
+    firstName = models.CharField(default='---', max_length=64, unique=False, blank=False, null=False)
+    middleName = models.CharField(default='---', max_length=64, unique=False, blank=True, null=True)
+    lastName = models.CharField(default='---', max_length=64, unique=False, blank=False, null=False)
+    expertise = models.PositiveSmallIntegerField(default=0, choices=EXPERTISE, unique=True)
+    info = RichTextField(default='... haven\'t decided yet ...', blank=True, null=True)
+    readyToLounch = models.BooleanField(default= False, blank= False, null= False)
+
+    def __str__(self):
+        return self.allNames()
+
+    def allNames(self):
+        if self.middleName != None:
+            return "{} {} {}".format(self.firstName, self.middleName, self.lastName)
+        else:
+            return "{} {}".format(self.firstName, self.lastName)
+
+    def __unicode__(self):
+        return self.expertise
+
+class Post(models.Model):
+    EXPERTISE = list(User.EXPERTISE)
+    title = models.CharField(default='---', max_length=124, unique=True, blank=False, null=False)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField(default=timezone.now, blank=False, null=False)
+    tags = models.CharField(default='---', max_length=200, unique=True, blank=False, null=False)
+    mainBody = RichTextField(default='... to be continued ...', blank=True, null=True)
+    readyToLounch = models.BooleanField(default=False, blank=False, null=False)
+
+############################################################################
+
+from django.contrib import admin
+from .models import User, Post
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'expertise']
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['title', 'get_expertise', 'date']
+
+    @admin.display(ordering='author__expertise', description='Expertise')
+    def get_expertise(self, obj):
+        return Expertise.expertise_list[obj.author.expertise][1]

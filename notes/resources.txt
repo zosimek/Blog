@@ -1,0 +1,5 @@
+– responsive menu: https://www.youtube.com/watch?v=wO5YKwxSa40
+– back to the top button: https://www.youtube.com/watch?v=SJVCvnKM_lI
+
+— fonts:
+	'font_names': 'Computer Modern', 'Arial', 'Courier New', 'Verdana', 'Times New Roman'

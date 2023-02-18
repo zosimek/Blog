@@ -1,0 +1,7 @@
+/*https://stackoverflow.com/questions/1398342/adding-font-face-to-ckeditor*/
+/*https://stackoverflow.com/questions/6476351/how-to-use-the-computer-modern-font-in-webpages*/
+
+@font-face {
+    font-family: "ComputerModern";
+    src: url('http://mirrors.ctan.org/fonts/cm-unicode/fonts/otf/cmunss.otf');
+  }
