@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-zfb@!#%=z5w(!&r2@gtvj-#6a04)r0$(z@=x#+g5_^9t-*%4tz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -120,15 +120,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = ['static', 'img']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = 'media/'
 
 CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
 CKEDITOR_CONFIGS = {

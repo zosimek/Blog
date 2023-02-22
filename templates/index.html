@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavBar</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+
+<body>
+
+
+    <main class="bck-img">
+        <div class="header-background">
+            <header class="header-container">
+                <div class="logo-wrapper">
+                    <a class="logo" href="#">LOGO</a>
+                </div>
+
+                <nav class="nav">
+                <a href="#">HOME</a>
+                    <a href="#">ABOUT</a>
+                    <a href="#">ART</a>
+                    <a href="#">LITERATURE</a>
+                    <a href="#">SCIENCE</a>
+                </nav>
+            </header>
+        </div>
+
+
+<!--    mobile version    -->
+        <div class="mob-menu">
+            <img class="mob-open" src="{% static 'hamburger.png' %}" alt="menuPng"/>
+            <div class="mob-wrapper close">
+                <img class="mob-close" src="{% static 'close.png' %}"  alt="closePng"/>
+                <div class="mob-list">
+                    <a href="#" class="mob-list-item">ABOUT</a>
+                    <a href="#" class="mob-list-item">ART</a>
+                    <a href="#" class="mob-list-item">LITERATURE</a>
+                    <a href="#" class="mob-list-item">SCIENCE</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="main-content">
+            <section class="section1">Section 1</section>
+            <section class="section2">Section 2</section>
+            <section class="section3">Section 3</section>
+            <section class="section4">Section 4</section>
+
+            <a class="to-top" href="#">
+                <img class="to-top-img" src="{% static 'up.png' %}" alt="up"/>
+            </a>
+        </div>
+    </main>
+
+
+    <script src="{% static 'navbar.js' %}"></script>
+    <script src="{% static 'upButton.js' %}"></script>
+</body>
+</html>
