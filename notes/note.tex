@@ -1,0 +1,210 @@
+%%%%%%% P R E A M B U Ł A %%%%%%%
+% W razie potrzeby marginesy dokumentu możesz zmienić w linii 31, odblokowując ją poprzez usunięcie znaku % na jej początku.
+% Właściwa edycja treści rozpoczyna się w linii 48.
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[MeX]{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{fontenc}
+\usepackage[english,polish]{babel}
+\usepackage{cite}
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage[tight,footnotesize]{subfigure}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[small]{caption}
+\usepackage{makecell} % Used to break text in a single cell of a table.
+\usepackage{float}
+\restylefloat{table}
+\usepackage{tabto}
+\usepackage[shortlabels]{enumitem}
+\usepackage{adjustbox}
+\usepackage{array}
+\usepackage{fancyvrb}
+\usepackage[colorlinks=true,citecolor=blue,linkcolor=red,urlcolor=blue,pagebackref=true]{hyperref}
+\usepackage[all]{nowidow}
+\usepackage{upquote} % Rozwiązuje problem zakręconych cudzysłowów w otoczeniu verbatim, gdzie wystarczy użyć '. Natomiast w {\tt } trzeba zamiast ' pisać \textquotesingle, czyli np. {\tt \textquotesingle Ala ma kota.\textquotesingle}. Inaczej będą zakręcone, nie proste, co bruździ przy przeklejaniu kodu z pdf do edytora kodu.
+\frenchspacing
+
+%\usepackage[top=35mm,left=35mm,bottom=35mm,right=35mm]{geometry}
+
+% Potrzebne do tworzenia schematów blokowych.
+% https://www.overleaf.com/learn/latex/LaTeX_Graphics_using_TikZ:_A_Tutorial_for_Beginners_(Part_3)%E2%80%94Creating_Flowcharts
+\usepackage{tikz} 
+\usetikzlibrary{shapes.geometric, arrows} 
+\tikzstyle{startstop} = [ellipse, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=black!0]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=yellow!0]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!0]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!0]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+
+%%%%%%%%% D O K U M E N T %%%%%%%%%
+
+\begin{document}
+
+\title{Blog Project}
+
+\author{Zofia Dobrowolska}
+
+\date{\today}
+
+\maketitle
+
+\section{Create virtual environment}
+Project created for deployment needs a dedicated virtual environment to run in production. Step-by-step instruction on how to do it for Django project.\\
+\begin{enumerate}
+\item Navigate to root of a project:
+	\begin{verbatim}
+	~ cd <<project path>>
+	\end{verbatim}
+\item Create the virtual environment .venv:
+	\begin{verbatim}
+	~ python -m venv <<name of the virtual environment>>
+	\end{verbatim}
+\item Activate the venv:
+	\begin{verbatim}
+	~ venv\Scripts\activate
+	\end{verbatim}
+\item Install django:
+	\begin{verbatim}
+	~ pip install django
+	\end{verbatim}
+\item Create the Django project:
+	\begin{verbatim}
+	~ django-admin startproject <<name>>
+	\end{verbatim}
+\item Check by running the server (this command starts the project, making it accessible from web):
+	\begin{verbatim}
+	~ python manage.py runserver	
+	\end{verbatim}
+\item Add an app to the project:
+	\begin{verbatim}
+	~ django-admin startapp <<name>>	
+	\end{verbatim}
+\item Migrate changes:
+	\begin{verbatim}
+	~ python manage.py makemigrations
+	~ python manage.py migrate
+	\end{verbatim}
+\item Create an admin (user):
+\item Migrate changes:
+	\begin{verbatim}
+	~ python manage.py createsuperuser
+	\end{verbatim}
+Then you will be asked to enter the user name, password, and email address. You can omit the email, though.
+\item
+\end{enumerate}
+
+
+\section{Handleing venv}
+Storing a Django project and its virtual environment objectively consumes too much space. Yet, for deployment, you have to know the requirements for the project to work. You can generate \textit{requirements.txt} by typing in git BASH a command\footnote{\href{https://pip.pypa.io/en/stable/cli/pip_freeze/}{pip freeze}}:
+\begin{verbatim}
+env1/bin/python -m pip freeze \> requirements.txt
+\end{verbatim}
+and to install from it to another environment run command:
+\begin{verbatim}
+env2/bin/python -m pip install -r requirements.txt
+\end{verbatim}
+
+Then include \textit{.venv} in your \textit{.gitignore} file.
+
+
+\section{.gitignore}
+The \textit{.gitignore} file is a text file that tells Git which files or folders to ignore in a project\footnote{\href{https://www.freecodecamp.org/news/gitignore-what-is-it-and-how-to-add-to-repo/}{.gitignore}}. A local \textit{.gitignore} file is usually placed in the root directory of a project, but you can also create a global one. Mind that, entries in the global file will be ignored in all your Git repositories.\\
+To create a local \textit{.gitignore} file, create a text file and name it \textit{.gitignore} (remember to include the . at the beginning). Then edit this file as needed. Each new line should list an additional file or folder that you want Git to ignore.\\
+
+The entries in this file can also follow a matching pattern.
+\begin{itemize}
+	\item * is used as a wildcard match
+	\item / is used to ignore pathnames relative to the .gitignore file
+	\item \# is used to add comments to a .gitignore file 
+\end{itemize}
+Par exemple:
+\begin{verbatim}
+# Ignore Mac system files
+.DS_store
+
+# Ignore node_modules folder
+node_modules
+
+# Ignore all text files
+*.txt
+
+# Ignore files related to API keys
+.env
+
+# Ignore SASS config files
+.sass-cache
+\end{verbatim}
+
+To add or change your global .gitignore file, run the following command:
+
+\begin{verbatim}
+To add or change your global .gitignore file, run the following command:
+\end{verbatim}
+
+This will create the file  \textit{\~/gitignore\_global}. Now you can edit that file the same way as a local \textit{.gitignore} file. All of your Git repositories will ignore the files and folders listed in the global \textit{.gitignore} file.
+
+To untrack a single file, ie stop tracking the file but not delete it from the system use:
+\begin{verbatim}
+git rm --cached filename
+\end{verbatim}
+To untrack every file in .gitignore:
+
+First commit any outstanding code changes, and then run:
+\begin{verbatim}
+git rm -r --cached
+\end{verbatim}
+This removes any changed files from the index(staging area), then run:
+\begin{verbatim}
+git add .
+\end{verbatim}
+Commit it:
+\begin{verbatim}
+git commit -m ".gitignore is now working"
+\end{verbatim}
+To undo \begin{verbatim}git rm --cached filename\end{verbatim}, use git add filename
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
