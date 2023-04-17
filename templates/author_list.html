@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavBar</title>
+    <link rel="stylesheet" href="{% static 'math_ckeditor.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+</head>
+
+
+<body>
+{% load templatetags %}
+    <div class="roundabout">
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+        <div class="author">
+            {% if object.image.url != null %}
+            <img src="{{object.image.url}}" alt="{{object.image.name}}" class="author_img">
+            {% endif %}
+            <div class="info">
+                <h1 class="name">{{object.full_name}}</h1>
+                <p class="expertise">{{object.expertise}}</p>
+                {% if object.info != null %}
+                <p class="about">{{object.info|highlight_code|safe}}</p>
+                {% endif %}
+            </div>
+        </div>
+        <hr>
+    <!-- If object_list is empty  -->
+    {% empty %}
+    <li>No objects yet.</li>
+    {% endfor %}
+    </div>
+</body>
+</html>

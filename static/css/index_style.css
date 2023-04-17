@@ -1,0 +1,222 @@
+body, html, h1, h2, h3, h4, h5, h6, p, div, a {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header-container {
+    width: 80%;
+    height: 70px;
+    max-width: 1440px;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    /*padding: 30px;*/
+
+}
+
+/*.header {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    padding: 30px;*/
+/*}*/
+
+.nav{
+    padding: 30px;
+}
+
+.nav > a{
+    margin-right: 40px;
+    color: black;
+    transition: all 150ms ease-in-out;
+}
+
+.nav > a:hover{
+    color: #CC007E;
+}
+
+.logo-wrapper{
+    width: 300px;
+    margin-right: 40px;
+}
+
+.logo{
+    color: black;
+    transition: all 150ms ease-in-out;
+}
+
+.logo:hover{
+    color: #CC007E;
+}
+
+.logo_image{
+    height: 70%;
+    margin-top: 10px;
+}
+
+.header-background{
+    background: white;
+    /*backdrop-filter: blur(10px);*/
+    height: 70px;
+}
+
+section {
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "CMU Serif";
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+}
+
+.section1{
+    background: #f0932b;
+}
+.section2{
+    background: #eb4d4b;
+}
+.section3{
+    background: #7ed6df;
+}
+.section4{
+    background: #22a6b3;
+}
+
+.to-top {
+    background: white;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #1f1f1f;
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .4s;
+}
+
+.to-top.active{
+    bottom: 15px;
+    pointer-events: auto;
+    opacity: 1;
+}
+
+.to-top-img {
+    width: 20px;
+    height: 20px;
+}
+
+/*   the part below hides the navbar when the screen width is to small
+      and enables to show the mobile version of side-navbar*/
+@media screen and (max-width: 767px){
+    .header,
+    .header-background{
+        display: none;
+    }
+}
+
+/*   mobile version   */
+.mob-open{
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+}
+
+.mob-close {
+    width: 30px;
+    height: 30px;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 4;
+}
+.mob-icon{
+    width: 50px;
+    height: 50px;
+    position: center;
+}
+
+.mob-list {
+    height: fit-content;
+    width: 60px;
+    position: fixed;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.mob-list-item{
+    color: black;
+}
+
+.mob-list-item:hover{
+    color: #CC007E;
+}
+
+.mob-list-item:first-child{
+    margin-top: 70px;
+}
+.mob-list-item:last-child{
+    margin-bottom: 15px;
+}
+
+@media screen and (min-width: 768px){
+    .mob-menu{
+        display: none;
+    }
+}
+
+/*   js   */
+
+.opened{
+    opacity: 1;
+    animation: openAnim 200ms ease-in-out;
+}
+
+.close{
+    opacity: 0;
+    animation: closeAnim 200ms ease-in-out;
+}
+
+/*   animation   */
+@keyframes openAnim {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes closeAnim {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
