@@ -27,21 +27,24 @@ urlpatterns = [
     # path('post_list/', PostListView.as_view()),
     path('blog/', blog),
     path('author/', AuthorListView.as_view()),
+
     path('ultimate_roundabout/', UltimateRoundabout.as_view()),
-    path('art_roundabout/', ArtRoundabout.as_view()),
-    path('literature_roundabout/', LiteratureRoundabout.as_view()),
-    path('science_roundabout/', ScienceRoundabout.as_view()),
-    path('entertainment_roundabout/', EntertainmentRoundabout.as_view()),
-
     path('ultimate_thumbnail/', UltimateThumbnail.as_view()),
-    path('art_thumbnail/', ArtThumbnail.as_view()),
-    path('literature_thumbnail/', LiteratureThumbnail.as_view()),
-    path('science_thumbnail/', ScienceThumbnail.as_view()),
-    path('entertainment_thumbnail/', EntertainmentThumbnail.as_view()),
-
     path('ultimate_latest/', UltimateLatest.as_view()),
+
+    path('art_roundabout/', ArtRoundabout.as_view()),
+    path('art_thumbnail/', ArtThumbnail.as_view()),
     path('art_latest/', ArtLatest.as_view()),
+
+    path('literature_roundabout/', LiteratureRoundabout.as_view()),
+    path('literature_thumbnail/', LiteratureThumbnail.as_view()),
     path('literature_latest/', LiteratureLatest.as_view()),
+
+    path('science_roundabout/', ScienceRoundabout.as_view()),
+    path('science_thumbnail/', ScienceThumbnail.as_view()),
     path('science_latest/', ScienceLatest.as_view()),
+
+    path('entertainment_roundabout/', EntertainmentRoundabout.as_view()),
+    path('entertainment_thumbnail/', EntertainmentThumbnail.as_view()),
     path('entertainment_latest/', EntertainmentLatest.as_view()),
 ]

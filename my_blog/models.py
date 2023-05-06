@@ -44,7 +44,7 @@ class Author(models.Model):
     expertise = models.ForeignKey(Expertise, on_delete=models.CASCADE)
     info = RichTextField(default='... haven\'t decided yet ...', blank=True, null=True)
     image = models.ImageField(upload_to='authors', null=True, blank=True)
-    readyToLounch = models.BooleanField(default=False, blank=False, null=False)
+    readyToLaunch = models.BooleanField(default=False, blank=False, null=False)
 
     def __str__(self):
         return self.full_name()
@@ -64,7 +64,7 @@ class Guest(models.Model):
     nickName = models.CharField(default='', max_length=64, blank=False, null=False)
     socialMedia = models.CharField(default='', max_length=300, unique=False, blank=True, null=True)
     image = models.ImageField(upload_to='authors', null=True, blank=True)
-    readyToLounch = models.BooleanField(default=False, blank=False, null=False)
+    readyToLaunch = models.BooleanField(default=False, blank=False, null=False)
 
     def __str__(self):
         return self.full_name()

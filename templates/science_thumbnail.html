@@ -1,10 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavBar</title>
+    <link rel="stylesheet" href="{% static 'roundabout.css' %}">
 </head>
+
+
 <body>
 
+{% load templatetags %}
+
+<ul>
+    <div class="roundabout">
+    <!-- Iterate over thumb_list -->
+    {% for thumb in thumbnails %}
+        <div class="one_post">
+            {% if thumb.image.url != null %}
+            <img src="{{thumb.image.url}}" alt="{{thumb.image.name}}" class="title_image">
+            {% else %}
+                {% if thumb.expertise.expertise == 'literature' %}
+                <img src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                {% elif thumb.expertise.expertise == 'art' %}
+                <img src="{% static 'art_img.png' %}" alt="art" class="title_image">
+                {% elif thumb.expertise.expertise == 'science' %}
+                {% elif thumb.expertise.expertise == 'entertainment' %}
+                {% endif %}
+            {% endif %}
+            <div class="post_info">
+                <h3 class="title">{{thumb.title}}</h3>
+                <div class="category_author_date">
+                    <p class="category">{{thumb.expertise.expertise}}</p>
+                    <p class="date">{{thumb.date}}</p>
+                    <p class="author">{{thumb.author}}</p>
+                    <p class="content">{{thumb.content|safe|truncatewords:20}}</p>
+                </div>
+            </div>
+        </div>
+    <!-- If thumb_list is empty  -->
+    {% empty %}
+    <li>No thumbs yet.</li>
+    {% endfor %}
+    </div>
+</ul>
 </body>
 </html>

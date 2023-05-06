@@ -1,41 +1,39 @@
+{% extends "index.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NavBar</title>
-    <link rel="stylesheet" href="{% static 'roundabout.css' %}">
+{% block roundabout %}
+    <!--mathjax-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-</head>
-
-
-<body>
-
 {% load templatetags %}
-
-<ul>
-    <div class="roundabout">
+    <div class="carousel">
+        <ul>
+    <div class="owl-carousel">
     <!-- Iterate over seat_list -->
     {% for seat in roundabout_seats %}
-        <div class="one_post">
+        <div class="wrapper">
             {% if seat.image.url != null %}
-            <img src="{{seat.image.url}}" alt="{{seat.image.name}}" class="title_image">
+            <img class="image" src="{{seat.image.url}}" alt="{{seat.image.name}}" class="title_image">
             {% else %}
                 {% if seat.expertise.expertise == 'literature' %}
-                <img src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                <img class="image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
                 {% elif seat.expertise.expertise == 'art' %}
-                <img src="{% static 'art_img.png' %}" alt="art" class="title_image">
+                <img class="image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
                 {% elif seat.expertise.expertise == 'science' %}
                 {% elif seat.expertise.expertise == 'entertainment' %}
                 {% endif %}
             {% endif %}
             <div class="post_info">
-                <p class="category">{{seat.expertise.expertise}}</p>
-                <h3>{{seat.title}}</h3>
+                <p class="category">{{seat.expertise.expertise.upper}}</p>
+                <br>
+                <div class="title">
+                    <p>{{seat.title}}</p>
+                </div>
                 <div class="author_date">
-                    <p>{{seat.author}}</p>
-                    <p>{{seat.date}}</p>
+                    {% if seat.author.middleName != null %}
+                    <p class="author">{{seat.author.firstName.0}}. {{seat.author.middleName.0}}. {{seat.author.lastName}}</p>
+                    {% else %}
+                    <p class="author">{{seat.author.firstName.0}}. {{seat.author.lastName}}</p>
+                    {% endif %}
+                    <p class="date">{{seat.date|date:"d.m.Y"}}</p>
                 </div>
             </div>
         </div>
@@ -45,5 +43,19 @@
     {% endfor %}
     </div>
 </ul>
+    </div>
+
+
+<!--&lt;!&ndash;    jquelry js file&ndash;&gt;-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+<!--&lt;!&ndash;    owl carousel js file    &ndash;&gt;-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js" integrity="sha512-9CWGXFSJ+/X0LWzSRCZFsOPhSfm6jbnL+Mpqo0o8Ke2SYr8rCTqb4/wGm+9n13HtDE1NQpAEOrMecDZw4FXQGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script src="{% static 'roundabout.js' %}"></script>
+
+{% endblock %}
 </body>
 </html>

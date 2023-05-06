@@ -73,13 +73,14 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: "CMU Serif";
-    font-size: 32px;
-    text-transform: uppercase;
-    letter-spacing: 8px;
+    /*font-family: "CMU Serif";*/
+    /*font-size: 32px;*/
+    /*text-transform: uppercase;*/
+    /*letter-spacing: 8px;*/
 }
 
 .section1{
+    height: fit-content;
     background: #f0932b;
 }
 .section2{
@@ -124,10 +125,23 @@ section {
 
 /*   the part below hides the navbar when the screen width is to small
       and enables to show the mobile version of side-navbar*/
-@media screen and (max-width: 767px){
+@media screen and (max-width: 1375px){
     .header,
-    .header-background{
+    .nav{
         display: none;
+    }
+    .logo-wrapper{
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 325px){
+    .header,
+    .nav{
+        display: none;
+    }
+    .logo-wrapper{
+        padding-right: 60px;
     }
 }
 
@@ -184,7 +198,7 @@ section {
     margin-bottom: 15px;
 }
 
-@media screen and (min-width: 768px){
+@media screen and (min-width: 1375px){
     .mob-menu{
         display: none;
     }

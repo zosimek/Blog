@@ -14,8 +14,12 @@ def blog(request):
 #################################################    AUTHOR    #########################################################
 
 class AuthorListView(ListView):
-    model = Author
+    # model = Author
     template_name = 'author_list.html'
+
+    def get_queryset(self):
+        authors = Author.objects.filter(readyToLaunch=True)
+        return authors
 
 class AuthorDetailView(DetailView):
     model = Author
@@ -81,8 +85,9 @@ class ArtRoundabout(ListView):
     context_object_name = 'roundabout_seats'
 
     def get_queryset(self):
+        expertise = Expertise.objects.get(expertise='art')
         artworks = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('date')[:5]
-        post = Post.objects.filter(readyToLaunch=True, promote=True, expertise="art").order_by('date')[:5]
+        post = Post.objects.filter(readyToLaunch=True, promote=True, expertise= expertise.id).order_by('date')[:5]
 
         merged_list = sorted(chain(artworks, post), key=attrgetter('date'), reverse=True)[:10]
         return merged_list
@@ -93,11 +98,13 @@ class ArtThumbnail(ListView):
     context_object_name = 'thumbnails'
 
     def get_queryset(self):
+        expertise = Expertise.objects.get(expertise='art')
+
         artworks1 = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('date')[2:]
         artworks2 = Artwork.objects.filter(readyToLaunch=True, promote=False).order_by('date')[:3]
 
-        post1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise="art").order_by('date')[2:]
-        post2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise="art").order_by('date')[:3]
+        post1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise= expertise.id).order_by('date')[2:]
+        post2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise= expertise.id).order_by('date')[:3]
 
         merged_list = sorted(chain(artworks1, artworks2, post1, post2), key=attrgetter('date'), reverse=True)[:10]
         return merged_list
@@ -107,8 +114,9 @@ class ArtLatest(ListView):
     context_object_name = 'latest'
 
     def get_queryset(self):
+        expertise = Expertise.objects.get(expertise='art')
         artwork = Artwork.objects.filter(readyToLaunch=True).order_by('date')[:1]
-        post = Post.objects.filter(readyToLaunch=True, expertise="art").order_by('date')[:1]
+        post = Post.objects.filter(readyToLaunch=True, expertise= expertise.id).order_by('date')[:1]
 
         merged_list = sorted(chain(artwork, post),
                              key=attrgetter('date'), reverse=True)[:1]
@@ -121,9 +129,10 @@ class LiteratureRoundabout(ListView):
     context_object_name = 'roundabout_seats'
 
     def get_queryset(self):
+        expertise = Expertise.objects.get(expertise='literature')
         poems = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('date')[:4]
         chapters = Chapter.objects.filter(readyToLaunch=True, promote=True).order_by('date')[:4]
-        post = Post.objects.filter(readyToLaunch=True, promote=True, expertise="literature").order_by('date')[:4]
+        post = Post.objects.filter(readyToLaunch=True, promote=True, expertise= expertise.id).order_by('date')[:4]
 
         merged_list = sorted(chain(poems, chapters, post),
                              key=attrgetter('date'), reverse=True)
@@ -135,14 +144,16 @@ class LiteratureThumbnail(ListView):
     context_object_name = 'thumbnails'
 
     def get_queryset(self):
+        expertise = Expertise.objects.get(expertise='literature')
+
         poem1 = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('date')[2:]
         poem2 = Poem.objects.filter(readyToLaunch=True, promote=False).order_by('date')[:3]
 
         chapter1 = Chapter.objects.filter(readyToLaunch=True, promote=True).order_by('date')[2:]
         chapter2 = Chapter.objects.filter(readyToLaunch=True, promote=False).order_by('date')[:3]
 
-        post1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise="literature").order_by('date')[2:]
-        post2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise="literature").order_by('date')[:3]
+        post1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise= expertise.id).order_by('date')[2:]
+        post2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise= expertise.id).order_by('date')[:3]
 
         merged_list = sorted(chain(poem1, poem2, chapter1, chapter2, post1, post2), key=attrgetter('date'),
                              reverse=True)[:10]
@@ -153,9 +164,10 @@ class LiteratureLatest(ListView):
     context_object_name = 'latest'
 
     def get_queryset(self):
+        expertise = Expertise.objects.get(expertise='literature')
         poems = Poem.objects.filter(readyToLaunch=True).order_by('date')[:1]
         chapters = Chapter.objects.filter(readyToLaunch=True).order_by('date')[:1]
-        post = Post.objects.filter(readyToLaunch=True, expertise="literature").order_by('date')[:1]
+        post = Post.objects.filter(readyToLaunch=True, expertise= expertise.id).order_by('date')[:1]
 
         merged_list = sorted(chain(poems, chapters, post),
                              key=attrgetter('date'), reverse=True)[:1]
@@ -168,7 +180,8 @@ class ScienceRoundabout(ListView):
     context_object_name = 'roundabout_seats'
 
     def get_queryset(self):
-        posts = Post.objects.filter(readyToLaunch=True, promote=True, expertise="science").order_by('date')[:5]
+        expertise = Expertise.objects.get(expertise='science')
+        posts = Post.objects.filter(readyToLaunch=True, promote=True, expertise= expertise.id).order_by('date')[:5]
 
         return posts
 
@@ -178,8 +191,9 @@ class ScienceThumbnail(ListView):
     context_object_name = 'thumbnails'
 
     def get_queryset(self):
-        model1_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise="science").order_by('date')[2:]
-        model1_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise="science").order_by('date')[:3]
+        expertise = Expertise.objects.get(expertise='science')
+        model1_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise= expertise.id).order_by('date')[2:]
+        model1_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise= expertise.id).order_by('date')[:3]
 
         merged_list = sorted(chain(model1_qs1, model1_qs2), key=attrgetter('date'),
                              reverse=True)[:10]
@@ -191,7 +205,8 @@ class ScienceLatest(ListView):
     context_object_name = 'latest'
 
     def get_queryset(self):
-        post = Post.objects.filter(readyToLaunch=True, expertise="science").order_by('date')[:1]
+        expertise = Expertise.objects.get(expertise='science')
+        post = Post.objects.filter(readyToLaunch=True, expertise= expertise.id).order_by('date')[:1]
 
         merged_list = sorted(chain(post),
                              key=attrgetter('date'), reverse=True)[:1]
@@ -204,7 +219,8 @@ class EntertainmentRoundabout(ListView):
     context_object_name = 'roundabout_seats'
 
     def get_queryset(self):
-        posts = Post.objects.filter(readyToLaunch=True, promote=True, expertise="entertainment").order_by('date')[:5]
+        expertise = Expertise.objects.get(expertise='entertainment')
+        posts = Post.objects.filter(readyToLaunch=True, promote=True, expertise= expertise.id).order_by('date')[:5]
 
         return posts
 
@@ -214,8 +230,9 @@ class EntertainmentThumbnail(ListView):
     context_object_name = 'thumbnails'
 
     def get_queryset(self):
-        model1_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise="entertainment").order_by('date')[2:]
-        model1_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise="entertainment").order_by('date')[:3]
+        expertise = Expertise.objects.get(expertise='entertainment')
+        model1_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise= expertise.id).order_by('date')[2:]
+        model1_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise= expertise.id).order_by('date')[:3]
 
         merged_list = sorted(chain(model1_qs1, model1_qs2), key=attrgetter('date'),
                              reverse=True)[:10]
@@ -227,7 +244,8 @@ class EntertainmentLatest(ListView):
     context_object_name = 'latest'
 
     def get_queryset(self):
-        post = Post.objects.filter(readyToLaunch=True, expertise="entertainment").order_by('date')[:1]
+        expertise = Expertise.objects.get(expertise='entertainment')
+        post = Post.objects.filter(readyToLaunch=True, expertise= expertise.id).order_by('date')[:1]
 
         merged_list = sorted(chain(post),
                              key=attrgetter('date'), reverse=True)[:1]
