@@ -25,7 +25,7 @@
                 <p class="category">{{seat.expertise.expertise.upper}}</p>
                 <br>
                 <div class="title">
-                    <p>{{seat.title}}</p>
+                    <p>{{seat.title|truncatechars:35}}</p>
                 </div>
                 <div class="author_date">
                     {% if seat.author.middleName != null %}
