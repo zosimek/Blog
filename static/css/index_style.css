@@ -125,13 +125,34 @@ section {
 
 /*   the part below hides the navbar when the screen width is to small
       and enables to show the mobile version of side-navbar*/
-@media screen and (max-width: 1375px){
+@media screen and (max-width: 1250px){
+    .header,
+    .nav{
+        font-size: 12px;
+        padding: 30px 0 0 30px;
+    }
+    .logo-wrapper{
+        width: 165px;
+        margin: 0 auto;
+    }
+    .logo_image {
+        height: 50%;
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 865px){
     .header,
     .nav{
         display: none;
     }
     .logo-wrapper{
+        width: 165px;
         margin: 0 auto;
+    }
+    .logo_image {
+        height: 50%;
+        margin-top: 20px;
     }
 }
 
@@ -142,6 +163,9 @@ section {
     }
     .logo-wrapper{
         padding-right: 60px;
+    }
+    .min-nav {
+        display: none;
     }
 }
 
@@ -192,14 +216,34 @@ section {
 }
 
 .mob-list-item:first-child{
-    margin-top: 70px;
+    margin-top: 15px;
 }
 .mob-list-item:last-child{
     margin-bottom: 15px;
 }
 
-@media screen and (min-width: 1375px){
+@media screen and (min-width: 620px){
     .mob-menu{
+        display: none;
+    }
+}
+
+/* minimal menu icon style probably for tablets*/
+.min-icon{
+    width: 50px;
+    padding-right: 10px;
+}
+.min-nav{
+    padding: 15px 0 0 15px;
+}
+
+@media screen and (max-width: 620px){
+    .min-nav{
+        display: none;
+    }
+}
+@media screen and (min-width: 865px){
+    .min-nav{
         display: none;
     }
 }

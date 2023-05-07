@@ -28,12 +28,18 @@
                 </div>
 
                 <nav class="nav">
-                <a href="#">HOME</a>
                     <a href="#">ABOUT</a>
                     <a href="#">ART</a>
                     <a href="#">LITERATURE</a>
                     <a href="#">SCIENCE</a>
                     <a href="#">ENTERTAINMENT</a>
+                </nav>
+                <nav class="min-nav">
+                    <a href="#"><img class="min-icon" src="{% static 'about_menu.png' %}" alt="ABOUT"></a>
+                    <a href="#"><img class="min-icon" src="{% static 'art_menu.png' %}" alt="ART"></a>
+                    <a href="#"><img class="min-icon" src="{% static 'literature_menu.png' %}" alt="LITERATURE"></a>
+                    <a href="#"><img class="min-icon" src="{% static 'science_menu.png' %}" alt="SCIENCE"></a>
+                    <a href="#"><img class="min-icon" src="{% static 'entertainment_menu.png' %}" alt="ENTERTAINMENT"></a>
                 </nav>
             </header>
         </div>
@@ -53,6 +59,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="main-content">
             <section class="section1">{% block roundabout %}{% endblock %}</section>
