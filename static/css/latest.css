@@ -6,7 +6,6 @@
     width: 76%;
     height: fit-content;
     margin: 20px auto;
-    border: solid 3px darkcyan;
     display: flex;
 }
 .latest-image-div{
@@ -116,6 +115,16 @@ p{
     hyphens: auto;
 }
 
+.scrollable{
+    margin: 4px 4px;
+    padding: 4px;
+    width: inherit;
+    /*overflow: auto;*/
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+}
+
 @media screen and (max-width: 825px) {
 .one-post{
     width: 50%;
@@ -135,6 +144,7 @@ p{
     width: 100%;
 }
 }
+
 @media screen and (max-width: 450px) {
 .latest-image{
     height: 150px;
