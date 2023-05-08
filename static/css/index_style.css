@@ -84,7 +84,8 @@ section {
     background: #f0932b;
 }
 .section2{
-    background: #eb4d4b;
+    height: fit-content;
+    /*background: #eb4d4b;*/
 }
 .section3{
     background: #7ed6df;

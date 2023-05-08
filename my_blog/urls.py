@@ -17,7 +17,7 @@ from django.urls import path, include
 
 
 #from my_blog.views import test_one, blog, PostDetailView, PostListView
-from my_blog.views import blog, AuthorListView, UltimateRoundabout, UltimateThumbnail, UltimateLatest, \
+from my_blog.views import blog, AuthorListView, Ultimate, UltimateRoundabout, UltimateThumbnail, UltimateLatest, \
     ArtRoundabout, ArtThumbnail, ArtLatest, LiteratureRoundabout, LiteratureThumbnail, LiteratureLatest, \
     ScienceRoundabout, ScienceThumbnail, ScienceLatest, EntertainmentRoundabout, EntertainmentThumbnail, EntertainmentLatest
 
@@ -28,6 +28,7 @@ urlpatterns = [
     path('blog/', blog),
     path('author/', AuthorListView.as_view()),
 
+    path('ultimate/', Ultimate.as_view()),
     path('ultimate_roundabout/', UltimateRoundabout.as_view()),
     path('ultimate_thumbnail/', UltimateThumbnail.as_view()),
     path('ultimate_latest/', UltimateLatest.as_view()),

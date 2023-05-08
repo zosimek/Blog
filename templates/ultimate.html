@@ -1,0 +1,128 @@
+{% extends "index.html" %}
+{% load static %}
+{% block roundabout %}
+
+<!--mathjax-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+{% load templatetags %}
+    <div class="carousel">
+        <ul>
+    <div class="owl-carousel">
+    <!-- Iterate over seat_list -->
+    {% for seat in combined.roundabout %}
+        <div class="wrapper">
+            {% if seat.image.url != null %}
+            <img class="image" src="{{seat.image.url}}" alt="{{seat.image.name}}" class="title_image">
+            {% else %}
+                {% if seat.expertise.expertise == 'literature' %}
+                <img class="image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                {% elif seat.expertise.expertise == 'art' %}
+                <img class="image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
+                {% elif seat.expertise.expertise == 'science' %}
+                {% elif seat.expertise.expertise == 'entertainment' %}
+                {% endif %}
+            {% endif %}
+            <div class="post_info">
+                <p class="category">{{seat.expertise.expertise.upper}}</p>
+                <br>
+                <div class="title">
+                    <p>{{seat.title|truncatechars:35}}</p>
+                </div>
+                <div class="author_date">
+                    {% if seat.author.middleName != null %}
+                    <p class="author">{{seat.author.firstName.0}}. {{seat.author.middleName.0}}. {{seat.author.lastName}}</p>
+                    {% else %}
+                    <p class="author">{{seat.author.firstName.0}}. {{seat.author.lastName}}</p>
+                    {% endif %}
+                    <p class="date">{{seat.date|date:"d.m.Y"}}</p>
+                </div>
+            </div>
+        </div>
+    <!-- If seat_list is empty  -->
+    {% empty %}
+    <li>No seats yet.</li>
+    {% endfor %}
+    </div>
+</ul>
+    </div>
+<!--scripts-->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script src="{% static 'roundabout.js' %}"></script>
+{% endblock %}
+
+
+{% block latest %}
+{% load templatetags %}
+
+<ul>
+    <div class="latest">
+    <!-- Iterate over post_list -->
+    {% for post in combined.latest  %}
+        <div class="one-post">
+            <div class="latest-image-div">
+                {% if post.image.url != null %}
+                    <img class="latest-image" src="{{post.image.url}}" alt="{{post.image.name}}" class="title_image">
+                {% else %}
+                    {% if post.expertise.expertise == 'literature' %}
+                        <img class="latest-image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                    {% elif post.expertise.expertise == 'art' %}
+                        <img class="latest-image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
+                    {% elif post.expertise.expertise == 'science' %}
+                        <img class="latest-image" src="{% static 'science_img.png' %}" alt="art" class="title_image">
+                    {% elif post.expertise.expertise == 'entertainment' %}
+                        <img class="latest-image" src="{% static 'entertainment_img.png' %}" alt="art" class="title_image">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="latest-post-info">
+                <div class="latest-category-author-date">
+                    <p class="latest-category">{{post.expertise.expertise}}</p>
+                    <br>
+                    <div class="latest-date-author">
+                        <p class="latest-date">{{post.date|date:"d.m.Y"}}</p>
+                        {% if post.author.middleName != null %}
+                            <p class="latest-author">{{post.author.firstName.0}}. {{post.author.middleName.0}}. {{post.author.lastName}}</p>
+                        {% else %}
+                            <p class="latest-author">{{post.author.firstName.0}}. {{post.author.lastName}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <br>
+                <h3 class="latest-title">{{post.title}}</h3>
+                    <div class="latest-content">
+                        {% if  post.expertise.expertise == 'literature' %}
+                            <p class="latest-literature-title">{{post.volume.title}}</p>
+                            <p class="latest-literature-title">{{post.book.title}}</p>
+                            <p class="latest-literature-content">{{post.content|safe|truncatewords:75}}</p>
+                            <p>[...]</p>
+                        {% elif post.expertise.expertise == 'art' %}
+                            <p class="latest-art-category">{{post.category}}</p>
+                            <table class="latest-art-table">
+                                <tr>
+                                    <td class="latest-art-col1">Materials: </td>
+                                    <td class="latest-art-col2">{{post.materials}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="latest-art-col1">Dimentions: </td>
+                                    <td class="latest-art-col2">{{post.dimentionX}}x{{post.dimentionY}} mm</td>
+                                </tr>
+                            </table>
+                            <div class="latest-content">
+                                <p>{{post.content|safe|truncatewords:100}}</p>
+                            </div>
+                        {% elif post.expertise.expertise == 'entertainment' or post.expertise.expertise == 'science' %}
+                            <p class="latest-content">{{post.content|highlight_code|safe|truncatewords:75}}</p>
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+    <!-- If post_list is empty  -->
+    {% empty %}
+    <li>No posts yet.</li>
+    {% endfor %}
+    </div>
+</ul>
+{% endblock %}
