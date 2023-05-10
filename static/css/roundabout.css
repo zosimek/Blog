@@ -5,9 +5,9 @@
 
 .carousel{
     align-content: center;
-    margin-left: 12%;
-    margin-right: 12%;
-    width: 66%;
+    margin-left: 11%;
+    margin-right: 11%;
+    width: 76%;
     background-color: rgba(241, 241, 241, 0.60);
 }
 
@@ -51,6 +51,50 @@
     font-weight: bold;
     color: grey;
     background-color: #dddddd;
+}
+.seat-category-blue{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #62bcea;
+}
+.seat-category-pink{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #e9549f;
+}
+.seat-category-purple{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #a73594;
+}
+.seat-category-yellow{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #f2bf2c;
 }
 .title{
     width: border-box;

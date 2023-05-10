@@ -55,7 +55,7 @@ class Ultimate(ListView):
         post_finger2 = Post.objects.filter(readyToLaunch=True, promote=False).order_by('-date')[:3]
 
         thumbnail = sorted(chain(art_finger1, art_finger2, chapter_finger1, chapter_finger2, poem_finger1, poem_finger2,
-                                   post_finger1, post_finger2), key=attrgetter('date'), reverse=True)[:10]
+                                   post_finger1, post_finger2), key=attrgetter('date'), reverse=True)[1:10]
 
 
         art_latest = Artwork.objects.filter(readyToLaunch=True).order_by('-date')[:1]
@@ -103,7 +103,7 @@ class UltimateThumbnail(ListView):
 
         merged_list = sorted(chain(model1_qs1, model1_qs2, model2_qs1, model2_qs2, model3_qs1, model3_qs2,
                                    model4_qs1, model4_qs2),
-                             key=attrgetter('date'), reverse=True)[:10]
+                             key=attrgetter('date'), reverse=True)[1:10]
         return merged_list
 
 class UltimateLatest(ListView):

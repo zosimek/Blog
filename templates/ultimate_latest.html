@@ -36,7 +36,15 @@
             </div>
             <div class="latest-post-info">
                 <div class="latest-category-author-date">
-                    <p class="latest-category">{{post.expertise.expertise}}</p>
+                        {% if  thumb.expertise.expertise == 'literature' %}
+                            <p class="latest-category-blue">{{thumb.expertise.expertise}}</p>
+                        {% elif thumb.expertise.expertise == 'art' %}
+                            <p class="latest-category-pink">{{thumb.expertise.expertise}}</p>
+                        {% elif thumb.expertise.expertise == 'entertainment'%}
+                            <p class="latest-category-purple">{{thumb.expertise.expertise}}</p>
+                        {% elif thumb.expertise.expertise == 'science' %}
+                            <p class="latest-category-yellow">{{thumb.expertise.expertise}}</p>
+                        {% endif %}
                     <br>
                     <div class="latest-date-author">
                         <p class="latest-date">{{post.date|date:"d.m.Y"}}</p>
