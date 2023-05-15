@@ -321,4 +321,4 @@ def detail_post(request, class_name, id):
         case _:
             post = None
 
-    return render(request, 'one_post.html', {'post': post})
+    return render(request, 'detail.html', {'post': post})
