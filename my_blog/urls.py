@@ -19,7 +19,8 @@ from django.urls import path, include
 #from my_blog.views import test_one, blog, PostDetailView, PostListView
 from my_blog.views import blog, AuthorListView, Ultimate, UltimateRoundabout, UltimateThumbnail, UltimateLatest, \
     ArtRoundabout, ArtThumbnail, ArtLatest, LiteratureRoundabout, LiteratureThumbnail, LiteratureLatest, \
-    ScienceRoundabout, ScienceThumbnail, ScienceLatest, EntertainmentRoundabout, EntertainmentThumbnail, EntertainmentLatest
+    ScienceRoundabout, ScienceThumbnail, ScienceLatest, EntertainmentRoundabout, EntertainmentThumbnail, EntertainmentLatest,\
+    detail_post
 
 urlpatterns = [
     #path('test_one/', test_one),
@@ -28,10 +29,10 @@ urlpatterns = [
     path('blog/', blog),
     path('author/', AuthorListView.as_view()),
 
-    path('ultimate/', Ultimate.as_view()),
+    path('ultimate/', Ultimate.as_view(), name="ultimate"),
     path('ultimate_roundabout/', UltimateRoundabout.as_view()),
     path('ultimate_thumbnail/', UltimateThumbnail.as_view()),
-    path('ultimate_latest/', UltimateLatest.as_view()),
+    path('ultimate_latest/', UltimateLatest.as_view(), name="ultimate_latest"),
 
     path('art_roundabout/', ArtRoundabout.as_view()),
     path('art_thumbnail/', ArtThumbnail.as_view()),
@@ -48,4 +49,6 @@ urlpatterns = [
     path('entertainment_roundabout/', EntertainmentRoundabout.as_view()),
     path('entertainment_thumbnail/', EntertainmentThumbnail.as_view()),
     path('entertainment_latest/', EntertainmentLatest.as_view()),
+
+    path('details/<str:class_name><int:id>/', detail_post, name="details")
 ]

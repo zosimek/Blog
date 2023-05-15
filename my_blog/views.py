@@ -292,3 +292,33 @@ class EntertainmentLatest(ListView):
         merged_list = sorted(chain(post),
                              key=attrgetter('date'), reverse=True)[:1]
         return merged_list
+
+########################################################################################################################
+##############################################       DETAIL      #######################################################
+########################################################################################################################
+
+def detail_post(request, class_name, id):
+
+    match class_name:
+        case "Author":
+            post = get_object_or_404(Author, pk=id)
+        case "Guest":
+            post = get_object_or_404(Guest, pk=id)
+        case "Artwork":
+            post = get_object_or_404(Artwork, pk=id)
+        case "Pattern":
+            post = get_object_or_404(Pattern, pk=id)
+        case "Volume":
+            post = get_object_or_404(Volume, pk=id)
+        case "Poem":
+            post = get_object_or_404(Poem, pk=id)
+        case "Book":
+            post = get_object_or_404(Book, pk=id)
+        case "Chapter":
+            post = get_object_or_404(Chapter, pk=id)
+        case "Post":
+            post = get_object_or_404(Post, pk=id)
+        case _:
+            post = None
+
+    return render(request, 'one_post.html', {'post': post})

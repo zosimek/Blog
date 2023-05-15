@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
+{% load templatetags %}
 {% block roundabout %}
 
 <!--mathjax-->
@@ -85,6 +86,7 @@
                     {% endif %}
                 {% endif %}
             </div>
+<!--            <a style=" text-decoration: none; float: left"  href="{%url 'details' post.class_name post.id%}">Read on...</a>-->
             <div class="latest-post-info">
                 <div class="latest-category-author-date">
                     {% if  post.expertise.expertise == 'literature' %}
@@ -133,6 +135,9 @@
                             <p class="latest-content">{{post.content|highlight_code|safe|truncatewords:75}}</p>
                         {% endif %}
                     </div>
+            </div>
+            <div class="detail-link">
+                <a class="detail" href="{%url 'details' post.class_name post.id%}">Read on...</a>
             </div>
         </div>
     <!-- If post_list is empty  -->

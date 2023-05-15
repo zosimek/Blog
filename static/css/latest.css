@@ -159,7 +159,12 @@ p{
     -ms-hyphens: auto;
     hyphens: auto;
 }
-
+a.detail{
+    color: #0048ff;
+    font-weight: normal;
+    text-decoration: none;
+    float: left
+}
 .scrollable{
     margin: 4px 4px;
     padding: 4px;

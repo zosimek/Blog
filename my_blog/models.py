@@ -58,6 +58,13 @@ class Author(models.Model):
     def __unicode__(self):
         return self.expertise
 
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of an author.
+        """
+        return self.__class__.__name__
+
 class Guest(models.Model):
     firstName = models.CharField(default='', max_length=64, blank=False, null=False)
     lastName = models.CharField(default='', max_length=64, blank=True, null=True)
@@ -74,6 +81,13 @@ class Guest(models.Model):
             return "{} {} – {}".format(self.firstName, self.lastName, self.nickName)
         else:
             return "{} – {}".format(self.firstName, self.nickName)
+
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of a guest.
+        """
+        return self.__class__.__name__
 
 class Common(models.Model):
     title = models.CharField(max_length=150, unique=True)
@@ -98,6 +112,13 @@ class Artwork(Common):
     def __str__(self):
         return "{} ({})".format(self.title, self.category)
 
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of a artwork.
+        """
+        return self.__class__.__name__
+
 class Pattern(models.Model):
     filename = models.CharField(max_length=64, unique=True)
     file = models.FileField(upload_to="patterns")
@@ -108,11 +129,25 @@ class Pattern(models.Model):
     def __str__(self):
         return "{} ({} ---> {})".format(self.filename, self.expertise, self.category)
 
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of a pattern.
+        """
+        return self.__class__.__name__
+
 class Volume(Common):
     cover = models.ImageField(upload_to="covers")
 
     def __str__(self):
         return self.title
+
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of a volume.
+        """
+        return self.__class__.__name__
 
 class Poem(Common):
     volume = models.ForeignKey(Volume, on_delete=models.CASCADE)
@@ -121,12 +156,26 @@ class Poem(Common):
     def __str__(self):
         return self.title
 
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of a poem.
+        """
+        return self.__class__.__name__
+
 class Book(Common):
     cover = models.ImageField(upload_to="covers")
     genre = models.ForeignKey(CategoryLiterature, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
+
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of a book.
+        """
+        return self.__class__.__name__
 
 class Chapter(Common):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
@@ -136,6 +185,13 @@ class Chapter(Common):
     def __str__(self):
         return "{} ({})".format(self.title, self.book)
 
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of a chapter.
+        """
+        return self.__class__.__name__
+
 class Post(Common):
     image = models.ImageField(upload_to="posts")
     featuring = models.ForeignKey(Guest, null=True, on_delete=models.CASCADE, blank=True)
@@ -144,3 +200,10 @@ class Post(Common):
 
     def __str__(self):
         return "{} ({})".format(self.title, self.expertise)
+
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of a post.
+        """
+        return self.__class__.__name__
