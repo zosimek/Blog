@@ -33,17 +33,17 @@
 
                 <nav class="nav">
                     <a href="#">ABOUT</a>
-                    <a href="#">ART</a>
-                    <a href="#">LITERATURE</a>
-                    <a href="#">SCIENCE</a>
-                    <a href="#">ENTERTAINMENT</a>
+                    <a href="{%url 'art'%}">ART</a>
+                    <a href="{%url 'literature'%}">LITERATURE</a>
+                    <a href="{%url 'science'%}">SCIENCE</a>
+                    <a href="{%url 'entertainment'%}">ENTERTAINMENT</a>
                 </nav>
                 <nav class="min-nav">
                     <a href="#"><img class="min-icon" src="{% static 'about_menu.png' %}" alt="ABOUT"></a>
-                    <a href="#"><img class="min-icon" src="{% static 'art_menu.png' %}" alt="ART"></a>
-                    <a href="#"><img class="min-icon" src="{% static 'literature_menu.png' %}" alt="LITERATURE"></a>
-                    <a href="#"><img class="min-icon" src="{% static 'science_menu.png' %}" alt="SCIENCE"></a>
-                    <a href="#"><img class="min-icon" src="{% static 'entertainment_menu.png' %}" alt="ENTERTAINMENT"></a>
+                    <a href="{%url 'art'%}"><img class="min-icon" src="{% static 'art_menu.png' %}" alt="ART"></a>
+                    <a href="{%url 'literature'%}"><img class="min-icon" src="{% static 'literature_menu.png' %}" alt="LITERATURE"></a>
+                    <a href="{%url 'science'%}"><img class="min-icon" src="{% static 'science_menu.png' %}" alt="SCIENCE"></a>
+                    <a href="{%url 'entertainment'%}"><img class="min-icon" src="{% static 'entertainment_menu.png' %}" alt="ENTERTAINMENT"></a>
                 </nav>
             </header>
         </div>
@@ -56,10 +56,10 @@
                 <img class="mob-close" src="{% static 'close.png' %}"  alt="closePng"/>
                 <div class="mob-list">
                     <a href="#" class="mob-list-item"><img class="mob-icon" src="{% static 'about_icon.png' %}" alt="ABOUT"></a>
-                    <a href="#" class="mob-list-item"><img class="mob-icon" src="{% static 'art_icon.png' %}" alt="ART"></a>
-                    <a href="#" class="mob-list-item"><img class="mob-icon" src="{% static 'literature_icon.png' %}" alt="LITERATURE"></a>
-                    <a href="#" class="mob-list-item"><img class="mob-icon" src="{% static 'science_icon.png' %}" alt="SCIENCE"></a>
-                    <a href="#" class="mob-list-item"><img class="mob-icon" src="{% static 'entertainment_icon.png' %}" alt="ENTERTAINMENT"></a>
+                    <a href="{%url 'art'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'art_icon.png' %}" alt="ART"></a>
+                    <a href="{%url 'literature'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'literature_icon.png' %}" alt="LITERATURE"></a>
+                    <a href="{%url 'science'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'science_icon.png' %}" alt="SCIENCE"></a>
+                    <a href="{%url 'entertainment'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'entertainment_icon.png' %}" alt="ENTERTAINMENT"></a>
                 </div>
             </div>
         </div>

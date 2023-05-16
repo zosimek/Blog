@@ -17,7 +17,7 @@ from django.urls import path, include
 
 
 #from my_blog.views import test_one, blog, PostDetailView, PostListView
-from my_blog.views import blog, AuthorListView, Ultimate, UltimateRoundabout, UltimateThumbnail, UltimateLatest, \
+from my_blog.views import blog, AuthorListView, Ultimate, Art, Literature, Science, Entertainment, UltimateRoundabout, UltimateThumbnail, UltimateLatest, \
     ArtRoundabout, ArtThumbnail, ArtLatest, LiteratureRoundabout, LiteratureThumbnail, LiteratureLatest, \
     ScienceRoundabout, ScienceThumbnail, ScienceLatest, EntertainmentRoundabout, EntertainmentThumbnail, EntertainmentLatest,\
     detail_post
@@ -34,21 +34,25 @@ urlpatterns = [
     path('ultimate_thumbnail/', UltimateThumbnail.as_view()),
     path('ultimate_latest/', UltimateLatest.as_view(), name="ultimate_latest"),
 
-    path('art_roundabout/', ArtRoundabout.as_view()),
-    path('art_thumbnail/', ArtThumbnail.as_view()),
-    path('art_latest/', ArtLatest.as_view()),
+    path('art/', Art.as_view(), name="art"),
+    # path('art_roundabout/', ArtRoundabout.as_view()),
+    # path('art_thumbnail/', ArtThumbnail.as_view()),
+    # path('art_latest/', ArtLatest.as_view()),
 
-    path('literature_roundabout/', LiteratureRoundabout.as_view()),
-    path('literature_thumbnail/', LiteratureThumbnail.as_view()),
-    path('literature_latest/', LiteratureLatest.as_view()),
+    path('literature/', Literature.as_view(), name="literature"),
+    # path('literature_roundabout/', LiteratureRoundabout.as_view()),
+    # path('literature_thumbnail/', LiteratureThumbnail.as_view()),
+    # path('literature_latest/', LiteratureLatest.as_view()),
 
-    path('science_roundabout/', ScienceRoundabout.as_view()),
-    path('science_thumbnail/', ScienceThumbnail.as_view()),
-    path('science_latest/', ScienceLatest.as_view()),
+    path('science/', Science.as_view(), name="science"),
+    # path('science_roundabout/', ScienceRoundabout.as_view()),
+    # path('science_thumbnail/', ScienceThumbnail.as_view()),
+    # path('science_latest/', ScienceLatest.as_view()),
 
-    path('entertainment_roundabout/', EntertainmentRoundabout.as_view()),
-    path('entertainment_thumbnail/', EntertainmentThumbnail.as_view()),
-    path('entertainment_latest/', EntertainmentLatest.as_view()),
+    path('entertainment/', Entertainment.as_view(), name="entertainment"),
+    # path('entertainment_roundabout/', EntertainmentRoundabout.as_view()),
+    # path('entertainment_thumbnail/', EntertainmentThumbnail.as_view()),
+    # path('entertainment_latest/', EntertainmentLatest.as_view()),
 
     path('details/<str:class_name><int:id>/', detail_post, name="details")
 ]
