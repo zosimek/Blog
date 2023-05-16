@@ -1,0 +1,223 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.carousel{
+    align-content: center;
+    margin-left: 11%;
+    margin-right: 11%;
+    width: 76%;
+    background-color: rgba(241, 241, 241, 0.60);
+}
+
+.wrapper{
+    padding: 5px;
+    width: 220px;
+    position: relative;
+    margin: 10px;
+}
+
+.image{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.post_info{
+    width: 100%;
+    height: 40%;
+    /*background-color: rgba(0,0,0,0.2);*/
+    bottom:0;
+    left: 0;
+    position: relative;
+    color: black;
+    font-family: 'Courier New', Monospace;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.category{
+    margin: 10px 5px 5px 10px;
+    padding: 3px;
+    left: 0;
+    top: 0;
+    position: absolute;
+    font-size: x-small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: grey;
+    background-color: #dddddd;
+}
+.seat-category-blue{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #62bcea;
+}
+.seat-category-pink{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #e9549f;
+}
+.seat-category-purple{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #a73594;
+}
+.seat-category-yellow{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #f2bf2c;
+}
+.title{
+    width: border-box;
+    height: 44px;
+    margin: 10px 10px 5px 10px;
+    font-family: "CMU Serif";
+    font-size: 15px;
+    font-weight: bolder;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title>p{
+    text-align: center;
+}
+
+.author_date{
+    width: border-box;
+    margin: 5px 10px 10px 10px;
+    align-content: space-evenly;
+    font-size: x-small;
+    font-family: Roboto, sans-serif;
+    font-weight: bolder;
+    color: grey;
+}
+.author{
+    float: right;
+    text-align: right;
+}
+.date{
+    float: left;
+}
+
+.owl-dots{
+    height: 0;
+    width: 0;
+}
+
+/*//////////////////////////// responsive scaling /////////////////////////////*/
+@media screen and (max-width: 1000px){
+.carousel{
+    align-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+}
+.wrapper{
+    padding: 3px;
+    width: 150px;
+    position: relative;
+    margin: 5px;
+}
+
+.image{
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+
+.post_info{
+    width: 100%;
+    height: 40%;
+    /*background-color: rgba(0,0,0,0.2);*/
+    bottom:0;
+    left: 0;
+    position: relative;
+    color: black;
+    font-family: 'Courier New', Monospace;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.category{
+    margin: 5px 2px 2px 5px;
+    left: 0;
+    top: 0;
+    position: absolute;
+    font-size: xx-small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: grey;
+    /*color: #2d6767;*/
+}
+.title{
+    width: border-box;
+    height: 22px;
+    margin: 5px 5px 2px 5px;
+    font-family: "CMU Serif";
+    font-size: 10px;
+    font-weight: bolder;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.title>p{
+    text-align: center;
+}
+
+.author_date{
+    width: border-box;
+    margin: 2px 5px 5px 5px;
+    align-content: space-evenly;
+    font-size: xx-small;
+    font-family: Roboto, sans-serif;
+    font-weight: bolder;
+    color: grey;
+}
+.author{
+    float: right;
+    text-align: right;
+}
+.date{
+    float: left;
+}
+}
+
+@media screen and (max-width: 600px){
+    .carousel{
+        display: none;
+    }
+}

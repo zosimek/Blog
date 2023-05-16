@@ -34,6 +34,7 @@
                 {% elif seat.expertise.expertise == 'science' %}
                     <p class="latest-category-yellow">{{seat.expertise.expertise}}</p>
                 {% endif %}
+                <br>
                 <div class="title">
                     <p>{{seat.title|truncatechars:35}}</p>
                 </div>
@@ -111,7 +112,7 @@
                 </div>
                 <br>
                 <h3 class="latest-title">{{post.title}}</h3>
-                    <div id="latest-content" class="latest-content">
+                    <div class="latest-content">
                         {% if  post.expertise.expertise == 'literature' %}
                             <p class="latest-literature-title">{{post.volume.title}}</p>
                             <p class="latest-literature-title">{{post.book.title}}</p>
@@ -136,12 +137,9 @@
                             <p class="latest-content">{{post.content|highlight_code|safe|truncatewords:75}}</p>
                         {% endif %}
                     </div>
-                <a class="detail-latest" href="{%url 'details' post.class_name post.id%}">
-                <div class="detail-latest-div">
-                    <p class="latest-detail-link">Read the article</p>
-                    <img class="latest-right-arrow" src="{% static 'arrow_right.png' %}" alt="art">
-                </div>
-                </a>
+            </div>
+            <div class="detail-link">
+                <a class="detail-latest" href="{%url 'details' post.class_name post.id%}">Read on...</a>
             </div>
         </div>
     <!-- If post_list is empty  -->
@@ -157,6 +155,7 @@
 <div class="thumbnail">
     <!-- Iterate over thumb_list -->
     {% for thumb in combined.thumbnail %}
+    <a class="detail-thumbnail" href="{%url 'details' thumb.class_name thumb.id%}">
         <div class="one-thumbnail">
             <div class="thumbnail-image-div">
                 {% if thumb.image.url != null %}
@@ -207,12 +206,7 @@
                 <h3 class="thumbnail-title">{{thumb.title}}</h3>
                 <div class="thumbnail-content">
                     {% if  thumb.expertise.expertise == 'literature' %}
-                    <div id="thumbnail-literature-content" class="thumbnail-literature-content">
-                        <p  class="thumbnail-literature-content">{{thumb.content|highlight_code|safe|truncatewords:25}}</p>
-                    </div>
-                    <div id="thumbnail-literature-content-small" class="thumbnail-literature-content-small">
-                        <p class="thumbnail-literature-content-small">{{thumb.content|highlight_code|safe|truncatewords:15}}</p>
-                    </div>
+                        <p class="thumbnail-literature-content">{{thumb.content|highlight_code|safe|truncatewords:50}}</p>
                     {% elif thumb.expertise.expertise == 'art' %}
                         <table class="thumbnail-art-table">
                                 <tr>
@@ -225,17 +219,12 @@
                                 </tr>
                             </table>
                     {% elif thumb.expertise.expertise == 'entertainment' or thumb.expertise.expertise == 'science' %}
-                    <div class="thumbnail-post-content">
-                        <p class="thumbnail-post-content">{{thumb.content|highlight_code|safe|truncatewords:25}}</p>
-                    </div>
-                    <div class="thumbnail-post-content-small">
-                        <p class="thumbnail-post-content-small">{{thumb.content|highlight_code|safe|truncatewords:15}}</p>
-                    </div>
+                        <p class="thumbnail-post-content">{{thumb.content|highlight_code|safe|truncatewords:50}}</p>
                     {% endif %}
                 </div>
             </div>
         </div>
-    <div class="thumbnail-gap"></div>
+    </a>
     <!-- If thumb_list is empty  -->
     {% empty %}
         <p>No thumbnails</p>
