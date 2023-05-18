@@ -158,6 +158,7 @@
 <div class="thumbnail">
     <!-- Iterate over thumb_list -->
     {% for thumb in combined.thumbnail %}
+    <a class="detail-thumbnail" href="{%url 'details' thumb.class_name thumb.id%}">
         <div class="one-thumbnail">
             <div class="thumbnail-image-div">
                 {% if thumb.image.url != null %}
@@ -236,6 +237,7 @@
                 </div>
             </div>
         </div>
+    </a>
     <div class="thumbnail-gap"></div>
     <!-- If thumb_list is empty  -->
     {% empty %}

@@ -207,3 +207,13 @@ class Post(Common):
         short "click-bite" form od a display to detail view of a post.
         """
         return self.__class__.__name__
+
+#############################################       ADDONS      ########################################################
+class Quote(models.Model):
+    date = models.DateField(default=timezone.now)
+    quote = models.CharField(default='', max_length=1000, blank=False, null=False)
+    author = models.CharField(default='', max_length=100, blank=False, null=False)
+    readyToLaunch = models.BooleanField(default=False, blank=False, null=False)
+
+    def __str__(self):
+        return "{} ({}...)".format(self.author, self.quote[:30])

@@ -5,7 +5,7 @@ from itertools import chain
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views.generic import View, ListView, DetailView
 from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience, CategoryPost,\
-    Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post
+    Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Quote
 
 from .combine_views import UltimateQueryset
 
@@ -66,7 +66,9 @@ class Ultimate(ListView):
         latest = sorted(chain(art_latest, chapter_latest, poem_latest, post_latest),
                              key=attrgetter('date'), reverse=True)[:1]
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest)
+        quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')
+
+        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
         return combined
 
 
@@ -146,7 +148,9 @@ class Art(ListView):
 
         latest = sorted(chain(latest_artwork, latest_post), key=attrgetter('date'), reverse=True)[:1]
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest)
+        quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
+
+        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
         return combined
 
 class ArtRoundabout(ListView):
@@ -223,7 +227,9 @@ class Literature(ListView):
 
         latest = sorted(chain(latest_poems, latest_chapters, latest_post), key=attrgetter('date'), reverse=True)[:1]
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest)
+        quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
+
+        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
         return combined
 
 class LiteratureRoundabout(ListView):
@@ -294,7 +300,9 @@ class Science(ListView):
 
         latest = sorted(chain(post), key=attrgetter('date'), reverse=True)[:1]
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest)
+        quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
+
+        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
         return combined
 
 class ScienceRoundabout(ListView):
@@ -355,7 +363,9 @@ class Entertainment(ListView):
 
         latest = sorted(chain(latest_post), key=attrgetter('date'), reverse=True)[:1]
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest)
+        quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
+
+        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
         return combined
 
 class EntertainmentRoundabout(ListView):
@@ -420,6 +430,8 @@ def detail_post(request, class_name, id):
             post = get_object_or_404(Chapter, pk=id)
         case "Post":
             post = get_object_or_404(Post, pk=id)
+        case "Quote":
+            post = get_object_or_404(Quote, pk=id)
         case _:
             post = None
 

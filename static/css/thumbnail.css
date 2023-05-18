@@ -17,12 +17,10 @@ a.detail-thumbnail{
     background-color: white;
     /*border: solid 1px grey;*/
 }
-/*.one-thumbnail:first-child{*/
-/*    margin-top: 15px;*/
-/*}*/
-/*.one-thumbnail:last-child{*/
-/*    margin-bottom: 15px;*/
-/*}*/
+a.detail-thumbnail > div:hover{
+    scale: 102%;
+
+}
 
 .thumbnail-image-div{
     flex: 30%;

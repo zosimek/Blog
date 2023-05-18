@@ -20,6 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 <!--    thumbnail -->
     <link rel="stylesheet" href="{% static 'thumbnail.css' %}">
+<!--    quote -->
+    <link rel="stylesheet" href="{% static 'quote.css' %}">
 </head>
 
 
@@ -38,11 +40,11 @@
                 </div>
 
                 <nav class="nav">
-                    <a href="#">ABOUT</a>
-                    <a href="{%url 'art'%}">ART</a>
-                    <a href="{%url 'literature'%}">LITERATURE</a>
-                    <a href="{%url 'science'%}">SCIENCE</a>
-                    <a href="{%url 'entertainment'%}">ENTERTAINMENT</a>
+                    <a class="nav-a-about" href="#">ABOUT</a>
+                    <a class="nav-a-art" href="{%url 'art'%}">ART</a>
+                    <a class="nav-a-literature" href="{%url 'literature'%}">LITERATURE</a>
+                    <a class="nav-a-science" href="{%url 'science'%}">SCIENCE</a>
+                    <a class="nav-a-entertainment" href="{%url 'entertainment'%}">ENTERTAINMENT</a>
                 </nav>
                 <nav class="min-nav">
                     <a href="#"><img class="min-icon" src="{% static 'about_menu.png' %}" alt="ABOUT"></a>
@@ -74,7 +76,7 @@
         <div class="main-content">
             <section class="section1">{% block roundabout %}{% endblock %}</section>
             <section class="section2">{% block latest %}{% endblock %}</section>
-            <section class="section3"></section>
+            <section class="section3">{% block quote %}{% endblock %}</section>
             <section class="section4">{% block thumbnails %}{% endblock %}</section>
             <a class="to-top" href="#">
                 <img class="to-top-img" src="{% static 'up.png' %}" alt="up"/>
