@@ -68,6 +68,23 @@ a {
     height: 70px;
 }
 
+/* The progress container (grey background) */
+.progress-container {
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    height: 8px;
+    background: #fff;
+}
+
+/* The progress bar (scroll indicator) */
+.progress-bar {
+    height: 8px;
+    /*background: #e9549f;*/
+    background: #e9549f;
+    width: 8%;
+}
+
 section {
     /*height: 75vh;*/
     display: flex;
@@ -156,6 +173,14 @@ section {
     .logo_image {
         height: 50%;
         margin-top: 20px;
+    }
+    .progress-container {
+        height: 5px;
+    }
+
+    /* The progress bar (scroll indicator) */
+    .progress-bar {
+        height: 5px;
     }
 }
 

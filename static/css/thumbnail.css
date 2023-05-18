@@ -15,6 +15,7 @@ a.detail-thumbnail{
     margin-bottom: 3px;
     display: flex;
     background-color: white;
+    /*border: solid 1px grey;*/
 }
 /*.one-thumbnail:first-child{*/
 /*    margin-top: 15px;*/
