@@ -113,8 +113,12 @@
                 <h3 class="latest-title">{{post.title}}</h3>
                     <div id="latest-content" class="latest-content">
                         {% if  post.expertise.expertise == 'literature' %}
-                            <p class="latest-literature-title">{{post.volume.title}}</p>
-                            <p class="latest-literature-title">{{post.book.title}}</p>
+                            {% if post.volume.title != null %}
+                                <p class="latest-literature-title">({{post.volume.title}})</p>
+                            {% endif %}
+                            {% if post.book.title != null %}
+                                <p class="latest-literature-title">({{post.book.title}})</p>
+                            {% endif %}
                             <p class="latest-literature-content">{{post.content|safe|truncatewords:75}}</p>
                             <p>[...]</p>
                         {% elif post.expertise.expertise == 'art' %}

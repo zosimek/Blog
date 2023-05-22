@@ -1,0 +1,61 @@
+.authors{
+    width: 76%;
+    margin: 0px auto;
+    display: table-column-group;
+    /*background-color: #f2bf2c;*/
+}
+.one-author{
+    height: fit-content;
+    margin: 150px auto;
+    /*background-color: chartreuse;*/
+}
+.one-author:first-child{
+    margin-top: 20px;
+}
+.one-author:last-child{
+    margin-bottom: 20px;
+}
+.author-image-div{
+    width: 400px;
+    height: 400px;
+    margin: 0px auto;
+    padding: 10px 0;
+    background-image: url("round_frame.jpg");
+    background-size: cover;
+}
+.author-image{
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    display: flex;
+    margin: 50px 50px;
+}
+.author-info{
+    height: fit-content;
+    width: fit-content;
+    margin: 0px auto;
+    alignment: center;
+}
+.author-name{
+    width: fit-content;
+    margin: 0px auto;
+    font-family: "CMU Serif";
+    font-size: 35px;
+    text-align: center;
+}
+.author-expertise{
+    width: fit-content;
+    margin: 0px auto;
+    font-size: 20px;
+    font-family: Roboto;
+    text-align: center;
+}
+.author-description{
+    width: 75%;
+    margin: 0px auto;
+    font-family: "CMU Serif";
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+}

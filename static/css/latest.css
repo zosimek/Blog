@@ -7,6 +7,8 @@
     height: fit-content;
     margin: 0px auto;
     display: flex;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 .latest-image-div{
     margin: auto 0;
@@ -103,7 +105,7 @@
     height: fit-content;
     margin: 15px 0px;
     font-family: "CMU Serif";
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bolder;
     text-align: center;
     display: flex;
@@ -122,6 +124,9 @@
 .latest-art-table{
     margin: 15px 0;
     width: 70%;
+    font-size: 20px;
+    font-family: "CMU Serif";
+    line-height: 25px;
 }
 tr{
     height: 30px;
@@ -174,8 +179,9 @@ a.detail-latest{
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
 }
-#latest-content p[style], span[style]{
-    font-size: 18px !important;
+#latest-content p[style], #latest-content span[style]{
+    font-size: 20px !important;
+    line-height: 25px;
 }
 a.detail-latest{
     margin-top: 15px;
@@ -209,6 +215,13 @@ a.detail-latest:hover{
     height: 100%;
     width: 20px;
     object-fit: cover;
+}
+.latest-literature-title{
+    text-align: center;
+    alignment: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 @media screen and (max-width: 825px) {
 .one-post{

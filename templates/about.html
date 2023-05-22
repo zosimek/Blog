@@ -1,0 +1,31 @@
+{% extends "index.html" %}
+{% load static %}
+{% load templatetags %}
+{% block about %}
+
+<!--mathjax-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+{% load templatetags %}
+<div class="authors">
+    {% for author in authors %}
+        <div class="one-author">
+            <div class="author-image-div">
+                {% if author.image.url != null%}
+                    <img class="author-image" src="{{author.image.url}}" alt="{{author.image.name}}">
+                {% endif %}
+            </div>
+            <div class="author-info">
+                <p class="author-name">{{author.full_name}}</p>
+                <p class="author-expertise">{{author.expertise}}</p>
+                <div class="author-description">
+                    <p>{{author.info|safe}}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block thumbnails %}{% endblock %}
+{% block quote %}{% endblock %}
+{% block latest %}{% endblock %}
+{% block roundabout %}{% endblock %}

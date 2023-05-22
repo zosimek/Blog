@@ -27,7 +27,7 @@ urlpatterns = [
     # path('post_detail/', PostDetailView.as_view()),
     # path('post_list/', PostListView.as_view()),
     path('blog/', blog),
-    path('author/', AuthorListView.as_view()),
+    path('about/', AuthorListView.as_view(), name="about"),
 
     path('ultimate/', Ultimate.as_view(), name="ultimate"),
     path('ultimate_roundabout/', UltimateRoundabout.as_view()),

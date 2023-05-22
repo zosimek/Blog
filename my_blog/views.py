@@ -16,8 +16,8 @@ def blog(request):
 #################################################    AUTHOR    #########################################################
 
 class AuthorListView(ListView):
-    # model = Author
-    template_name = 'author_list.html'
+    template_name = 'about.html'
+    context_object_name = 'authors'
 
     def get_queryset(self):
         authors = Author.objects.filter(readyToLaunch=True)
