@@ -44,6 +44,7 @@ class Author(models.Model):
     expertise = models.ForeignKey(Expertise, on_delete=models.CASCADE)
     info = RichTextField(default='... haven\'t decided yet ...', blank=True, null=True)
     image = models.ImageField(upload_to='authors', null=True, blank=True)
+    frame = models.ImageField(upload_to='authors', null=True, blank=True)
     readyToLaunch = models.BooleanField(default=False, blank=False, null=False)
 
     def __str__(self):

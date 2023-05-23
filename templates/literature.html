@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% load static %}
 {% load templatetags %}
-{% block roundabout %}
+{% block content %}
 
 <!--mathjax-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -61,11 +61,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 <script src="{% static 'roundabout.js' %}"></script>
-{% endblock %}
-
-
-{% block latest %}
-{% load templatetags %}
 
 <ul>
     <div class="latest">
@@ -154,10 +149,7 @@
     {% endfor %}
     </div>
 </ul>
-{% endblock %}
 
-
-{% block thumbnails %}
 <div class="thumbnail">
     <!-- Iterate over thumb_list -->
     {% for thumb in combined.thumbnail %}
@@ -166,6 +158,10 @@
             <div class="thumbnail-image-div">
                 {% if thumb.image.url != null %}
                     <img class="thumbnail-image" src="{{thumb.image.url}}" alt="{{thumb.image.name}}">
+                {% elif thumb.book.cover.url != null %}
+                    <img class="thumbnail-image" src="{{thumb.book.cover.url}}" alt="{{thumb.book.cover.name}}">
+                {% elif thumb.volume.cover.url != null %}
+                    <img class="thumbnail-image" src="{{thumb.volume.cover.url}}" alt="{{thumb.volume.cover.name}}">
                 {% else %}
                     {% if thumb.expertise.expertise == 'literature' %}
                         <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">

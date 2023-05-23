@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% load static %}
 {% load templatetags %}
-{% block roundabout %}
+{% block content %}
 
 <!--mathjax-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -61,11 +61,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 
 <script src="{% static 'roundabout.js' %}"></script>
-{% endblock %}
-
-
-{% block latest %}
-{% load templatetags %}
 
 <ul>
     <div class="latest">
@@ -154,18 +149,15 @@
     {% endfor %}
     </div>
 </ul>
-{% endblock %}
 
-{% block quote %}
 {% for quote in combined.quote %}
 <div class="quote-div">
     <blockquote><p class="quote">{{quote.quote}}</p></blockquote>
     <p class="quote-author">～{{quote.author}}</p>
 </div>
 {% endfor %}
-{% endblock %}
 
-{% block thumbnails %}
+
 <div class="thumbnail">
     <!-- Iterate over thumb_list -->
     {% for thumb in combined.thumbnail %}

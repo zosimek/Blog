@@ -2,6 +2,7 @@
     width: 72%;
     height: fit-content;
     margin: 0 auto;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.5);
@@ -149,7 +150,7 @@ a.detail-thumbnail > div:hover{
     background-color: #f0932b;
     background-image: linear-gradient(white, #f0932b, white);
 }
-#thumbnail-literature-content span[style], #thumbnail-literature-content p[style],
+#thumbnail-literature-content span[style], #thumbnail-literature-content p[style], .thumbnail-literature-content p,
 .thumbnail-post-content span[style], .thumbnail-post-content p[style], .thumbnail-post-content p{
     font-size: 20px !important;
     line-height: 25px !important;
@@ -195,6 +196,9 @@ a.detail-thumbnail > div:hover{
 }
 .thumbnail-post-content{
     display: none;
+}
+.thumbnail-art-table{
+    font-size: 18px !important;
 }
 }
 /*@media screen and (max-width: 611px) {*/

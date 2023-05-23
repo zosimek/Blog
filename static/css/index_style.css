@@ -239,10 +239,11 @@ section {
 
 .section1{
     height: fit-content;
-    background: #f0932b;
+    /*background: #f0932b;*/
 }
 .section2{
     height: fit-content;
+    display: unset;
 }
 .section3{
     height: fit-content;
@@ -345,7 +346,7 @@ section {
     .section1{
         height: 10px;
         width: 100%;
-        background: #f0932b;
+        /*background: #f0932b;*/
     }
 }
 
@@ -424,7 +425,6 @@ section {
     .section1{
         height: 10px;
         width: 100%;
-        background: #f0932b;
     }
 }
 @media screen and (min-width: 983px){

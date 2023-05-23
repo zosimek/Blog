@@ -16,20 +16,26 @@
     margin-bottom: 20px;
 }
 .author-image-div{
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
     margin: 0px auto;
-    padding: 10px 0;
-    background-image: url("round_frame.jpg");
+    /*padding: 10px 0;*/
+    /*background-image: url("round_frame.jpg");*/
     background-size: cover;
 }
 .author-image{
-    width: 300px;
-    height: 300px;
+    width: 250px;
+    height: 250px;
     object-fit: cover;
     border-radius: 50%;
     display: flex;
-    margin: 50px 50px;
+    margin: 25px 25px;
+}
+.author-frame{
+    width: 300px;
+    height: 300px;
+    position: relative;
+    bottom: 300px;
 }
 .author-info{
     height: fit-content;
@@ -40,6 +46,8 @@
 .author-name{
     width: fit-content;
     margin: 0px auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     font-family: "CMU Serif";
     font-size: 35px;
     text-align: center;
@@ -47,9 +55,11 @@
 .author-expertise{
     width: fit-content;
     margin: 0px auto;
+    margin-bottom: 30px;
     font-size: 20px;
     font-family: Roboto;
     text-align: center;
+    text-transform: uppercase;
 }
 .author-description{
     width: 75%;
@@ -58,4 +68,30 @@
     font-size: 20px;
     line-height: 25px;
     text-align: center;
+}
+@media screen and (max-width: 1000px) {
+    .author-image-div {
+        width: 300px;
+        height: 300px;
+    }
+    .author-image{
+        width: 250px;
+        height: 250px;
+        margin: 25px 25px;
+    }
+    .author-name{
+        margin-top: 15px;
+        margin-bottom: 15px;
+        font-size: 30px;
+    }
+    .author-expertise{
+        margin: 0px auto;
+        margin-bottom: 25px;
+        font-size: 15px;
+    }
+    .author-description{
+        margin: 0px auto;
+        font-size: 15px;
+        line-height: 15px;
+    }
 }
