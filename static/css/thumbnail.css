@@ -265,33 +265,94 @@ a.detail-thumbnail > div:hover{
 
 /*          ART     THUMBNAIL       */
 .art-thumbnail{
-    width: 90%;
+    width: 80%;
     height: fit-content;
-    float: right;
-    /*margin: 0 auto;*/
-    margin-top: 50px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 350px));
-    grid-gap: 3px;
+    grid-gap: 5px;
 }
 .art-detail-thumbnail{
     aspect-ratio: unset;
+    height: 350px;
 }
 .art-one-thumbnail{
-    aspect-ratio : 1 / 1;
-    width: 100%;
+    height: 350px;
+    width: 350px;
 }
 .art-thumbnail-image{
     aspect-ratio: unset;
-    height: 100%;
-    width: 100%;
+    height: 350px;
+    width: 350px;
     object-fit: cover;
 }
-.art-thumbnail-image{}
-.art-side-filter{}
 
 
 .image-container img {
     width: 100%;
     height: auto;
+}
+
+.art-overlay-info{
+    position: relative;
+    bottom: 120px;
+    background: rgba(255, 255, 255, 0.3);
+    width: 100%;
+    height: 120px;
+    transition: .5s ease;
+    opacity:0;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-family: "CMU Serif";
+}
+.art-detail-thumbnail:hover .art-overlay-info {
+  opacity: 1;
+}
+
+.art-thumbnail-date,
+.art-thumbnail-author{
+    padding: 5px;
+    margin: 0;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+}
+.art-thumbnail-date{
+    padding-left: 5px;
+}
+.art-thumbnail-author{
+    text-align: right;
+    padding-right: 5px;
+}
+
+.art-thumbnail-matherials{
+    padding-right: 5px;
+    padding-left: 5px;
+    width: 100%;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 18px;
+    text-transform: lowercase;
+}
+.art-thumbnail-title{
+    padding-right: 5px;
+    padding-left: 5px;
+    margin: 0 auto;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.art-thumbnail-art-category{
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: #bbb;
+    background-color: white;
 }

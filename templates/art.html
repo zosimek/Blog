@@ -151,12 +151,31 @@
     {% for thumb in combined.thumbnail%}
     <a class="art-detail-thumbnail" href="{%url 'details' thumb.class_name thumb.id%}">
         <div class="art-one-thumbnail">
-                {% if thumb.image.url != null %}
-                    <img class="art-thumbnail-image" src="{{thumb.image.url}}" alt="{{thumb.image.name}}">
-                {% else %}
-                    <img class="art-thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
-                {% endif %}
+            {% if thumb.image.url != null %}
+                <img class="art-thumbnail-image" src="{{thumb.image.url}}" alt="{{thumb.image.name}}">
+            {% else %}
+                <img class="art-thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+            {% endif %}
             </div>
+        <div class="art-overlay-info">
+            <div class="thumbnail-category_author_date">
+                    <div class="thumbnail-expertise-date">
+                        {% if thumb.expertise.expertise == 'art' %}
+                            <p class="art-thumbnail-art-category">{{thumb.category}}</p>
+                        {% endif %}
+                        <p class="art-thumbnail-date">{{thumb.date|date:"d.m.Y"}}</p>
+                    </div>
+                    <div class="thumbnail-author-div">
+                        {% if thumb.author.middleName != null %}
+                            <p class="art-thumbnail-author">{{thumb.author.firstName.0}}. {{thumb.author.middleName.0}}. {{thumb.author.lastName}}</p>
+                        {% else %}
+                            <p class="art-thumbnail-author">{{thumb.author.firstName.0}}. {{thumb.author.lastName}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            <h3 class="art-thumbnail-title">{{thumb.title}}</h3>
+            <p class="art-thumbnail-matherials">({{thumb.materials}})</p>
+        </div>
     </a>
     {% endfor %}
     </div>

@@ -5,9 +5,11 @@
     <title>Title</title>
     {% load static %}
     {% load templatetags %}
+    <link rel="stylesheet" href="{% static 'detail.css' %}">
 </head>
 <body>
-    <div class="detail-post">
+    {% if post.class_name == "Post"%}
+    <div class="post-detail-post">
         <div class="title-image">
             {% if post.image.url != null %}
                     <img class="detail-image" src="{{post.image.url}}" alt="{{post.image.name}}" class="title_image">
@@ -65,11 +67,61 @@
                             <p>{{post.content|safe}}</p>
                         </div>
                 {% elif post.expertise.expertise == 'entertainment' or post.expertise.expertise == 'science' %}
-                    <p class="latest-content">{{post.content|highlight_code|safe|truncatewords:75}}</p>
+                    <p class="latest-content">{{post.content|highlight_code|safe}}</p>
                 {% endif %}
             </div>
         </div>
     </div>
-    <p>{{post.title}}</p>
+    {% endif %}
+    {% if post.class_name == "Artwork" %}
+     <div class="art-detail-post">
+        <div class="art-title-image">
+            {% if post.image.url != null %}
+                    <img class="art-detail-image" src="{{post.image.url}}" alt="{{post.image.name}}">
+                {% else %}
+                    <img class="art-detail-image" src="{% static 'art_img.png' %}" alt="art">
+
+                {% endif %}
+        </div>
+        <div class="art-basic-info">
+            <h3 class="art-detail-title">{{post.title}}</h3>
+            <div class="art-detail-author-date-expertise">
+                <p class="art-latest-category-pink">{{post.expertise.expertise}}</p>
+                <br>
+                <div class="art-latest-date-author">
+                    <p class="art-latest-date">{{post.date|date:"d.m.Y"}}</p>
+                    {% if post.author.middleName != null %}
+                        <p class="art-latest-author">{{post.author.firstName.0}}. {{post.author.middleName.0}}. {{post.author.lastName}}</p>
+                    {% else %}
+                        <p class="art-latest-author">{{post.author.firstName.0}}. {{post.author.lastName}}</p>
+                    {% endif %}
+            </div>
+            <div class="art-detail-content">
+                <p class="art-latest-art-category">{{post.category}}</p>
+                    <table class="art-latest-art-table">
+                        <tr>
+                            <td class="art-latest-art-col1">Materials: </td>
+                            <td class="art-latest-art-col2">{{post.materials}}</td>
+                        </tr>
+                        <tr>
+                            <td class="art-latest-art-col1">Dimentions: </td>
+                            <td class="art-latest-art-col2">{{post.dimentionX}}x{{post.dimentionY}} mm</td>
+                        </tr>
+                    </table>
+                <div class="art-latest-content">
+                    <p>{{post.content|safe}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if post.class_name == "Book" %}
+    {% endif %}
+    {% if post.class_name == "Volume" %}
+    {% endif %}
+    {% if post.class_name == "Chapter" %}
+    {% endif %}
+    {% if post.class_name == "Poem" %}
+    {% endif %}
 </body>
 </html>

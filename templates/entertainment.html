@@ -108,6 +108,9 @@
                 </div>
                 <br>
                 <h3 class="latest-title">{{post.title}}</h3>
+                {% if post.expertise.expertise == 'art' %}
+                    <p class="latest-art-category">{{post.category}}</p>
+                {% endif %}
                     <div id="latest-content" class="latest-content">
                         {% if  post.expertise.expertise == 'literature' %}
                             <p class="latest-literature-title">{{post.volume.title}}</p>
@@ -115,7 +118,6 @@
                             <p class="latest-literature-content">{{post.content|safe|truncatewords:75}}</p>
                             <p>[...]</p>
                         {% elif post.expertise.expertise == 'art' and post.dimentionX != blank%}
-                            <p class="latest-art-category">{{post.category}}</p>
                             <table class="latest-art-table">
                                 <tr>
                                     <td class="latest-art-col1">Materials: </td>

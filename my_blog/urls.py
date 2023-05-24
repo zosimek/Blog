@@ -54,5 +54,5 @@ urlpatterns = [
     # path('entertainment_thumbnail/', EntertainmentThumbnail.as_view()),
     # path('entertainment_latest/', EntertainmentLatest.as_view()),
 
-    path('details/<str:class_name><int:id>/', detail_post, name="details")
+    path('details/<str:class_name>/<int:id>/', detail_post, name="details")
 ]

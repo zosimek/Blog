@@ -1,0 +1,33 @@
+.art-detail-post{
+    width: 75%;
+    height: fit-content;
+    margin: 0 auto;
+}
+.art-title-image{
+    height: 75vh;
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+.art-detail-image{
+    height: 100%;
+    width: fit-content;
+    width: -moz-fit-content;
+    margin: 0 auto;
+}
+.art-basic-info{}
+.art-detail-title{}
+.art-detail-author-date-expertise{}
+.art-latest-category-pink{}
+.art-latest-date-author{}
+.art-latest-date{}
+.art-latest-author{}
+.art-latest-author{}
+.art-detail-content{}
+.art-latest-art-category{}
+.art-latest-art-table{}
+.art-latest-art-col1{}
+.art-latest-art-col2{}
+.art-latest-art-col1{}
+.art-latest-art-col2{}
+.art-latest-content{}
