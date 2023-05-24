@@ -1,0 +1,12 @@
+.art-main-div{
+    display: flex;
+}
+.art-main-content{
+    width: 80%;
+}
+.art-side-filter{
+    width: 20%;
+    height: 300px;
+    padding: 20px;
+    background-color: #f2bf2c;
+}

@@ -218,7 +218,7 @@
                     <div id="thumbnail-literature-content-small" class="thumbnail-literature-content-small">
                         <p class="thumbnail-literature-content-small">{{thumb.content|highlight_code|safe|truncatewords:15}}</p>
                     </div>
-                    {% elif thumb.expertise.expertise == 'art' %}
+                    {% elif thumb.expertise.expertise == 'art' and thumb.dimentionX != blank %}
                         <table class="thumbnail-art-table">
                                 <tr>
                                     <td class="thumbnail-art-col1">Materials: </td>
@@ -226,10 +226,10 @@
                                 </tr>
                                 <tr>
                                     <td class="thumbnail-art-col1">Dimentions: </td>
-                                    <td class="thumbnail-art-col2">{{thumb.dimentionX}}x{{post.dimentionY}} mm</td>
+                                    <td class="thumbnail-art-col2">{{thumb.dimentionX}}x{{thumb.dimentionY}} mm</td>
                                 </tr>
                             </table>
-                    {% elif thumb.expertise.expertise == 'entertainment' or thumb.expertise.expertise == 'science' %}
+                    {% elif thumb.expertise.expertise == 'entertainment' or thumb.expertise.expertise == 'science' or thumb.expertise.expertise == 'art'%}
                     <div class="thumbnail-post-content">
                         <p class="thumbnail-post-content">{{thumb.content|highlight_code|safe|truncatewords:25}}</p>
                     </div>

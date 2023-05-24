@@ -25,6 +25,7 @@ a.detail-thumbnail > div:hover{
 
 .thumbnail-image-div{
     flex: 30%;
+    width: 100%;
     margin: 10px;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -260,4 +261,37 @@ a.detail-thumbnail > div:hover{
     width: 90%;
     margin: 10px auto;
 }
+}
+
+/*          ART     THUMBNAIL       */
+.art-thumbnail{
+    width: 90%;
+    height: fit-content;
+    float: right;
+    /*margin: 0 auto;*/
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 350px));
+    grid-gap: 3px;
+}
+.art-detail-thumbnail{
+    aspect-ratio: unset;
+}
+.art-one-thumbnail{
+    aspect-ratio : 1 / 1;
+    width: 100%;
+}
+.art-thumbnail-image{
+    aspect-ratio: unset;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.art-thumbnail-image{}
+.art-side-filter{}
+
+
+.image-container img {
+    width: 100%;
+    height: auto;
 }

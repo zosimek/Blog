@@ -7,7 +7,7 @@ from django.views.generic import View, ListView, DetailView
 from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience, CategoryPost,\
     Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Quote
 
-from .combine_views import UltimateQueryset
+from .combine_views import AuthorQueryset, ArtQueryset, UltimateQueryset
 
 # Create your views here.
 def blog(request):
@@ -17,11 +17,21 @@ def blog(request):
 
 class AuthorListView(ListView):
     template_name = 'about.html'
-    context_object_name = 'authors'
+    context_object_name = 'combined'
 
     def get_queryset(self):
         authors = Author.objects.filter(readyToLaunch=True)
-        return authors
+
+        art_seat = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:2]
+        chapter_seat = Chapter.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:2]
+        poem_seat = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:2]
+        post_seat = Post.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:3]
+
+        roundabout = sorted(chain(art_seat, chapter_seat, poem_seat, post_seat),
+                            key=attrgetter('date'), reverse=True)
+
+        combined = AuthorQueryset(roundabout,authors)
+        return combined
 
 class AuthorDetailView(DetailView):
     model = Author
@@ -40,22 +50,22 @@ class Ultimate(ListView):
         post_seat = Post.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:3]
 
         roundabout = sorted(chain(art_seat, chapter_seat, poem_seat, post_seat),
-                             key=attrgetter('date'), reverse=True)
+                             key=attrgetter('date'), reverse=True)[:10]
 
         art_finger1 = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[2:]
-        art_finger2 = Artwork.objects.filter(readyToLaunch=True, promote=False).order_by('-date')[:3]
+        art_finger2 = Artwork.objects.filter(readyToLaunch=True, promote=False).order_by('-date')
 
         chapter_finger1 = Chapter.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[2:]
-        chapter_finger2 = Chapter.objects.filter(readyToLaunch=True, promote=False).order_by('-date')[:3]
+        chapter_finger2 = Chapter.objects.filter(readyToLaunch=True, promote=False).order_by('-date')
 
         poem_finger1 = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[2:]
-        poem_finger2 = Poem.objects.filter(readyToLaunch=True, promote=False).order_by('-date')[:3]
+        poem_finger2 = Poem.objects.filter(readyToLaunch=True, promote=False).order_by('-date')
 
         post_finger1 = Post.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[2:]
-        post_finger2 = Post.objects.filter(readyToLaunch=True, promote=False).order_by('-date')[:3]
+        post_finger2 = Post.objects.filter(readyToLaunch=True, promote=False).order_by('-date')
 
         thumbnail = sorted(chain(art_finger1, art_finger2, chapter_finger1, chapter_finger2, poem_finger1, poem_finger2,
-                                   post_finger1, post_finger2), key=attrgetter('date'), reverse=True)[1:10]
+                                   post_finger1, post_finger2), key=attrgetter('date'), reverse=True)[1:]
 
 
         art_latest = Artwork.objects.filter(readyToLaunch=True).order_by('-date')[:1]
@@ -128,29 +138,39 @@ class Art(ListView):
     context_object_name = 'combined'
 
     def get_queryset(self):
-        expertise = Expertise.objects.get(expertise='art')
 
-        roundabout_artworks = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:5]
-        roundabout_post = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[:5]
+        latest = Artwork.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 
-        roundabout = sorted(chain(roundabout_artworks, roundabout_post), key=attrgetter('date'), reverse=True)[1:10]
+        latest = sorted(chain(latest), key=attrgetter('date'), reverse=True)[:1]
 
-        thumbnail_artworks1 = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[2:]
-        thumbnail_artworks2 = Artwork.objects.filter(readyToLaunch=True, promote=False).order_by('-date')[:3]
 
-        thumbnail_post1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[2:]
-        thumbnail_post2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise.id).order_by('-date')[:3]
+        roundabout = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:10]
 
-        thumbnail = sorted(chain(thumbnail_artworks1, thumbnail_artworks2, thumbnail_post1, thumbnail_post2), key=attrgetter('date'), reverse=True)[:10]
+        if latest[0] in roundabout:
+            roundabout = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[1:10]
+        else:
+            roundabout = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:10]
 
-        latest_artwork = Artwork.objects.filter(readyToLaunch=True).order_by('-date')[:1]
-        latest_post = Post.objects.filter(readyToLaunch=True, expertise=expertise.id).order_by('-date')[:1]
+        roundabout = sorted(chain(roundabout), key=attrgetter('date'), reverse=True)[:10]
 
-        latest = sorted(chain(latest_artwork, latest_post), key=attrgetter('date'), reverse=True)[:1]
+        thumbnail1 = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')
+        thumbnail2 = Artwork.objects.filter(readyToLaunch=True, promote=False).order_by('-date')
+
+        thumbnail_art = sorted(chain(thumbnail1, thumbnail2), key=attrgetter('date'), reverse=True)
+
+        if latest[0] in thumbnail_art:
+            thumbnail_art = sorted(chain(thumbnail1, thumbnail2), key=attrgetter('date'),
+                                   reverse=True)[1:]
+        else:
+            thumbnail_art = sorted(chain(thumbnail1, thumbnail2), key=attrgetter('date'),
+                                   reverse=True)
+
 
         quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
+        art_categories = CategoryArt.objects.all()
+
+        combined = ArtQueryset(roundabout, thumbnail_art, latest, quote, art_categories)
         return combined
 
 class ArtRoundabout(ListView):
@@ -348,20 +368,29 @@ class Entertainment(ListView):
     context_object_name = 'combined'
 
     def get_queryset(self):
-        expertise = Expertise.objects.get(expertise='entertainment')
+        expertise1 = Expertise.objects.get(expertise='entertainment')
+        expertise2 = Expertise.objects.get(expertise='art')
 
-        roundabout = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[:5]
+        roundabout1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise1.id).order_by('-date')[:5]
+        roundabout2 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise2.id).order_by('-date')[:5]
 
-        thumbnail_model1_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[2:]
-        thumbnail_model1_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise.id).order_by('-date')[
-                     :3]
+        roundabout = sorted(chain(roundabout1, roundabout2), key=attrgetter('date'), reverse=True)[1:10]
 
-        thumbnail = sorted(chain(thumbnail_model1_qs1, thumbnail_model1_qs2), key=attrgetter('date'),
+        thumbnail_model1_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise1.id).order_by('-date')[2:]
+        thumbnail_model1_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise1.id).order_by('-date')[:3]
+
+        thumbnail_model2_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise2.id).order_by(
+            '-date')[2:]
+        thumbnail_model2_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise2.id).order_by(
+            '-date')[:3]
+
+        thumbnail = sorted(chain(thumbnail_model1_qs1, thumbnail_model1_qs2, thumbnail_model2_qs1, thumbnail_model2_qs2), key=attrgetter('date'),
                              reverse=True)[1:10]
 
-        latest_post = Post.objects.filter(readyToLaunch=True, expertise=expertise.id).order_by('-date')[:1]
+        latest_post1 = Post.objects.filter(readyToLaunch=True, expertise=expertise1.id).order_by('-date')[:1]
+        latest_post2 = Post.objects.filter(readyToLaunch=True, expertise=expertise2.id).order_by('-date')[:1]
 
-        latest = sorted(chain(latest_post), key=attrgetter('date'), reverse=True)[:1]
+        latest = sorted(chain(latest_post1, latest_post2), key=attrgetter('date'), reverse=True)[:1]
 
         quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 

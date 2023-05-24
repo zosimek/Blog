@@ -1,13 +1,77 @@
 {% extends "index.html" %}
 {% load static %}
 {% load templatetags %}
+
+{% block content %}
+<!--mathjax-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+{% load templatetags %}
+    <div class="carousel">
+        <ul>
+    <div class="owl-carousel">
+    <!-- Iterate over seat_list -->
+    {% for seat in combined.roundabout %}
+        <a class="detail-carousel" href="{%url 'details' seat.class_name seat.id%}">
+        <div class="wrapper">
+            {% if seat.image.url != null %}
+            <img class="image" src="{{seat.image.url}}" alt="{{seat.image.name}}" class="title_image">
+            {% else %}
+                {% if seat.expertise.expertise == 'literature' %}
+                <img class="image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                {% elif seat.expertise.expertise == 'art' %}
+                <img class="image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
+                {% elif seat.expertise.expertise == 'science' %}
+                {% elif seat.expertise.expertise == 'entertainment' %}
+                {% endif %}
+            {% endif %}
+            <div class="post_info">
+                {% if  seat.expertise.expertise == 'literature' %}
+                    <p class="latest-category-blue">{{seat.expertise.expertise}}</p>
+                {% elif seat.expertise.expertise == 'art' %}
+                    <p class="latest-category-pink">{{seat.expertise.expertise}}</p>
+                {% elif seat.expertise.expertise == 'entertainment'%}
+                    <p class="latest-category-purple">{{seat.expertise.expertise}}</p>
+                {% elif seat.expertise.expertise == 'science' %}
+                    <p class="latest-category-yellow">{{seat.expertise.expertise}}</p>
+                {% endif %}
+                <div class="title">
+                    <p>{{seat.title|truncatechars:35}}</p>
+                </div>
+                <div class="author_date">
+                    {% if seat.author.middleName != null %}
+                    <p class="author">{{seat.author.firstName.0}}. {{seat.author.middleName.0}}. {{seat.author.lastName}}</p>
+                    {% else %}
+                    <p class="author">{{seat.author.firstName.0}}. {{seat.author.lastName}}</p>
+                    {% endif %}
+                    <p class="date">{{seat.date|date:"d.m.Y"}}</p>
+                </div>
+            </div>
+        </div>
+        </a>
+    <!-- If seat_list is empty  -->
+    {% empty %}
+    <li>No seats yet.</li>
+    {% endfor %}
+    </div>
+</ul>
+    </div>
+<!--scripts-->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script src="{% static 'roundabout.js' %}"></script>
+
+{%endblock%}
+
 {% block about %}
 
 <!--mathjax-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 {% load templatetags %}
+
 <div class="authors">
-    {% for author in authors %}
+    {% for author in combined.authors %}
         <div class="one-author">
             <div class="author-image-div">
                 {% if author.image.url != null%}
@@ -26,7 +90,3 @@
     {% endfor %}
 </div>
 {% endblock %}
-{% block thumbnails %}{% endblock %}
-{% block quote %}{% endblock %}
-{% block latest %}{% endblock %}
-{% block roundabout %}{% endblock %}

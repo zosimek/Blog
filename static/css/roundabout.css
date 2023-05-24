@@ -13,7 +13,7 @@
 
 .wrapper{
     padding: 5px;
-    width: 220px;
+    width: 300px;
     position: relative;
     margin: 10px;
 }
@@ -22,7 +22,7 @@
 }
 .image{
     width: 100%;
-    height: 150px;
+    height: 200px;
     object-fit: cover;
 }
 .post_info{
@@ -145,7 +145,7 @@
 }
 .wrapper{
     padding: 3px;
-    width: 150px;
+    width: 200px;
     position: relative;
     margin: 5px;
 }
