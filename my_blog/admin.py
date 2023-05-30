@@ -56,7 +56,7 @@ class BookAdmin(admin.ModelAdmin):
 
 @admin.register(Chapter)
 class ChapterAdmin(admin.ModelAdmin):
-    list_display = ['__str__', "book", 'date']
+    list_display = ['__str__', "book", 'number']
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):

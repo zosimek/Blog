@@ -86,8 +86,7 @@
         <div class="art-basic-info">
             <h3 class="art-detail-title">{{post.title}}</h3>
             <div class="art-detail-author-date-expertise">
-                <p class="art-latest-category-pink">{{post.expertise.expertise}}</p>
-                <br>
+                <p class="art-latest-art-category">{{post.category}}</p>
                 <div class="art-latest-date-author">
                     <p class="art-latest-date">{{post.date|date:"d.m.Y"}}</p>
                     {% if post.author.middleName != null %}
@@ -97,7 +96,6 @@
                     {% endif %}
             </div>
             <div class="art-detail-content">
-                <p class="art-latest-art-category">{{post.category}}</p>
                     <table class="art-latest-art-table">
                         <tr>
                             <td class="art-latest-art-col1">Materials: </td>
