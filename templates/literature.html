@@ -152,7 +152,7 @@
 
 <div class="thumbnail">
     <!-- Iterate over thumb_list -->
-    {% for thumb in combined.thumbnail %}
+    {% for book_volume in combined.books_volumes %}
     <a class="detail-thumbnail" href="{%url 'details' thumb.class_name thumb.id%}">
         <div class="one-thumbnail">
             <div class="thumbnail-image-div">

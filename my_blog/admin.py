@@ -48,7 +48,7 @@ class VolumeAdmin(admin.ModelAdmin):
 
 @admin.register(Poem)
 class PoemAdmin(admin.ModelAdmin):
-    list_display = ['__str__', 'volume', 'date']
+    list_display = ['__str__', 'volume', 'number']
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):

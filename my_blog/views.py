@@ -9,7 +9,8 @@ from django.views.generic import View, ListView, DetailView
 from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience, CategoryPost,\
     Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Quote
 
-from .combine_views import AuthorQueryset, ArtQueryset, UltimateQueryset
+from .combine_views import AuthorQueryset, ArtQueryset, UltimateQueryset, LiteratureQueryset
+
 
 # Create your views here.
 def blog(request):
@@ -231,6 +232,11 @@ class Literature(ListView):
 
         roundabout = sorted(chain(roundabout_poems, roundabout_chapters, roundabout_post), key=attrgetter('date'), reverse=True)
 
+        books_volumes1 = Book.objects.filter(readyToLaunch=True)
+        books_volumes2 = Volume.objects.filter(readyToLaunch=True)
+
+        books_volumes = chain(books_volumes1, books_volumes2)
+
         thumbnail_poem1 = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[2:]
         thumbnail_poem2 = Poem.objects.filter(readyToLaunch=True, promote=False).order_by('-date')[:3]
 
@@ -251,7 +257,9 @@ class Literature(ListView):
 
         quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
+        literature_genre = CategoryLiterature.objects.all()
+
+        combined = LiteratureQueryset(roundabout, books_volumes, thumbnail, latest, quote, literature_genre)
         return combined
 
 class LiteratureRoundabout(ListView):

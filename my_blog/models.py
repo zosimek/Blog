@@ -138,7 +138,7 @@ class Pattern(models.Model):
         return self.__class__.__name__
 
 class Volume(Common):
-    cover = models.ImageField(upload_to="covers")
+    cover = models.ImageField(upload_to="covers", null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -152,6 +152,7 @@ class Volume(Common):
 
 class Poem(Common):
     volume = models.ForeignKey(Volume, on_delete=models.CASCADE)
+    number = models.SmallIntegerField(null=True)
     promote = models.BooleanField(default=False, blank=False, null=False)
 
     def __str__(self):
@@ -165,7 +166,7 @@ class Poem(Common):
         return self.__class__.__name__
 
 class Book(Common):
-    cover = models.ImageField(upload_to="covers")
+    cover = models.ImageField(upload_to="covers", null=True, blank=True)
     genre = models.ForeignKey(CategoryLiterature, on_delete=models.CASCADE)
 
     def __str__(self):
