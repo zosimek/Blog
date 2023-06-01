@@ -57,8 +57,8 @@
     font-size: small;
     font-family: Roboto, sans-serif;
     font-weight: bold;
-    color: white;
-    background-color: #e9549f;
+    color: white !important;
+    background-color: #e9549f !important;
 }
 .latest-category-purple{
     margin-top: 5px;
@@ -115,11 +115,11 @@
 .latest-art-category{
     width: fit-content;
     padding: 3px;
-    font-size: 18px;
+    font-size: small;
     font-family: Roboto, sans-serif;
     font-weight: bold;
-    color: grey;
-    background-color: #dddddd;
+    color: white;
+    background-color: #e9549f !important;
 }
 .latest-art-table{
     margin: 15px 0;

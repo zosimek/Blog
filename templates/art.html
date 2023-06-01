@@ -19,7 +19,7 @@
                 <img class="image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
             {% endif %}
             <div class="post_info">
-                <p class="latest-category-pink" style="background-color: #dddddd; color: grey">{{seat.category}}</p>
+                <p class="latest-category-pink">{{seat.category}}</p>
                 <div class="title">
                     <p>{{seat.title|truncatechars:35}}</p>
                 </div>
@@ -84,8 +84,8 @@
                 </div>
                 <br>
                 <h3 class="latest-title">{{post.title}}</h3>
+                <p class="latest-art-category">{{post.category}}</p>
                     <div id="latest-content" class="latest-content">
-                            <p class="latest-art-category">{{post.category}}</p>
                             <table class="latest-art-table">
                                 <tr>
                                     <td class="latest-art-col1">Materials: </td>

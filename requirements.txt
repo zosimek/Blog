@@ -1,4 +1,6 @@
 asgiref==3.6.0
+beautifulsoup4==4.12.2
+bs4==0.0.1
 Django==4.2
 django-ckeditor==6.5.1
 django-js-asset==2.0.0
@@ -7,5 +9,6 @@ Pillow==9.5.0
 Pygments==2.14.0
 pytz==2023.3
 router==0.1
+soupsieve==2.4.1
 sqlparse==0.4.3
 tzdata==2023.3

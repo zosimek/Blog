@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from string import digits
 
 from django.shortcuts import render
@@ -237,17 +238,13 @@ class Literature(ListView):
 
         books_volumes = chain(books_volumes1, books_volumes2)
 
-        thumbnail_poem1 = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[2:]
-        thumbnail_poem2 = Poem.objects.filter(readyToLaunch=True, promote=False).order_by('-date')[:3]
+        thumbnail_poem1 = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')
+        thumbnail_poem2 = Poem.objects.filter(readyToLaunch=True, promote=False).order_by('-date')
 
-        thumbnail_chapter1 = Chapter.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[2:]
-        thumbnail_chapter2 = Chapter.objects.filter(readyToLaunch=True, promote=False).order_by('-date')[:3]
+        thumbnail_chapter1 = Chapter.objects.filter(readyToLaunch=True, promote=True).order_by('-date')
+        thumbnail_chapter2 = Chapter.objects.filter(readyToLaunch=True, promote=False).order_by('-date')
 
-        thumbnail_post1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[2:]
-        thumbnail_post2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise.id).order_by('-date')[:3]
-
-        thumbnail = sorted(chain(thumbnail_poem1, thumbnail_poem2, thumbnail_chapter1, thumbnail_chapter2,
-                                 thumbnail_post1, thumbnail_post2), key=attrgetter('date'), reverse=True)[1:10]
+        thumbnail = sorted(chain(thumbnail_poem1, thumbnail_poem2, thumbnail_chapter1, thumbnail_chapter2), key=attrgetter('number'))
 
         latest_poems = Poem.objects.filter(readyToLaunch=True).order_by('-date')[:1]
         latest_chapters = Chapter.objects.filter(readyToLaunch=True).order_by('-date')[:1]
@@ -259,7 +256,10 @@ class Literature(ListView):
 
         literature_genre = CategoryLiterature.objects.all()
 
-        combined = LiteratureQueryset(roundabout, books_volumes, thumbnail, latest, quote, literature_genre)
+        current_date = datetime.now().date()
+        two_weeks_back = current_date - timedelta(days=14)
+
+        combined = LiteratureQueryset(roundabout, books_volumes, thumbnail, latest, quote, literature_genre, current_date, two_weeks_back)
         return combined
 
 class LiteratureRoundabout(ListView):

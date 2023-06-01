@@ -353,6 +353,113 @@ a.detail-thumbnail > div:hover{
     font-size: small;
     font-family: Roboto, sans-serif;
     font-weight: bold;
-    color: #bbb;
+    color: white;
+    background-color: #e9549f;
+}
+
+/*          LITERATURE THUMBNAIL        */
+.thumbnail-book-volume {
+    width: 72%;
+    height: fit-content;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+a.detail-book-volume{
+    color: black;
+    text-decoration: none;
+}
+
+.one-thumbnail-book-volume {
+    height: fit-content;
+    margin-bottom: 3px;
+    display: flex;
     background-color: white;
+    /*border: solid 1px grey;*/
+}
+
+.thumbnail-book-volume-image-div{
+    flex: 30%;
+    width: 100%;
+    margin: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.thumbnail-book-volume-image-div{
+    flex: 30%;
+    width: 100%;
+    margin: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.thumbnail-book-volume-image{
+    height: max-content;
+    width: 100%;
+    object-fit: cover;
+}
+.thumbnail-info {
+    flex: 70%;
+    height: fit-content;
+    width: 100%;
+    margin: 20px 40px 20px 20px;
+}
+.thumbnail-book-genre{
+    float: left;
+    width: fit-content;
+    padding: 3px;
+    margin-left: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    background-color: #62bcea;
+    color: white;
+}
+.thumbnail-book-volume-title{
+    margin: 0px auto;
+    margin-bottom: 5px;
+    text-align: center;
+    font-family: "CMU Serif";
+    font-size: 24px;
+    font-weight: bold;
+    font-weight: bolder;
+}
+.thumbnail-book-volume-author-div{
+    align-self: center;
+    text-align: center;
+}
+.thumbnail-book-volume-author{
+    text-align: center;
+}
+.thumbnail-one-chapter-poem{
+    display: flex;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: rgba(208, 218, 234, 0.66);
+    border-radius: 10px;
+}
+.thumbnail-one-chapter-poem:first-child{
+    margin-top: 20px;
+}
+.thumbnail-chapter-poem-title{
+    width: fit-content;
+    float: left;
+    font-family: "CMU Serif";
+    font-size: 18px;
+    font-weight: bold;
+}
+.thumbnail-chapter-poem-new{
+    float: left;
+    height: fit-content;
+    width: fit-content;
+    padding: 3px;
+    margin-left: 10px;
+    font-size: 10px;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    /*background-color: #d01f1f;*/
+    background-color: #62bcea;
+    color: white;
 }

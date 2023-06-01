@@ -19,10 +19,12 @@ class ArtQueryset:
         self.art_categories = art_categories
 
 class LiteratureQueryset:
-    def __init__(self, roundabout, books_volumes, thumbnail, latest, quote, literature_genre):
+    def __init__(self, roundabout, books_volumes, thumbnail, latest, quote, literature_genre, current_date, two_weeks_back):
         self.roundabout = roundabout
         self.books_volumes = books_volumes
         self.thumbnail = thumbnail
         self.latest = latest
         self.quote = quote
         self.literature_genre = literature_genre
+        self.current_date = current_date
+        self.two_weeks_back = two_weeks_back
