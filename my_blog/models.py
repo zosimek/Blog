@@ -139,6 +139,7 @@ class Pattern(models.Model):
 
 class Volume(Common):
     cover = models.ImageField(upload_to="covers", null=True, blank=True)
+    acknowledgment = RichTextField(default='... to be continued ...', blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -168,6 +169,7 @@ class Poem(Common):
 class Book(Common):
     cover = models.ImageField(upload_to="covers", null=True, blank=True)
     genre = models.ForeignKey(CategoryLiterature, on_delete=models.CASCADE)
+    acknowledgment = RichTextField(default='... to be continued ...', blank=True, null=True)
 
     def __str__(self):
         return self.title

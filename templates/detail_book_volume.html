@@ -1,0 +1,69 @@
+{% extends "index.html" %}
+{% load static %}
+{% load templatetags %}
+{% block content %}
+
+<!--mathjax-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+{% load templatetags %}
+    <div class="detail-book-volume-nav-top">
+        <div class="detail-book-volume-nav-prev-arrow-div">
+            <img class="detail-book-volume-nav-prev-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+            <p class="detail-book-volume-prev">Previous</p>
+        </div>
+        <div class="detail-book-volume-nav-next-arrow-div">
+            <p class="detail-book-volume-next">Next</p>
+            <img class="detail-book-volume-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">
+        </div>
+    </div>
+    <div class="detail-book-volume">
+        <div class="detail-book-volume-nav-prev">
+            <img class="detail-book-volume-side-nav-prev-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+        </div>
+        <div class="detail-book-volume-content">
+            <div class="detail-book-volume-image-div">
+                {% if book_volume.book_volume_info.cover.url != null %}
+                    <img class="detail-image" src="{{book_volume.book_volume_info.cover.url}}" alt="{{book_volume.book_volume_info.cover.url.name}}" class="title_image">
+                {% else %}
+                    <img class="detail-image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                {% endif %}
+            </div>
+            <div class="detail-book-volume-description">
+                <p class="detail-book-volume-author">{{book_volume.book_volume_info.author}}</p>
+                <p class="detail-book-volume-title">{{book_volume.book_volume_info.title}}</p>
+                <p class="detail-book-volume-acknowledgment">{{book_volume.book_volume_info.acknowledgment|highlight_code|safe}}</p>
+            </div>
+            <div class="detail-book-volume-description">
+                <p class="detail-book-volume-from-author-text">From Author</p>
+                <p class="detail-book-volume-from-author">{{book_volume.book_volume_info.content|highlight_code|safe}}</p>
+            </div>
+            <div class="detail-book-volume-table-of-contents">
+                <p class="detail-book-volume-table-of-contents-text">Table of Contents</p>
+                {% for chapter_volume in book_volume.book_volume_content %}
+                    {% if book_volume.book_volume_info.class_name == "Book" %}
+                    <a href="#">
+                        <p class="detail-book-volume-chapter-poem">{{chapter_volume.number}}.  {{chapter_volume.title}}</p>
+                    </a>
+                    {% elif book_volume.book_volume_info.class_name == "Volume" %}
+                    <a href="#" class="detail-book-volume-chapter-poem">
+                        <p class="detail-book-volume-poem">{{chapter_volume.title}}</p>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="detail-book-volume-nav-next">
+            <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">
+        </div>
+    </div>
+    <div class="detail-book-volume-nav-bottom">
+        <div class="detail-book-volume-nav-prev-arrow-div">
+            <img class="detail-book-volume-nav-prev-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+            <p class="detail-book-volume-prev">Previous</p>
+        </div>
+        <div class="detail-book-volume-nav-next-arrow-div">
+            <p class="detail-book-volume-next">Next</p>
+            <img class="detail-book-volume-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">
+        </div>
+    </div>
+{% endblock %}

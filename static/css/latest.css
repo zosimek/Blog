@@ -104,6 +104,7 @@
     width: border-box;
     height: fit-content;
     margin: 15px 0px;
+    margin-bottom: 5px;
     font-family: "CMU Serif";
     font-size: 24px;
     font-weight: bolder;
@@ -223,9 +224,11 @@ a.detail-latest:hover{
     margin-bottom: 15px;
     text-align: center;
     alignment: center;
-    font-size: 20px;
+    font-size: small;
     font-weight: bold;
     text-transform: uppercase;
+    color: grey;
+    /*background-color: #b6dff7;*/
 }
 @media screen and (max-width: 825px) {
 .one-post{

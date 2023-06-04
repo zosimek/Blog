@@ -146,10 +146,42 @@ a.detail-thumbnail > div:hover{
 .thumbnail-art-col1{
     margin-right: 5px;
 }
-.thumbnail-gap{
+.ultimate-thumbnail-gap{
     height: 4px;
-    background-color: #f0932b;
+    /*background-color: #f0932b;*/
     background-image: linear-gradient(white, #f0932b, white);
+}
+.ultimate-thumbnail-gap:last-child{
+    display: none;
+}
+.art-thumbnail-gap{
+    height: 4px;
+    /*background-color: #f0932b;*/
+    background-image: linear-gradient(white, #e9549f, white);
+}
+.literature-thumbnail-gap{
+    height: 4px;
+    /*background-color: #f0932b;*/
+    background-image: linear-gradient(white, #62bcea, white);
+}
+.literature-thumbnail-gap:last-child{
+    display: none;
+}
+.science-thumbnail-gap{
+    height: 4px;
+    /*background-color: #f0932b;*/
+    background-image: linear-gradient(white, #f2bf2c, white);
+}
+.science-thumbnail-gap:last-child{
+    display: none;
+}
+.entertainment-thumbnail-gap{
+    height: 4px;
+    /*background-color: #f0932b;*/
+    background-image: linear-gradient(white, #a73594, white);
+}
+.entertainment-thumbnail-gap:last-child{
+    display: none;
 }
 #thumbnail-literature-content span[style], #thumbnail-literature-content p[style], .thumbnail-literature-content p,
 .thumbnail-post-content span[style], .thumbnail-post-content p[style], .thumbnail-post-content p{

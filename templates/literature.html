@@ -88,39 +88,19 @@
                 </div>
                 <br>
                 <h3 class="latest-title">{{post.title}}</h3>
+                {% if post.volume.title != null %}
+                    <p class="latest-literature-title">{{post.volume.title}}</p>
+                {% endif %}
+                {% if post.book.title != null %}
+                    <p class="latest-literature-title">{{post.book.title}}</p>
+                {% endif %}
                     <div id="latest-content" class="latest-content">
-                        {% if  post.expertise.expertise == 'literature' %}
-                            {% if post.volume.title != null %}
-                                <p class="latest-literature-title">({{post.volume.title}})</p>
-                            {% endif %}
-                            {% if post.book.title != null %}
-                                <p class="latest-literature-title">({{post.book.title}})</p>
-                            {% endif %}
-                            <p class="latest-literature-content">{{post.content|safe|truncatewords:40}}</p>
-                            <p>[...]</p>
-                        {% elif post.expertise.expertise == 'art' %}
-                            <p class="latest-art-category">{{post.category}}</p>
-                            <table class="latest-art-table">
-                                <tr>
-                                    <td class="latest-art-col1">Materials: </td>
-                                    <td class="latest-art-col2">{{post.materials}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="latest-art-col1">Dimentions: </td>
-                                    <td class="latest-art-col2">{{post.dimentionX}}x{{post.dimentionY}} mm</td>
-                                </tr>
-                            </table>
-                            <div class="latest-content">
-                                <p>{{post.content|safe|truncatewords:100}}</p>
-                            </div>
-                        {% elif post.expertise.expertise == 'entertainment' or post.expertise.expertise == 'science' %}
-                            <p class="latest-content">{{post.content|highlight_code|safe|truncatewords:75}}</p>
-                        {% endif %}
+                            <p class="latest-literature-content">{{post.content|safe|truncatewords:45}}</p>
                     </div>
                 <a class="detail-latest" href="{%url 'details' post.class_name post.id%}">
                 <div class="detail-latest-div">
                     <p class="latest-detail-link">Read the piece here</p>
-                    <img class="latest-right-arrow" src="{% static 'arrow_right.png' %}" alt="art">
+                    <img class="latest-right-arrow" src="{% static 'arrow_right.png' %}" alt="arrow">
                 </div>
                 </a>
             </div>
@@ -135,7 +115,7 @@
 <div class="thumbnail-book-volume">
     <!-- Iterate over thumb_list -->
     {% for book_volume in combined.books_volumes %}
-    <a class="detail-book-volume" href="#">
+    <a class="detail-book-volume" href="{%url 'book_volume' book_volume.class_name book_volume.id%}">
         <div class="one-thumbnail-book-volume">
             <div class="thumbnail-book-volume-image-div">
                 {% if book_volume.cover.url != null %}
@@ -153,7 +133,7 @@
                         <p class="thumbnail-book-genre">{{book_volume.class_name}}</p>
                     {% endif %}
                 </div>
-                <br>
+                <div style="height: 3px; width: 100%; display: inline-block"></div>
                 <h3 class="thumbnail-book-volume-title">{{book_volume.title}}</h3>
                 <div class="thumbnail-book-volume-author-div">
                         {% if thumb.author.middleName != null %}
@@ -176,8 +156,9 @@
                 </div>
             </div>
         </div>
+    </a>
 
-    <div class="thumbnail-gap"></div>
+    <div class="literature-thumbnail-gap"></div>
     <!-- If thumb_list is empty  -->
     {% empty %}
         <p>No thumbnails</p>

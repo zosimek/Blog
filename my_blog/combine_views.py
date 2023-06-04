@@ -28,3 +28,8 @@ class LiteratureQueryset:
         self.literature_genre = literature_genre
         self.current_date = current_date
         self.two_weeks_back = two_weeks_back
+
+class BookVolumeQueryset:
+    def __init__(self, book_volume_info, book_volume_content):
+        self.book_volume_info = book_volume_info
+        self.book_volume_content = book_volume_content
