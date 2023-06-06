@@ -1,5 +1,6 @@
 a{
     text-decoration: none;
+    color: black;
 }
 .detail-book-volume{
     width: 100%;
@@ -12,9 +13,6 @@ a{
     left: 0;
     right: 0;
     z-index: 9999;
-    /*width: 8%;*/
-    /*float: left;*/
-    /*background-color: #e9549f;*/
 }
 .detail-book-volume-nav-next{
     position: fixed;
@@ -23,8 +21,6 @@ a{
     right: 0;
     z-index: 9999;
     width: 8%;
-    /*float: right;*/
-    /*background-color: #f2bf2c;*/
 }
 .detail-book-volume-nav-prev{
     position: fixed;
@@ -40,9 +36,16 @@ a{
     width: 100%;
     position: absolute;
 }
+.detail-book-volume-side-nav-next-arrow:hover{
+    scale: 110%;
+}
 .detail-book-volume-side-nav-prev-arrow{
     width: 100%;
     position: absolute;
+    /*display: none;*/
+}
+.detail-book-volume-side-nav-prev-arrow:hover{
+    scale: 110%;
 }
 .detail-book-volume-content{
     width: 70%;
@@ -50,52 +53,56 @@ a{
 }
 .detail-book-volume-image-div{
     width: fit-content;
-    min-height: 100vh;
-    margin: 20px auto;
-    margin-bottom: 150px;
+    min-height: 75vh;
+    margin: 150px auto;
 }
 .detail-image{
-    max-height: 80vh;
+    max-height: 75vh;
     object-fit: contain;
 }
 .detail-book-volume-description{
-    min-height: 100vh;
+    min-height: 50vh;
+    width: fit-content;
+    margin: 150px auto;
+}
+.detail-book-volume-description [span], .detail-book-volume-description [p], .detail-book-volume-description span, .detail-book-volume-description p{
+    font-family: "CMU Serif"!important;
+    font-size: 20px!important;
+    line-height: 150%;
 }
 .detail-book-volume-author{
     width: fit-content;
     margin: 0 auto;
     margin-bottom: 50px;
     font-family: "CMU Serif";
-    font-size: 25px;
+    font-size: 30px;
 }
-.detail-book-volume-title{
+p.detail-book-volume-title{
     width: fit-content;
     margin: 0 auto;
     margin-bottom: 150px;
     font-family: "CMU Serif";
     font-weight: bold;
-    font-size: 30px;
+    font-size: 35px!important;
 }
 .detail-book-volume-acknowledgment{
     width: fit-content;
     margin: 0 auto;
+    font-size: 20px;
+    font-family: "CMU Serif";
 }
-.detail-book-volume-from-author-text{
+p.detail-book-volume-from-author-text{
     width: fit-content;
     margin: 0 auto;
     margin-bottom: 70px;
     font-family: "CMU Serif";
     font-weight: bold;
-    font-size: 25px;
-}
-.detail-book-volume-from-author{
-    width: fit-content;
-    margin: 0 auto;
+    font-size: 30px!important;
 }
 .detail-book-volume-table-of-contents{
-    min-height: 100vh;
+    min-height: 50vh;
     width: 80%;
-    margin: 0 auto;
+    margin: 150px auto;
 }
 .detail-book-volume-table-of-contents-text{
     width: fit-content;
@@ -103,26 +110,23 @@ a{
     margin-bottom: 70px;
     font-family: "CMU Serif";
     font-weight: bold;
-    font-size: 25px;
+    font-size: 30px;
 }
 .detail-book-volume-chapter-poem {
     font-family: "CMU Serif";
     font-size: 20px;
     text-decoration: none;
+    padding: 10px 0;
 }
 .detail-book-volume-poem{
     width: fit-content;
     margin: 1em auto;
 }
+.detail-book-volume-acknowledgment p span, .detail-book-volume-from-author p span{
+    line-height: 150%;
+    font-family: "CMU Serif";
+}
 .detail-book-volume-nav-next-arrow{
-    width: 100%;
-}
-.detail-book-volume-nav-top{
-    clear: both;
-    width: 100%;
-}
-.detail-book-volume-nav-bottom{
-    clear: both;
     width: 100%;
 }
 .detail-book-volume-nav-prev-arrow-div{
@@ -146,4 +150,27 @@ a{
 .detail-book-volume-nav-next-arrow{
     width: 30px;
     float: left;
+}
+.detail-book-volume-nav-top, .detail-book-volume-nav-bottom{
+    width: 50%;
+    height: 30px;
+    margin: 50px auto;
+    display: none;
+}
+.detail-book-volume-nav-next-arrow-div{
+    width: fit-content;
+    float: right;
+}
+.detail-book-volume-next, .detail-book-volume-prev{
+    line-height: 30px;
+    text-transform: uppercase;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: #c0c5cd;
+}
+.detail-book-volume-next {
+    margin-right: 10px;
+}
+.detail-book-volume-prev{
+    margin-left: 10px;
 }

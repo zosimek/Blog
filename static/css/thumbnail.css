@@ -399,7 +399,7 @@ a.detail-thumbnail > div:hover{
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.5);
 }
-a.detail-book-volume{
+a.thumbnail-detail-book-volume{
     color: black;
     text-decoration: none;
 }
@@ -411,14 +411,6 @@ a.detail-book-volume{
     background-color: white;
     /*border: solid 1px grey;*/
 }
-
-.thumbnail-book-volume-image-div{
-    flex: 30%;
-    width: 100%;
-    margin: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
 .thumbnail-book-volume-image-div{
     flex: 30%;
     width: 100%;
@@ -427,8 +419,8 @@ a.detail-book-volume{
     margin-bottom: 20px;
 }
 .thumbnail-book-volume-image{
-    height: max-content;
-    width: 100%;
+    height: auto;
+    width: 350px;
     object-fit: cover;
 }
 .thumbnail-info {

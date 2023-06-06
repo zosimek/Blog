@@ -72,7 +72,7 @@
     </div>
     {% endif %}
     {% if post.class_name == "Artwork" %}
-     <div class="art-detail-post">
+    <div class="art-detail-post">
         <div class="art-title-image">
             {% if post.image.url != null %}
                     <img class="art-detail-image" src="{{post.image.url}}" alt="{{post.image.name}}">
@@ -111,12 +111,209 @@
         </div>
     </div>
     {% endif %}
-    {% if post.class_name == "Book" %}
+    {% if post.book_volume_info.class_name == "Book" %}
+<!--     <div class="detail-book-volume-nav-top">-->
+<!--        <div class="detail-book-volume-nav-prev-arrow-div">-->
+<!--            <img class="detail-book-volume-nav-prev-arrow" src="{% static 'arrow_prev.png' %}" alt="">-->
+<!--            <p class="detail-book-volume-prev">Previous</p>-->
+<!--        </div>-->
+<!--        <div class="detail-book-volume-nav-next-arrow-div">-->
+<!--            <p class="detail-book-volume-next">Next</p>-->
+<!--            <img class="detail-book-volume-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="detail-book-volume">
+        <div class="detail-book-volume-content">
+            <div class="detail-book-volume-image-div">
+                {% if post.book_volume_info.cover.url != null %}
+                    <img class="detail-image" src="{{post.book_volume_info.cover.url}}" alt="{{post.book_volume_info.cover.url.name}}" class="title_image">
+                {% else %}
+                    <img class="detail-image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                {% endif %}
+            </div>
+            <div class="detail-book-volume-description">
+                <p class="detail-book-volume-author">{{post.book_volume_info.author}}</p>
+                <p class="detail-book-volume-title">{{post.book_volume_info.title}}</p>
+                <div class="detail-book-volume-acknowledgment">{{post.book_volume_info.acknowledgment|highlight_code|safe}}</div>
+            </div>
+            <div class="detail-book-volume-description">
+                <p class="detail-book-volume-from-author-text">From Author</p>
+                <div class="detail-book-volume-from-author">{{post.book_volume_info.content|highlight_code|safe}}</div>
+            </div>
+            <div class="detail-book-volume-table-of-contents">
+                <p class="detail-book-volume-table-of-contents-text">Table of Contents</p>
+                {% for chapter_volume in post.book_volume_content %}
+                    {% if post.book_volume_info.class_name == "Book" %}
+                    <a href="{%url 'details' chapter_volume.class_name chapter_volume.id%}">
+                        <p class="detail-book-volume-chapter-poem">{{chapter_volume.number}}.  {{chapter_volume.title}}</p>
+                    </a>
+                    {% elif post.book_volume_info.class_name == "Volume" %}
+                    <a href="#" class="detail-book-volume-chapter-poem">
+                        <p class="detail-book-volume-poem">{{chapter_volume.title}}</p>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="detail-book-volume-nav-next">
+            <a href="{%url 'details' post.book_volume_content.0.class_name post.book_volume_content.0.id %}">
+                <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">
+            </a>
+        </div>
+    </div>
+<!--    <div class="detail-book-volume-nav-bottom">-->
+<!--        <div class="detail-book-volume-nav-prev-arrow-div">-->
+<!--            <img class="detail-book-volume-nav-prev-arrow" src="{% static 'arrow_prev.png' %}" alt="">-->
+<!--            <p class="detail-book-volume-prev">Previous</p>-->
+<!--        </div>-->
+<!--        <div class="detail-book-volume-nav-next-arrow-div">-->
+<!--            <p class="detail-book-volume-next">Next</p>-->
+<!--            <img class="detail-book-volume-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">-->
+<!--        </div>-->
+<!--    </div>-->
     {% endif %}
-    {% if post.class_name == "Volume" %}
+    {% if post.book_volume_info.class_name == "Volume" %}
+<!--    <div class="detail-book-volume-nav-top">-->
+<!--        <div class="detail-book-volume-nav-prev-arrow-div">-->
+<!--            <img class="detail-book-volume-nav-prev-arrow" src="{% static 'arrow_prev.png' %}" alt="">-->
+<!--            <p class="detail-book-volume-prev">Previous</p>-->
+<!--        </div>-->
+<!--        <div class="detail-book-volume-nav-next-arrow-div">-->
+<!--            <p class="detail-book-volume-next">Next</p>-->
+<!--            <img class="detail-book-volume-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">-->
+<!--        </div>-->
+<!--    </div>-->
+    <div class="detail-book-volume">
+        <div class="detail-book-volume-content">
+            <div class="detail-book-volume-image-div">
+                {% if post.book_volume_info.cover.url != null %}
+                    <img class="detail-image" src="{{post.book_volume_info.cover.url}}" alt="{{post.book_volume_info.cover.url.name}}" class="title_image">
+                {% else %}
+                    <img class="detail-image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                {% endif %}
+            </div>
+            <div class="detail-book-volume-description">
+                <p class="detail-book-volume-author">{{post.book_volume_info.author}}</p>
+                <p class="detail-book-volume-title">{{post.book_volume_info.title}}</p>
+                <div class="detail-book-volume-acknowledgment">{{post.book_volume_info.acknowledgment|highlight_code|safe}}</div>
+            </div>
+            <div class="detail-book-volume-description">
+                <p class="detail-book-volume-from-author-text">From Author</p>
+                <div class="detail-book-volume-from-author">{{post.book_volume_info.content|highlight_code|safe}}</div>
+            </div>
+            <div class="detail-book-volume-table-of-contents">
+                <p class="detail-book-volume-table-of-contents-text">Table of Contents</p>
+                {% for chapter_volume in post.book_volume_content %}
+                    {% if post.book_volume_info.class_name == "Book" %}
+                    <a href="#">
+                        <p class="detail-book-volume-chapter-poem">{{chapter_volume.number}}.  {{chapter_volume.title}}</p>
+                    </a>
+                    {% elif post.book_volume_info.class_name == "Volume" %}
+                    <a href="{%url 'details' chapter_volume.class_name chapter_volume.id%}" class="detail-book-volume-chapter-poem">
+                        <p class="detail-book-volume-poem">{{chapter_volume.title}}</p>
+                    </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="detail-book-volume-nav-next">
+            <a href="{%url 'details' post.book_volume_content.0.class_name post.book_volume_content.0.id%}">
+                <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">
+            </a>
+        </div>
+<!--    <div class="detail-book-volume-nav-bottom">-->
+<!--        <div class="detail-book-volume-nav-prev-arrow-div">-->
+<!--            <img class="detail-book-volume-nav-prev-arrow" src="{% static 'arrow_prev.png' %}" alt="">-->
+<!--            <p class="detail-book-volume-prev">Previous</p>-->
+<!--        </div>-->
+<!--        <div class="detail-book-volume-nav-next-arrow-div">-->
+<!--            <p class="detail-book-volume-next">Next</p>-->
+<!--            <img class="detail-book-volume-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">-->
+<!--        </div>-->
+<!--    </div>-->
     {% endif %}
-    {% if post.class_name == "Chapter" %}
+    {% if post.class_name == "Chapter" or post.post.class_name == "Chapter"%}
+    <div class="detail-book-volume">
+        <div class="detail-book-volume-nav-prev">
+            {% if post.number == 1 %}
+            <a href="{%url 'details' post.book.class_name post.book.id%}">
+                <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+            </a>
+            {% elif post.post.number == 1 %}
+            <a href="{%url 'details' post.post.book.class_name post.post.book.id%}">
+                <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+            </a>
+            {% else %}
+                {% if post.last == "yes" %}
+                    <a href="{%url 'details' class_name=post.post.class_name id=post.post.book.id state='prev' number=post.post.number%}">
+                        <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+                    </a>
+                {% else %}
+                    <a href="{%url 'details' class_name=post.class_name id=post.book.id state='prev' number=post.number%}">
+                        <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="detail-book-volume-content">
+            <div class="detail-book-volume-description">
+                <p class="detail-book-volume-title">{{post.title}}</p>
+                <p class="detail-book-volume-title">{{post.post.title}}</p>
+                <p class="detail-book-volume-acknowledgment">{{post.content|highlight_code|safe}}</p>
+                <p class="detail-book-volume-acknowledgment">{{post.post.content|highlight_code|safe}}</p>
+            </div>
+        </div>
+        <div class="detail-book-volume-nav-next">
+            {% if post.last == "yes" %}
+
+            {% else %}
+                <a href="{%url 'details' class_name=post.class_name id=post.book.id state='next' number=post.number%}">
+                    <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">
+                </a>
+            {% endif %}
+        </div>
+    </div>
     {% endif %}
-    {% if post.class_name == "Poem" %}
+    {% if post.class_name == "Poem" or post.post.class_name == "Poem"%}
+    <div class="detail-book-volume">
+        <div class="detail-book-volume-nav-prev">
+            {% if post.number == 1%}
+            <a href="{%url 'details' post.volume.class_name post.volume.id%}">
+                <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+            </a>
+            {% elif post.post.number == 1%}
+            <a href="{%url 'details' post.post.volume.class_name post.post.volume.id%}">
+                <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+            </a>
+            {% else %}
+                {% if post.last == "yes" %}
+                    <a href="{%url 'details' class_name=post.post.class_name id=post.post.volume.id state='prev' number=post.post.number%}">
+                        <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+                    </a>
+                {% else %}
+                    <a href="{%url 'details' class_name=post.class_name id=post.volume.id state='prev' number=post.number%}">
+                        <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_prev.png' %}" alt="">
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="detail-book-volume-content">
+            <div class="detail-book-volume-description">
+                <p class="detail-book-volume-title">{{post.title}}</p>
+                <p class="detail-book-volume-title">{{post.post.title}}</p>
+                <p class="detail-book-volume-acknowledgment">{{post.content|highlight_code|safe}}</p>
+                <p class="detail-book-volume-acknowledgment">{{post.post.content|highlight_code|safe}}</p>
+            </div>
+        </div>
+        <div class="detail-book-volume-nav-next">
+            {% if post.last == "yes" %}
+
+            {% else %}
+                <a href="{%url 'details' class_name=post.class_name id=post.volume.id state='next' number=post.number%}">
+                    <img class="detail-book-volume-side-nav-next-arrow" src="{% static 'arrow_next.png' %}" alt="">
+                </a>
+            {% endif %}
+        </div>
+    </div>
     {% endif %}
 {% endblock %}

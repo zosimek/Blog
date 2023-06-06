@@ -10,7 +10,8 @@ from django.views.generic import View, ListView, DetailView
 from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience, CategoryPost,\
     Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Quote
 
-from .combine_views import AuthorQueryset, ArtQueryset, UltimateQueryset, LiteratureQueryset, BookVolumeQueryset
+from .combine_views import AuthorQueryset, ArtQueryset, UltimateQueryset, LiteratureQueryset, BookVolumeQueryset, \
+    LastPoemBook
 
 
 # Create your views here.
@@ -34,7 +35,7 @@ class AuthorListView(ListView):
         roundabout = sorted(chain(art_seat, chapter_seat, poem_seat, post_seat),
                             key=attrgetter('date'), reverse=True)
 
-        combined = AuthorQueryset(roundabout,authors)
+        combined = AuthorQueryset(roundabout, authors)
         return combined
 
 class AuthorDetailView(DetailView):
@@ -248,7 +249,7 @@ class Entertainment(ListView):
 ##############################################       DETAIL      #######################################################
 ########################################################################################################################
 
-def detail_post(request, class_name, id):
+def detail_post(request, class_name, id, state=None, number=None):
 
     match class_name:
         case "Author":
@@ -260,18 +261,53 @@ def detail_post(request, class_name, id):
         case "Pattern":
             post = get_object_or_404(Pattern, pk=id)
         case "Volume":
-            post = get_object_or_404(Volume, pk=id)
+            book_volume_info = get_object_or_404(Volume, pk=id)
+            book_volume_content = Poem.objects.filter(readyToLaunch=True, volume=book_volume_info).order_by('number')
+            post = BookVolumeQueryset(book_volume_info, book_volume_content)
         case "Poem":
-            post = get_object_or_404(Poem, pk=id)
+            if number == None:
+                post = get_object_or_404(Poem, pk=id)
+            else:
+                if state == "prev":
+                    number -= 1
+                elif state == "next":
+                    number += 1
+                volume_info = get_object_or_404(Volume, id=id)
+                post = get_object_or_404(Poem, readyToLaunch=True, number=number, volume=volume_info)
+                last_poem = Poem.objects.filter(readyToLaunch=True, volume=volume_info).order_by('-number')[0]
+                if post == last_poem:
+                    last = "yes"
+                    post = LastPoemBook(post, last)
         case "Book":
-            post = get_object_or_404(Book, pk=id)
+            book_volume_info = get_object_or_404(Book, pk=id)
+            book_volume_content = Chapter.objects.filter(readyToLaunch=True, book=book_volume_info).order_by('number')
+            post = BookVolumeQueryset(book_volume_info, book_volume_content)
         case "Chapter":
-            post = get_object_or_404(Chapter, pk=id)
+            if number == None:
+                post = get_object_or_404(Chapter, pk=id)
+                last_chapter = Chapter.objects.filter(readyToLaunch=True, book=post.book).order_by('-number')[0]
+                if post == last_chapter:
+                    print("ostatni")
+                    last = "yes"
+                    post = LastPoemBook(post, last)
+            else:
+                book_info = get_object_or_404(Book, id=id)
+                if state == "prev":
+                    number -= 1
+                elif state == "next":
+                    number += 1
+                post = get_object_or_404(Chapter, readyToLaunch=True, number=number, book=book_info)
+                last_chapter = Chapter.objects.filter(readyToLaunch=True, book=book_info).order_by('-number')[0]
+                if post == last_chapter:
+                    print("ostatni")
+                    last = "yes"
+                    post = LastPoemBook(post, last)
         case "Post":
             post = get_object_or_404(Post, pk=id)
         case "Quote":
             post = get_object_or_404(Quote, pk=id)
         case _:
             post = None
+
 
     return render(request, 'detail.html', {'post': post})

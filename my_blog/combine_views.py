@@ -33,3 +33,8 @@ class BookVolumeQueryset:
     def __init__(self, book_volume_info, book_volume_content):
         self.book_volume_info = book_volume_info
         self.book_volume_content = book_volume_content
+
+class LastPoemBook:
+    def __init__(self, post, last):
+        self.post = post
+        self.last = last

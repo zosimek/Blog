@@ -270,7 +270,8 @@ section {
     align-items: center;
     justify-content: center;
     font-size: 32px;
-    color: #1f1f1f;
+    color: white;
+    background-color: #f0932b;
     text-decoration: none;
     opacity: 0;
     pointer-events: none;
@@ -284,8 +285,8 @@ section {
 }
 
 .to-top-img {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 
 /*   the part below hides the navbar when the screen width is to small

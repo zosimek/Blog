@@ -11,7 +11,7 @@
     <div class="owl-carousel">
     <!-- Iterate over seat_list -->
     {% for seat in combined.roundabout %}
-        <a class="detail-carousel" href="{%url 'details' seat.class_name seat.id%}">
+        <a class="detail-carousel" href="{%url 'details' class_name=seat.class_name id=seat.id%}">
         <div class="wrapper">
             {% if seat.image.url != null %}
             <img class="image" src="{{seat.image.url}}" alt="{{seat.image.name}}" class="title_image">
@@ -97,7 +97,7 @@
                     <div id="latest-content" class="latest-content">
                             <p class="latest-literature-content">{{post.content|safe|truncatewords:45}}</p>
                     </div>
-                <a class="detail-latest" href="{%url 'details' post.class_name post.id%}">
+                <a class="detail-latest" href="{%url 'details' class_name=post.class_name id=post.id%}">
                 <div class="detail-latest-div">
                     <p class="latest-detail-link">Read the piece here</p>
                     <img class="latest-right-arrow" src="{% static 'arrow_right.png' %}" alt="arrow">
@@ -115,7 +115,7 @@
 <div class="thumbnail-book-volume">
     <!-- Iterate over thumb_list -->
     {% for book_volume in combined.books_volumes %}
-    <a class="detail-book-volume" href="{%url 'book_volume' book_volume.class_name book_volume.id%}">
+    <a class="thumbnail-detail-book-volume" href="{%url 'details' class_name=book_volume.class_name id=book_volume.id%}">
         <div class="one-thumbnail-book-volume">
             <div class="thumbnail-book-volume-image-div">
                 {% if book_volume.cover.url != null %}
@@ -144,6 +144,7 @@
                 </div>
                 <div class="thumbnail-content">
                     {% for chapter_poem in combined.thumbnail %}
+                    <a href="{%url 'details' class_name=chapter_poem.class_name id=chapter_poem.id%}">
                         {% if chapter_poem.book == book_volume or chapter_poem.volume == book_volume %}
                             <div class="thumbnail-one-chapter-poem">
                                 <p class="thumbnail-chapter-poem-title">{{chapter_poem.number}}. {{chapter_poem.title}}</p>
@@ -152,6 +153,7 @@
                                 {% endif %}
                             </div>
                         {% endif %}
+                    </a>
                     {% endfor %}
                 </div>
             </div>

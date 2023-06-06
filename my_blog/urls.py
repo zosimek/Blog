@@ -20,9 +20,6 @@ from django.urls import path, include
 from my_blog.views import blog, AuthorListView, Ultimate, Art, Literature, Science, Entertainment,detail_post, book_volume
 
 urlpatterns = [
-    #path('test_one/', test_one),
-    # path('post_detail/', PostDetailView.as_view()),
-    # path('post_list/', PostListView.as_view()),
     path('blog/', blog),
     path('about/', AuthorListView.as_view(), name="about"),
 
@@ -37,5 +34,7 @@ urlpatterns = [
 
     path('entertainment/', Entertainment.as_view(), name="entertainment"),
 
-    path('details/<str:class_name>/<int:id>/', detail_post, name="details")
+    path('details/<str:class_name>/<int:id>/', detail_post, name='details'),
+    path('details/<str:class_name>/<int:id>/<str:state>/', detail_post, name="details"),
+    path('details/<str:class_name>/<int:id>/<str:state>/<int:number>/', detail_post, name="details"),
 ]
