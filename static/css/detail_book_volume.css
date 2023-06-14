@@ -65,11 +65,18 @@ a{
     width: fit-content;
     margin: 150px auto;
 }
-.detail-book-volume-description [span], .detail-book-volume-description [p], .detail-book-volume-description span, .detail-book-volume-description p{
+/*.detail-book-volume-description [span], .detail-book-volume-description [p], .detail-book-volume-description span, .detail-book-volume-description p{*/
+/*    font-family: "CMU Serif"!important;*/
+/*    font-size: 20px!important;*/
+/*    line-height: 150%;*/
+/*}*/
+
+.detail-book-volume-description > p > span, .detail-book-volume-description > p > span > span{
     font-family: "CMU Serif"!important;
     font-size: 20px!important;
     line-height: 150%;
 }
+
 .detail-book-volume-author{
     width: fit-content;
     margin: 0 auto;

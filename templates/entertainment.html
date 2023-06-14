@@ -5,6 +5,15 @@
 
 <!--mathjax-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <style>
+        a.nav-a-entertainment{
+            background: #a73594;
+            color: white;
+        }
+        a.nav-a-entertainment:hover{
+            background: white;
+        }
+    </style>
 {% load templatetags %}
     <div class="carousel">
         <ul>
@@ -70,6 +79,7 @@
     {% for post in combined.latest  %}
         <div class="one-post">
             <div class="latest-image-div">
+                <a href="{%url 'details' post.class_name post.id%}">
                 {% if post.image.url != null %}
                     <img class="latest-image" src="{{post.image.url}}" alt="{{post.image.name}}" class="title_image">
                 {% else %}
@@ -83,6 +93,7 @@
                         <img class="latest-image" src="{% static 'entertainment_img.png' %}" alt="art" class="title_image">
                     {% endif %}
                 {% endif %}
+                </a>
             </div>
 <!--            <a style=" text-decoration: none; float: left"  href="{%url 'details' post.class_name post.id%}">Read on...</a>-->
             <div class="latest-post-info">

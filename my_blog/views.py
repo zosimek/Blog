@@ -8,7 +8,7 @@ from itertools import chain
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views.generic import View, ListView, DetailView
 from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience, CategoryPost,\
-    Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Quote
+    Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Science, Quote
 
 from .combine_views import AuthorQueryset, ArtQueryset, UltimateQueryset, LiteratureQueryset, BookVolumeQueryset, \
     LastPoemBook
@@ -137,9 +137,8 @@ class Literature(ListView):
 
         roundabout_poems = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:4]
         roundabout_chapters = Chapter.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:4]
-        roundabout_post = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[:4]
 
-        roundabout = sorted(chain(roundabout_poems, roundabout_chapters, roundabout_post), key=attrgetter('date'), reverse=True)
+        roundabout = sorted(chain(roundabout_poems, roundabout_chapters), key=attrgetter('date'), reverse=True)
 
         books_volumes1 = Book.objects.filter(readyToLaunch=True)
         books_volumes2 = Volume.objects.filter(readyToLaunch=True)
@@ -156,9 +155,8 @@ class Literature(ListView):
 
         latest_poems = Poem.objects.filter(readyToLaunch=True).order_by('-date')[:1]
         latest_chapters = Chapter.objects.filter(readyToLaunch=True).order_by('-date')[:1]
-        latest_post = Post.objects.filter(readyToLaunch=True, expertise=expertise.id).order_by('-date')[:1]
 
-        latest = sorted(chain(latest_poems, latest_chapters, latest_post), key=attrgetter('date'), reverse=True)[:1]
+        latest = sorted(chain(latest_poems, latest_chapters), key=attrgetter('date'), reverse=True)[:1]
 
         quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 
@@ -186,31 +184,8 @@ def book_volume(request, class_name, id):
     book_volume = BookVolumeQueryset(book_volume_info, book_volume_content)
 
     return render(request, 'detail_book_volume.html', {'book_volume': book_volume})
-#################################################    SCIENCE    ########################################################
-class Science(ListView):
-    template_name = 'science.html'
-    context_object_name = 'combined'
 
-    def get_queryset(self):
-        expertise = Expertise.objects.get(expertise='science')
-
-        roundabout = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[:5]
-
-        thumbnail_model1_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[2:]
-        thumbnail_model1_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise.id).order_by('-date')[:3]
-
-        thumbnail = sorted(chain(thumbnail_model1_qs1, thumbnail_model1_qs2), key=attrgetter('date'), reverse=True)[1:10]
-
-        post = Post.objects.filter(readyToLaunch=True, expertise=expertise.id).order_by('-date')[:1]
-
-        latest = sorted(chain(post), key=attrgetter('date'), reverse=True)[:1]
-
-        quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
-
-        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
-        return combined
-
-##############################################    PERFORMANCE    #######################################################
+#############################################    ENTERTAINMENT    ######################################################
 class Entertainment(ListView):
     template_name = 'entertainment.html'
     context_object_name = 'combined'
@@ -218,27 +193,70 @@ class Entertainment(ListView):
     def get_queryset(self):
         expertise1 = Expertise.objects.get(expertise='entertainment')
         expertise2 = Expertise.objects.get(expertise='art')
+        expertise3 = Expertise.objects.get(expertise='literature')
+        expertise4 = Expertise.objects.get(expertise='science')
+        category_science = CategoryPost.objects.get(category='science')
 
         roundabout1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise1.id).order_by('-date')[:5]
         roundabout2 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise2.id).order_by('-date')[:5]
+        roundabout3 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise3.id).order_by('-date')[:5]
+        roundabout4 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise4.id, category=category_science).order_by('-date')[:5]
 
-        roundabout = sorted(chain(roundabout1, roundabout2), key=attrgetter('date'), reverse=True)[1:10]
+        roundabout = sorted(chain(roundabout1, roundabout2, roundabout3, roundabout4), key=attrgetter('date'), reverse=True)[1:10]
 
         thumbnail_model1_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise1.id).order_by('-date')[2:]
-        thumbnail_model1_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise1.id).order_by('-date')[:3]
+        thumbnail_model1_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise1.id).order_by('-date')
 
         thumbnail_model2_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise2.id).order_by(
             '-date')[2:]
         thumbnail_model2_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise2.id).order_by(
-            '-date')[:3]
+            '-date')
 
-        thumbnail = sorted(chain(thumbnail_model1_qs1, thumbnail_model1_qs2, thumbnail_model2_qs1, thumbnail_model2_qs2), key=attrgetter('date'),
-                             reverse=True)[1:10]
+        thumbnail_model3_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise3.id).order_by(
+            '-date')[2:]
+        thumbnail_model3_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise3.id).order_by(
+            '-date')
+
+        thumbnail_model4_qs1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise4.id, category=category_science).order_by(
+            '-date')[2:]
+        thumbnail_model4_qs2 = Post.objects.filter(readyToLaunch=True, promote=False, expertise=expertise4.id, category=category_science).order_by(
+            '-date')
+
+        thumbnail = sorted(chain(thumbnail_model1_qs1, thumbnail_model1_qs2, thumbnail_model2_qs1, thumbnail_model2_qs2,
+                                 thumbnail_model3_qs1, thumbnail_model3_qs2, thumbnail_model4_qs1, thumbnail_model4_qs2), key=attrgetter('date'),
+                             reverse=True)
 
         latest_post1 = Post.objects.filter(readyToLaunch=True, expertise=expertise1.id).order_by('-date')[:1]
         latest_post2 = Post.objects.filter(readyToLaunch=True, expertise=expertise2.id).order_by('-date')[:1]
+        latest_post3 = Post.objects.filter(readyToLaunch=True, expertise=expertise3.id).order_by('-date')[:1]
+        latest_post4 = Post.objects.filter(readyToLaunch=True, expertise=expertise4.id, category=category_science).order_by('-date')[:1]
 
-        latest = sorted(chain(latest_post1, latest_post2), key=attrgetter('date'), reverse=True)[:1]
+        latest = sorted(chain(latest_post1, latest_post2, latest_post3, latest_post4), key=attrgetter('date'), reverse=True)[:1]
+
+        quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
+
+        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
+        return combined
+
+################################################    SCIENCE    #########################################################
+class SciencePost(ListView):
+    template_name = 'science.html'
+    context_object_name = 'combined'
+
+    def get_queryset(self):
+        expertise = Expertise.objects.get(expertise='science')
+
+        roundabout1 = Science.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[:8]
+
+        roundabout = sorted(chain(roundabout1), key=attrgetter('date'), reverse=True)[1:10]
+
+        thumbnail_model1_qs1 = Science.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by('-date')[8:]
+        thumbnail_model1_qs2 = Science.objects.filter(readyToLaunch=True, promote=False, expertise=expertise.id).order_by('-date')
+
+        thumbnail = sorted(chain(thumbnail_model1_qs1, thumbnail_model1_qs2), key=attrgetter('date'),
+                             reverse=True)
+
+        latest = Science.objects.filter(readyToLaunch=True, expertise=expertise.id).order_by('-date')[:1]
 
         quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 
@@ -304,6 +322,8 @@ def detail_post(request, class_name, id, state=None, number=None):
                     post = LastPoemBook(post, last)
         case "Post":
             post = get_object_or_404(Post, pk=id)
+        case "Science":
+            post = get_object_or_404(Science, pk=id)
         case "Quote":
             post = get_object_or_404(Quote, pk=id)
         case _:

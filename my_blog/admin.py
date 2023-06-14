@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience, CategoryPost,\
-    Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Quote
+from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience, CategoryPost, \
+    Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Quote, Science
+
+
 # Register your models here.
 ##############################################     CATEGORIES    #######################################################
 
@@ -61,6 +63,10 @@ class ChapterAdmin(admin.ModelAdmin):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'expertise', 'date']
+
+@admin.register(Science)
+class ScienceAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'date']
 
 
 @admin.register(Quote)

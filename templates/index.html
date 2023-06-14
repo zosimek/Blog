@@ -53,6 +53,7 @@
                     <a class="nav-a-literature" href="{%url 'literature'%}">LITERATURE</a>
                     <a class="nav-a-science" href="{%url 'science'%}">SCIENCE</a>
                     <a class="nav-a-entertainment" href="{%url 'entertainment'%}">ENTERTAINMENT</a>
+                    <a class="nav-a-search" href="#"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
                 </nav>
                 <nav class="min-nav">
                     <a href="{%url 'about'%}"><img class="min-icon" src="{% static 'about_menu.png' %}" alt="ABOUT"></a>
@@ -60,6 +61,7 @@
                     <a href="{%url 'literature'%}"><img class="min-icon" src="{% static 'literature_menu.png' %}" alt="LITERATURE"></a>
                     <a href="{%url 'science'%}"><img class="min-icon" src="{% static 'science_menu.png' %}" alt="SCIENCE"></a>
                     <a href="{%url 'entertainment'%}"><img class="min-icon" src="{% static 'entertainment_menu.png' %}" alt="ENTERTAINMENT"></a>
+                    <a class="min-icon" href="#"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
                 </nav>
             </header>
         </div>
@@ -71,6 +73,7 @@
             <div class="mob-wrapper close">
                 <img class="mob-close" src="{% static 'close.png' %}"  alt="closePng"/>
                 <div class="mob-list">
+                    <a class="mob-list-item" href="#"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
                     <a href="{%url 'about'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'about_icon.png' %}" alt="ABOUT"></a>
                     <a href="{%url 'art'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'art_icon.png' %}" alt="ART"></a>
                     <a href="{%url 'literature'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'literature_icon.png' %}" alt="LITERATURE"></a>
@@ -81,11 +84,14 @@
         </div>
 
             <div class="main-content">
-            <section class="section2">{% block content %}{% endblock %}</section>
-            <section class="section3">{% block about %}{% endblock %}</section>
-            <a class="to-top" href="#">
-                <img class="to-top-img" src="{% static 'up_white.png' %}" alt="up"/>
-            </a>
+                <section class="section1">
+
+                </section>
+                <section class="section2">{% block content %}{% endblock %}</section>
+                <section class="section3">{% block about %}{% endblock %}</section>
+                <a class="to-top" href="#">
+                    <img class="to-top-img" src="{% static 'up_white.png' %}" alt="up"/>
+                </a>
         </div>
     </main>
 
@@ -102,6 +108,16 @@
             var scrolled = (winScroll / height) * 100;
             document.getElementById("myBar").style.width = scrolled + "%";
         }
+    </script>
+    <script>
+        $('.nav-a-search-img').on('click', function() {
+        var section1 = $('.section1');
+        if (section1.is(':visible')) {
+            section1.hide('slow');
+        } else {
+            section1.show('slow');
+        }
+        });
     </script>
 </body>
 </html>

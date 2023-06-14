@@ -1,3 +1,81 @@
+.post-detail-post{
+    width: 76%;
+    margin: 0 auto;
+}
+.post-detail-title-image{
+    height: 300px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.post-detail-image{
+    width: 100%;
+    /*height: 30vh;*/
+    height: 300px;
+    max-height: 300px;
+    object-fit: cover;
+}
+.post-detail-opacity{
+    width: 100%;
+    height: 305px;
+    position: relative;
+    bottom: 305px;
+    background-color: rgba(255, 255, 255, 0.5);
+    object-fit: cover;
+}
+.post-detail-title{
+    padding-top: 120px;
+}
+div.post-detail-title > h3{
+    font-size: 30px;
+    font-weight: 1;
+    font-family: "CMU Serif";
+    text-align: center;
+    background-color: white;
+}
+.post-detail-author-date-expertise{}
+.post-detail-latest-category-purple{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #a73594;
+}
+.post-detail-latest-category-yellow{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: fit-content;
+    padding: 3px;
+    font-size: small;
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    color: white;
+    background-color: #f2bf2c;
+}
+.post-detail-latest-date-author{}
+.post-detail-latest-date{}
+.post-detail-latest-author{}
+.post-detail-latest-author{}
+
+.post-detail-content > p > span, .post-detail-content > p > span > span{
+    font-family: "CMU Serif" !important;
+    font-size: 20px !important;
+    width: 100%;
+}
+
+div.scrollable p, div.scrollable span, div.scrollable [p], div.scrollable [span]{
+    font-family: unset !important;
+}
+
+.post-detail-content img, .post-detail-content [img]{
+    margin: 40px auto;
+}
+
+
+/*********** A R T **************/
 .art-detail-post{
     width: 75%;
     height: fit-content;

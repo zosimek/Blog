@@ -212,6 +212,22 @@ class Post(Common):
         """
         return self.__class__.__name__
 
+class Science(Common):
+    image = models.ImageField(upload_to="science")
+    featuring = models.ForeignKey(Guest, null=True, on_delete=models.CASCADE, blank=True)
+    category = models.ForeignKey(CategoryScience, on_delete=models.CASCADE, blank=True, null=True)
+    promote = models.BooleanField(default=False, blank=False, null=False)
+
+    def __str__(self):
+        return "{}".format(self.title)
+
+    def class_name(self):
+        """
+        This function enables transition from thumbnail, carousel or any other
+        short "click-bite" form od a display to detail view of a post.
+        """
+        return self.__class__.__name__
+
 #############################################       ADDONS      ########################################################
 class Quote(models.Model):
     date = models.DateField(default=timezone.now)

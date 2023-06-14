@@ -36,6 +36,9 @@ a.detail-thumbnail > div:hover{
     width: 100%;
     margin: 20px 40px 20px 20px;
 }
+.thumbnail-info img {
+    display: none;
+}
 .thumbnail-image{
     height: 200px;
     width: 100%;
@@ -301,33 +304,33 @@ a.detail-thumbnail > div:hover{
     height: fit-content;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 350px));
+    grid-template-columns: repeat(auto-fill, minmax(25vw, 25vw));
     grid-gap: 5px;
 }
 .art-detail-thumbnail{
-    aspect-ratio: unset;
-    height: 350px;
+    height: 25vw;
+    aspect-ratio: 1 / 1;
+
 }
 .art-one-thumbnail{
-    height: 350px;
-    width: 350px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
 }
 .art-thumbnail-image{
-    aspect-ratio: unset;
-    height: 350px;
-    width: 350px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
 }
 
-
 .image-container img {
     width: 100%;
-    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
 }
 
 .art-overlay-info{
     position: relative;
-    bottom: 120px;
+    bottom: 125px;
     background: rgba(255, 255, 255, 0.3);
     width: 100%;
     height: 120px;
