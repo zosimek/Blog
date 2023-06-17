@@ -38,3 +38,13 @@ class LastPoemBook:
     def __init__(self, post, last):
         self.post = post
         self.last = last
+
+class Search:
+    def __init__(self, sentence, art, literature, science, entertainment, title, content):
+        self.sentence = sentence
+        self.art = art
+        self.literature = literature
+        self.science = science
+        self.entertainment = entertainment
+        self.title = title
+        self.content =content

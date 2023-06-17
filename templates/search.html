@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search site</title>
+</head>
+<body>
+    {% if combined %}
+        <p> You searched for: {{combined.sentence}}</p>
+        <p> expertise_art: {{combined.art}}</p>
+        <p> expertise_literature: {{combined.literature}}</p>
+        <p> expertise_science: {{combined.science}}</p>
+        <p> expertise_entertainment: {{combined.entertainment}}</p>
+        <p> content_title: {{combined.title}}</p>
+        <p> content_content: {{combined.content}}</p>
+    {% else %}
+        <p>Fill the search field, to find posts :-)</p>
+    {% endif %}
+    <h3>Searched...</h3>
+</body>
+</html>

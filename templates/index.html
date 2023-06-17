@@ -8,116 +8,255 @@
     <title>NavBar</title>
     <link rel="stylesheet" href="{% static 'index_style.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<!--    roundabout -->
+    <!--    roundabout -->
     <link rel="stylesheet" href="{% static 'roundabout.css' %}">
-<!--    owl carousel-->
+    <!--    owl carousel-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" integrity="sha512-X/RSQYxFb/tvuz6aNRTfKXDnQzmnzoawgEQ4X8nZNftzs8KFFH23p/BA6D2k0QCM4R0sY1DEy9MIY9b3fwi+bg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css" integrity="sha512-f28cvdA4Bq3dC9X9wNmSx21rjWI+5piIW/uoc2LuQ67asKxfQjUow2MkcCNcfJiaLrHcGbed1wzYe3dlY4w9gA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<!--    latest -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css"
+          integrity="sha512-X/RSQYxFb/tvuz6aNRTfKXDnQzmnzoawgEQ4X8nZNftzs8KFFH23p/BA6D2k0QCM4R0sY1DEy9MIY9b3fwi+bg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css"
+          integrity="sha512-f28cvdA4Bq3dC9X9wNmSx21rjWI+5piIW/uoc2LuQ67asKxfQjUow2MkcCNcfJiaLrHcGbed1wzYe3dlY4w9gA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--    latest -->
     <link rel="stylesheet" href="{% static 'latest.css' %}">
     <link rel="stylesheet" href="{% static 'math_ckeditor.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-<!--    thumbnail -->
+    <!--    thumbnail -->
     <link rel="stylesheet" href="{% static 'thumbnail.css' %}">
-<!--    quote -->
+    <!--    quote -->
     <link rel="stylesheet" href="{% static 'quote.css' %}">
-<!--    about -->
+    <!--    about -->
     <link rel="stylesheet" href="{% static 'about.css' %}">
-<!--    sidebar -->
+    <!--    sidebar -->
     <link rel="stylesheet" href="{% static 'sidebar.css' %}">
-<!--   setail_book_volume  -->
+    <!--   setail_book_volume  -->
     <link rel="stylesheet" href="{% static 'detail_book_volume.css' %}">
-<!--   detail  -->
+    <!--   detail  -->
     <link rel="stylesheet" href="{% static 'detail.css' %}">
 </head>
 
 
 <body>
-    <main class="bck-img">
-<!--        page scroll indicator-->
-        <div class="progress-container">
-            <div class="progress-bar" id="myBar"></div>
-        </div>
+<main class="bck-img">
+    <!--        page scroll indicator-->
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div>
 
 
-        <div class="header-background">
-            <header class="header-container">
-                <div class="logo-wrapper">
-                    <a class="logo" href="{% url 'ultimate' %}"><img class="logo_image" src="{% static 'logo.png' %}" alt="Logo NASERMATER"></a>
-                </div>
+    <div class="header-background">
+        <header class="header-container">
+            <div class="logo-wrapper">
+                <a class="logo" href="{% url 'ultimate' %}"><img class="logo_image" src="{% static 'logo.png' %}"
+                                                                 alt="Logo NASERMATER"></a>
+            </div>
 
-                <nav class="nav">
-                    <a class="nav-a-about" href="{%url 'about'%}">ABOUT</a>
-                    <a class="nav-a-art" href="{%url 'art'%}">ART</a>
-                    <a class="nav-a-literature" href="{%url 'literature'%}">LITERATURE</a>
-                    <a class="nav-a-science" href="{%url 'science'%}">SCIENCE</a>
-                    <a class="nav-a-entertainment" href="{%url 'entertainment'%}">ENTERTAINMENT</a>
-                    <a class="nav-a-search" href="#"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
-                </nav>
-                <nav class="min-nav">
-                    <a href="{%url 'about'%}"><img class="min-icon" src="{% static 'about_menu.png' %}" alt="ABOUT"></a>
-                    <a href="{%url 'art'%}"><img class="min-icon" src="{% static 'art_menu.png' %}" alt="ART"></a>
-                    <a href="{%url 'literature'%}"><img class="min-icon" src="{% static 'literature_menu.png' %}" alt="LITERATURE"></a>
-                    <a href="{%url 'science'%}"><img class="min-icon" src="{% static 'science_menu.png' %}" alt="SCIENCE"></a>
-                    <a href="{%url 'entertainment'%}"><img class="min-icon" src="{% static 'entertainment_menu.png' %}" alt="ENTERTAINMENT"></a>
-                    <a class="min-icon" href="#"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
-                </nav>
-            </header>
-        </div>
+            <nav class="nav">
+                <a class="nav-a-about" href="{%url 'about'%}">ABOUT</a>
+                <a class="nav-a-art" href="{%url 'art'%}">ART</a>
+                <a class="nav-a-literature" href="{%url 'literature'%}">LITERATURE</a>
+                <a class="nav-a-science" href="{%url 'science'%}">SCIENCE</a>
+                <a class="nav-a-entertainment" href="{%url 'entertainment'%}">ENTERTAINMENT</a>
+                <a class="nav-a-search"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
+            </nav>
+            <nav class="min-nav">
+                <a href="{%url 'about'%}"><img class="min-icon" src="{% static 'about_menu.png' %}" alt="ABOUT"></a>
+                <a href="{%url 'art'%}"><img class="min-icon" src="{% static 'art_menu.png' %}" alt="ART"></a>
+                <a href="{%url 'literature'%}"><img class="min-icon" src="{% static 'literature_menu.png' %}"
+                                                    alt="LITERATURE"></a>
+                <a href="{%url 'science'%}"><img class="min-icon" src="{% static 'science_menu.png' %}"
+                                                 alt="SCIENCE"></a>
+                <a href="{%url 'entertainment'%}"><img class="min-icon" src="{% static 'entertainment_menu.png' %}"
+                                                       alt="ENTERTAINMENT"></a>
+                <a class="min-icon"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
+            </nav>
+        </header>
+    </div>
 
 
-<!--    mobile version    -->
-        <div class="mob-menu">
-            <img class="mob-open" src="{% static 'hamburger.png' %}" alt="menuPng"/>
-            <div class="mob-wrapper close">
-                <img class="mob-close" src="{% static 'close.png' %}"  alt="closePng"/>
-                <div class="mob-list">
-                    <a class="mob-list-item" href="#"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
-                    <a href="{%url 'about'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'about_icon.png' %}" alt="ABOUT"></a>
-                    <a href="{%url 'art'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'art_icon.png' %}" alt="ART"></a>
-                    <a href="{%url 'literature'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'literature_icon.png' %}" alt="LITERATURE"></a>
-                    <a href="{%url 'science'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'science_icon.png' %}" alt="SCIENCE"></a>
-                    <a href="{%url 'entertainment'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'entertainment_icon.png' %}" alt="ENTERTAINMENT"></a>
-                </div>
+    <!--    mobile version    -->
+    <div class="mob-menu">
+        <img class="mob-open" src="{% static 'hamburger.png' %}" alt="menuPng"/>
+        <div class="mob-wrapper close">
+            <img class="mob-close" src="{% static 'close.png' %}" alt="closePng"/>
+            <div class="mob-list">
+                <a class="mob-list-item"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}"
+                                              alt="search"></a>
+                <a href="{%url 'about'%}" class="mob-list-item"><img class="mob-icon"
+                                                                     src="{% static 'about_icon.png' %}"
+                                                                     alt="ABOUT"></a>
+                <a href="{%url 'art'%}" class="mob-list-item"><img class="mob-icon" src="{% static 'art_icon.png' %}"
+                                                                   alt="ART"></a>
+                <a href="{%url 'literature'%}" class="mob-list-item"><img class="mob-icon"
+                                                                          src="{% static 'literature_icon.png' %}"
+                                                                          alt="LITERATURE"></a>
+                <a href="{%url 'science'%}" class="mob-list-item"><img class="mob-icon"
+                                                                       src="{% static 'science_icon.png' %}"
+                                                                       alt="SCIENCE"></a>
+                <a href="{%url 'entertainment'%}" class="mob-list-item"><img class="mob-icon"
+                                                                             src="{% static 'entertainment_icon.png' %}"
+                                                                             alt="ENTERTAINMENT"></a>
             </div>
         </div>
+    </div>
 
-            <div class="main-content">
-                <section class="section1">
+    <div class="main-content">
+        <section class="section1">
+            <div class="container-fluid">
+                <form class="d-flex" method=POST action="{%url 'search'%}">
+                    {% csrf_token %}
+                    <div class="form-column">
+                        <div class="form-expertise-search">
+                            <p class="form-expertise-search-item" id="form-expertise-search-title">Choose the
+                                category:</p>
+                            <hr>
+                            <div class="form-checkbox">
+                                <div class="form-expertise-search-div" id="expertise-all">
+                                    <input class="form-expertise-search-item" type="checkbox" id="form-expertise-all"
+                                           name="form-expertise-all" checked>
+                                    <label class="form-expertise-search-item" for="form-expertise-all">all</label>
+                                </div>
+                                <div class="form-expertise-search-div">
+                                    <input class="form-expertise-search-item" type="checkbox" id="form-expertise-art"
+                                           name="form-expertise-art" checked>
+                                    <label class="form-expertise-search-item" for="form-expertise-art">art</label>
+                                </div>
+                                <div class="form-expertise-search-div">
+                                    <input class="form-expertise-search-item" type="checkbox"
+                                           id="form-expertise-literature"
+                                           name="form-expertise-literature" checked>
+                                    <label class="form-expertise-search-item"
+                                           for="form-expertise-literature">literature</label>
+                                </div>
+                                <div class="form-expertise-search-div">
+                                    <input class="form-expertise-search-item" type="checkbox"
+                                           id="form-expertise-science"
+                                           name="form-expertise-science" checked>
+                                    <label class="form-expertise-search-item"
+                                           for="form-expertise-science">science</label>
+                                </div>
+                                <div class="form-expertise-search-div">
+                                    <input class="form-expertise-search-item" type="checkbox"
+                                           id="form-expertise-entertainment" name="form-expertise-entertainment" checked>
+                                    <label class="form-expertise-search-item" for="form-expertise-entertainment">entertainment</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-content-search">
+                            <p class="form-expertise-search-item" id="form-sentence-search-title">Choose where to
+                                search:</p>
+                            <hr>
+                            <div class="form-checkbox">
+                                <div class="form-expertise-search-div">
+                                    <input class="form-expertise-search-item" type="checkbox" id="form-content-all"
+                                           name="form-content-all" checked>
+                                    <label class="form-expertise-search-item" for="form-content-all">all</label>
+                                </div>
+                                <div class="form-expertise-search-div">
+                                    <input class="form-expertise-search-item" type="checkbox" id="form-content-title"
+                                           name="form-content-title" checked>
+                                    <label class="form-expertise-search-item" for="form-content-all">title</label>
+                                </div>
+                                <div class="form-expertise-search-div">
+                                    <input class="form-expertise-search-item" type="checkbox" id="form-content-content"
+                                           name="form-content-content" checked>
+                                    <label class="form-expertise-search-item" for="form-content-content">content</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-sentence-search">
+                        <input class="searched-sentence-input" name="input-search-sentence" type="search"
+                               placeholder="Search sentence..." aria-label="Search">
+                        <button class="search-btn">Search</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        <section class="section2">{% block content %}{% endblock %}</section>
+        <section class="section3">{% block about %}{% endblock %}</section>
+        <a class="to-top">
+            <img class="to-top-img" src="{% static 'up_white.png' %}" alt="up"/>
+        </a>
+    </div>
+</main>
 
-                </section>
-                <section class="section2">{% block content %}{% endblock %}</section>
-                <section class="section3">{% block about %}{% endblock %}</section>
-                <a class="to-top" href="#">
-                    <img class="to-top-img" src="{% static 'up_white.png' %}" alt="up"/>
-                </a>
-        </div>
-    </main>
+<script src="{% static 'navbar.js' %}"></script>
+<script src="{% static 'upButton.js' %}"></script>
 
-    <script src="{% static 'navbar.js' %}"></script>
-    <script src="{% static 'upButton.js' %}"></script>
+<script>
+    // When the user scrolls the page, execute myFunction
+    window.onscroll = function () {
+        myFunction()
+    };
 
-    <script>
-        // When the user scrolls the page, execute myFunction
-        window.onscroll = function() {myFunction()};
-
-        function myFunction() {
-            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
-            document.getElementById("myBar").style.width = scrolled + "%";
-        }
-    </script>
-    <script>
-        $('.nav-a-search-img').on('click', function() {
+    function myFunction() {
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        document.getElementById("myBar").style.width = scrolled + "%";
+    }
+</script>
+<script>
+    $('.nav-a-search-img').on('click', function () {
         var section1 = $('.section1');
         if (section1.is(':visible')) {
             section1.hide('slow');
         } else {
             section1.show('slow');
         }
+    });
+</script>
+<script>
+    $('#form-expertise-all').click(function(event) {
+    if(this.checked) {
+        $('#form-expertise-art').each(function() {
+            this.checked = true;
         });
-    </script>
+        $('#form-expertise-literature').each(function() {
+            this.checked = true;
+        });
+        $('#form-expertise-science').each(function() {
+            this.checked = true;
+        });
+        $('#form-expertise-entertainment').each(function() {
+            this.checked = true;
+        });
+    } else {
+        $('#form-expertise-art').each(function() {
+            this.checked = false;
+        });
+        $('#form-expertise-literature').each(function() {
+            this.checked = false;
+        });
+        $('#form-expertise-science').each(function() {
+            this.checked = false;
+        });
+        $('#form-expertise-entertainment').each(function() {
+            this.checked = false;
+        });
+    }
+});
+</script>
+<script>
+    $('#form-content-all').click(function(event) {
+    if(this.checked) {
+        $('#form-content-title').each(function() {
+            this.checked = true;
+        });
+        $('#form-content-content').each(function() {
+            this.checked = true;
+        });
+    } else {
+        $('#form-content-title').each(function() {
+            this.checked = false;
+        });
+        $('#form-content-content').each(function() {
+            this.checked = false;
+        });
+    }
+});
+</script>
 </body>
 </html>

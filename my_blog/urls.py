@@ -17,7 +17,7 @@ from django.urls import path, include
 
 
 #from my_blog.views import test_one, blog, PostDetailView, PostListView
-from my_blog.views import blog, AuthorListView, Ultimate, Art, Literature, SciencePost, Entertainment, detail_post, book_volume
+from my_blog.views import blog, AuthorListView, Ultimate, Art, Literature, SciencePost, Entertainment, detail_post, book_volume, search
 
 urlpatterns = [
     path('blog/', blog),
@@ -37,4 +37,6 @@ urlpatterns = [
     path('details/<str:class_name>/<int:id>/', detail_post, name='details'),
     path('details/<str:class_name>/<int:id>/<str:state>/', detail_post, name="details"),
     path('details/<str:class_name>/<int:id>/<str:state>/<int:number>/', detail_post, name="details"),
+
+    path('search/', search, name="search"),
 ]

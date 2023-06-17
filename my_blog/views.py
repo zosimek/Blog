@@ -11,7 +11,7 @@ from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience,
     Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Science, Quote
 
 from .combine_views import AuthorQueryset, ArtQueryset, UltimateQueryset, LiteratureQueryset, BookVolumeQueryset, \
-    LastPoemBook
+    LastPoemBook, Search
 
 
 # Create your views here.
@@ -331,3 +331,24 @@ def detail_post(request, class_name, id, state=None, number=None):
 
 
     return render(request, 'detail.html', {'post': post})
+
+########################################################################################################################
+##############################################       SEARCH      #######################################################
+########################################################################################################################
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST['input-search-sentence']
+        expertise_art = request.POST.get('form-expertise-art', "off")
+        expertise_literature = request.POST.get('form-expertise-literature', "off")
+        expertise_science = request.POST.get('form-expertise-science', "off")
+        expertise_entertainment = request.POST.get('form-expertise-entertainment', "off")
+        content_title = request.POST.get('form-content-title', "off")
+        content_content = request.POST.get('form-content-content', "off")
+
+        conbined = Search(searched, expertise_art, expertise_literature, expertise_science, expertise_entertainment,
+                          content_title, content_content)
+
+        return render(request, 'search.html', {'combined': conbined})
+    else:
+        return render(request, 'search.html', {})
