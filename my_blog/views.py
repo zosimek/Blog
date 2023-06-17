@@ -11,7 +11,7 @@ from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience,
     Author, Guest, Artwork, Pattern, Volume, Poem, Book, Chapter, Post, Science, Quote
 
 from .combine_views import AuthorQueryset, ArtQueryset, UltimateQueryset, LiteratureQueryset, BookVolumeQueryset, \
-    LastPoemBook, Search
+    LastPoemBook, Search, SearchResult
 
 
 # Create your views here.
@@ -305,7 +305,6 @@ def detail_post(request, class_name, id, state=None, number=None):
                 post = get_object_or_404(Chapter, pk=id)
                 last_chapter = Chapter.objects.filter(readyToLaunch=True, book=post.book).order_by('-number')[0]
                 if post == last_chapter:
-                    print("ostatni")
                     last = "yes"
                     post = LastPoemBook(post, last)
             else:
@@ -317,7 +316,6 @@ def detail_post(request, class_name, id, state=None, number=None):
                 post = get_object_or_404(Chapter, readyToLaunch=True, number=number, book=book_info)
                 last_chapter = Chapter.objects.filter(readyToLaunch=True, book=book_info).order_by('-number')[0]
                 if post == last_chapter:
-                    print("ostatni")
                     last = "yes"
                     post = LastPoemBook(post, last)
         case "Post":
@@ -339,6 +337,7 @@ def detail_post(request, class_name, id, state=None, number=None):
 def search(request):
     if request.method == "POST":
         searched = request.POST['input-search-sentence']
+        searched_words = searched.split()
         expertise_art = request.POST.get('form-expertise-art', "off")
         expertise_literature = request.POST.get('form-expertise-literature', "off")
         expertise_science = request.POST.get('form-expertise-science', "off")
@@ -346,9 +345,177 @@ def search(request):
         content_title = request.POST.get('form-content-title', "off")
         content_content = request.POST.get('form-content-content', "off")
 
-        conbined = Search(searched, expertise_art, expertise_literature, expertise_science, expertise_entertainment,
-                          content_title, content_content)
 
-        return render(request, 'search.html', {'combined': conbined})
+        if (content_title == "on" and content_content == "on"):
+            if expertise_art == "on":
+                art1 = Artwork.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by(
+                        '-date')
+                art2 = Artwork.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                        '-date')
+                for word in searched_words[1:]:
+                    art1 &= Artwork.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+                    art2 &= Artwork.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        '-date')
+                art = chain(art1, art2)
+                art = list(dict.fromkeys(art))
+            else:
+                art = None
+            if expertise_literature == "on":
+                book1 = Book.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                book2 = Book.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                volume1 = Volume.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                volume2 = Volume.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                chapter1 = Chapter.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                chapter2 = Chapter.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                poem1 = Poem.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                poem2 = Poem.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    book1 &= Book.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+                    book2 &= Book.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        '-date')
+                    volume1 &= Volume.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+                    volume2 &= Volume.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        '-date')
+                    chapter1 &= Chapter.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+                    chapter2 &= Chapter.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        '-date')
+                    poem1 &= Poem.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+                    poem2 &= Poem.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        '-date')
+                book = chain(book1, book2)
+                book = list(dict.fromkeys(book))
+                volume = chain(volume1, volume2)
+                volume = list(dict.fromkeys(volume))
+                chapter = chain(chapter1, chapter2)
+                chapter = list(dict.fromkeys(chapter))
+                poem = chain(poem1, poem2)
+                poem = list(dict.fromkeys(poem))
+            else:
+                book = None
+                volume = None
+                chapter = None
+                poem = None
+            if expertise_science == "on":
+                science1 = Science.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                science2 = Science.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    science1 &= Science.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+                    science2 &= Science.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        '-date')
+                science = chain(science1, science2)
+                science = list(dict.fromkeys(science))
+            else:
+                science = None
+            if expertise_entertainment == "on":
+                post1 = Post.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                post2 = Post.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    post1 &= Post.objects.filter(readyToLaunch=True, title__icontains=word).order_by('-date')
+                    post2 &= Post.objects.filter(readyToLaunch=True, content__icontains=word).order_by('-date')
+                post = chain(post1, post2)
+                post = list(dict.fromkeys(post))
+            else:
+                post = None
+        elif content_title != "on" and content_content == "on":
+            if expertise_art == "on":
+                art = Artwork.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    art &= Artwork.objects.filter(readyToLaunch=True, content__icontains=word).order_by('-date')
+            else:
+                art = None
+            if expertise_literature == "on":
+                book = Book.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                volume = Volume.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                chapter = Chapter.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                poem = Poem.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    book &= Book.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        '-date')
+                    volume &= Volume.objects.filter(readyToLaunch=True,content__icontains=word).order_by(
+                        '-date')
+                    chapter &= Chapter.objects.filter(readyToLaunch=True,content__icontains=word).order_by(
+                        '-date')
+                    poem &= Poem.objects.filter(readyToLaunch=True,content__icontains=word).order_by(
+                        '-date')
+            else:
+                book = None
+                volume = None
+                chapter = None
+                poem = None
+            if expertise_science == "on":
+                science = Science.objects.filter(readyToLaunch=True,content__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    science &= Science.objects.filter(readyToLaunch=True,content__icontains=word).order_by(
+                        '-date')
+            else:
+                science = None
+            if expertise_entertainment == "on":
+                post = Post.objects.filter(readyToLaunch=True,content__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    post &= Post.objects.filter(readyToLaunch=True,content__icontains=word).order_by(
+                        '-date')
+            else:
+                post = None
+        elif content_title == "on" and content_content != "on":
+            if expertise_art == "on":
+                art = Artwork.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    art &= Artwork.objects.filter(readyToLaunch=True, title__icontains=word).order_by('-date')
+            else:
+                art = None
+            if expertise_literature == "on":
+                book = Book.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                volume = Volume.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                chapter = Chapter.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                poem = Poem.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    book &= Book.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+                    volume &= Volume.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+                    chapter &= Chapter.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+                    poem &= Poem.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+            else:
+                book = None
+                volume = None
+                chapter = None
+                poem = None
+            if expertise_science == "on":
+                science = Science.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    science &= Science.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+            else:
+                science = None
+            if expertise_entertainment == "on":
+                post = Post.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by('-date')
+                for word in searched_words[1:]:
+                    post &= Post.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
+                        '-date')
+            else:
+                post = None
+        else:
+            art = None
+            book = None
+            volume = None
+            chapter = None
+            poem = None
+            science = None
+            post = None
+
+        # conbined = Search(searched, expertise_art, expertise_literature, expertise_science, expertise_entertainment,
+        #                   content_title, content_content)
+
+        combined = {'art': art, 'book': book, 'volume': volume, 'chapter': chapter, 'poem': poem, 'science': science, 'post': post}
+
+        return render(request, 'search.html', {'combined': combined})
     else:
         return render(request, 'search.html', {})

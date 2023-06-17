@@ -186,7 +186,14 @@ a.detail-thumbnail > div:hover{
 .entertainment-thumbnail-gap:last-child{
     display: none;
 }
-#thumbnail-literature-content span[style], #thumbnail-literature-content p[style], .thumbnail-literature-content p,
+#thumbnail-literature-content span[style], #thumbnail-literature-content p[style],
+#thumbnail-literature-content1 span[style], #thumbnail-literature-content1 p[style],
+#thumbnail-literature-content2 span[style], #thumbnail-literature-content2 p[style],
+#thumbnail-literature-content3 span[style], #thumbnail-literature-content3 p[style],
+#thumbnail-literature-content4 span[style], #thumbnail-literature-content4 p[style],
+#thumbnail-literature-content5 span[style], #thumbnail-literature-content5 p[style],
+#thumbnail-literature-content6 span[style], #thumbnail-literature-content6 p[style],
+.thumbnail-literature-content p,
 .thumbnail-post-content span[style], .thumbnail-post-content p[style], .thumbnail-post-content p{
     font-size: 20px !important;
     line-height: 25px !important;
@@ -198,7 +205,13 @@ a.detail-thumbnail > div:hover{
 .thumbnail-literature-content-small{
     display: none;
 }
-#thumbnail-literature-content-small span[style]{
+#thumbnail-literature-content-small span[style],
+#thumbnail-literature-content-small1 span[style],
+#thumbnail-literature-content-small2 span[style],
+#thumbnail-literature-content-small3 span[style],
+#thumbnail-literature-content-small4 span[style],
+#thumbnail-literature-content-small5 span[style],
+#thumbnail-literature-content-small6 span[style]{
     font-size: 18px !important;
 }
 .thumbnail-post-content{

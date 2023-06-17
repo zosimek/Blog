@@ -1,21 +1,587 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Search site</title>
-</head>
-<body>
+{% extends "index.html" %}
+{% load static %}
+{% block content %}
+{% load templatetags %}
+<!--mathjax-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<div class="thumbnail">
     {% if combined %}
-        <p> You searched for: {{combined.sentence}}</p>
-        <p> expertise_art: {{combined.art}}</p>
-        <p> expertise_literature: {{combined.literature}}</p>
-        <p> expertise_science: {{combined.science}}</p>
-        <p> expertise_entertainment: {{combined.entertainment}}</p>
-        <p> content_title: {{combined.title}}</p>
-        <p> content_content: {{combined.content}}</p>
+        {% for item in combined.art %}
+            <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
+        <div class="one-thumbnail">
+            <div class="thumbnail-image-div">
+                {% if item.image.url != null %}
+                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
+                {% else %}
+                    {% if item.expertise.expertise == 'literature' %}
+                        <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
+                    {% elif item.expertise.expertise == 'art' %}
+                        <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+                    {% elif item.expertise.expertise == 'science' %}
+                            <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
+                    {% elif item.expertise.expertise == 'entertainment' %}
+                            <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="thumbnail-info">
+                <div class="thumbnail-category_author_date">
+                    <div class="thumbnail-expertise-date">
+                        {% if  item.expertise.expertise == 'literature' %}
+                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-category-pink">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'entertainment'%}
+                            <p class="thumbnail-category-purple">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'science' %}
+                            <p class="thumbnail-category-yellow">{{item.expertise.expertise}}</p>
+                        {% endif %}
+                        {% if  item.expertise.expertise == 'literature' %}
+                            {% if item.volume.title != null %}
+                                <p class="thumbnail-literature-title">{{item.volume.title}}</p>
+                            {% elif item.volume.book != null %}
+                                <p class="thumbnail-literature-title">{{item.book.title}}</p>
+                            {% endif %}
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-art-category">{{item.category}}</p>
+                        {% endif %}
+                        <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
+                    </div>
+                    <div class="thumbnail-author-div">
+                        {% if item.author.middleName != null %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}. {{item.author.lastName}}</p>
+                        {% else %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="thumbnail-title">{{item.title}}</h3>
+                <div class="thumbnail-content">
+                    {% if  item.expertise.expertise == 'literature' %}
+                    <div id="thumbnail-literature-content" class="thumbnail-literature-content">
+                        <p  class="thumbnail-literature-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div id="thumbnail-literature-content-small" class="thumbnail-literature-content-small">
+                        <p class="thumbnail-literature-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% elif item.expertise.expertise == 'art' and item.dimentionX != blank %}
+                        <table class="thumbnail-art-table">
+                                <tr>
+                                    <td class="thumbnail-art-col1">Materials: </td>
+                                    <td class="thumbnail-art-col2">{{item.materials}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thumbnail-art-col1">Dimentions: </td>
+                                    <td class="thumbnail-art-col2">{{item.dimentionX}}x{{item.dimentionY}} mm</td>
+                                </tr>
+                            </table>
+                    {% elif item.expertise.expertise == 'entertainment' or item.expertise.expertise == 'science' or item.expertise.expertise == 'art'%}
+                    <div class="thumbnail-post-content">
+                        <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div class="thumbnail-post-content-small">
+                        <p class="thumbnail-post-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+        {% for item in combined.book %}
+            <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
+        <div class="one-thumbnail">
+            <div class="thumbnail-image-div">
+                {% if item.image.url != null %}
+                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
+                {% else %}
+                    {% if item.expertise.expertise == 'literature' %}
+                        <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
+                    {% elif item.expertise.expertise == 'art' %}
+                        <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+                    {% elif item.expertise.expertise == 'science' %}
+                            <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
+                    {% elif item.expertise.expertise == 'entertainment' %}
+                            <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="thumbnail-info">
+                <div class="thumbnail-category_author_date">
+                    <div class="thumbnail-expertise-date">
+                        {% if  item.expertise.expertise == 'literature' %}
+                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-category-pink">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'entertainment'%}
+                            <p class="thumbnail-category-purple">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'science' %}
+                            <p class="thumbnail-category-yellow">{{item.expertise.expertise}}</p>
+                        {% endif %}
+                        {% if  item.expertise.expertise == 'literature' %}
+                            {% if item.volume.title != null %}
+                                <p class="thumbnail-literature-title">{{item.volume.title}}</p>
+                            {% elif item.volume.book != null %}
+                                <p class="thumbnail-literature-title">{{item.book.title}}</p>
+                            {% endif %}
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-art-category">{{item.category}}</p>
+                        {% endif %}
+                        <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
+                    </div>
+                    <div class="thumbnail-author-div">
+                        {% if item.author.middleName != null %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}. {{item.author.lastName}}</p>
+                        {% else %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="thumbnail-title">{{item.title}}</h3>
+                <div class="thumbnail-content">
+                    {% if  item.expertise.expertise == 'literature' %}
+                    <div id="thumbnail-literature-content1" class="thumbnail-literature-content">
+                        <p  class="thumbnail-literature-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div id="thumbnail-literature-content-small1" class="thumbnail-literature-content-small">
+                        <p class="thumbnail-literature-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% elif item.expertise.expertise == 'art' and item.dimentionX != blank %}
+                        <table class="thumbnail-art-table">
+                                <tr>
+                                    <td class="thumbnail-art-col1">Materials: </td>
+                                    <td class="thumbnail-art-col2">{{item.materials}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thumbnail-art-col1">Dimentions: </td>
+                                    <td class="thumbnail-art-col2">{{item.dimentionX}}x{{item.dimentionY}} mm</td>
+                                </tr>
+                            </table>
+                    {% elif item.expertise.expertise == 'entertainment' or item.expertise.expertise == 'science' or item.expertise.expertise == 'art'%}
+                    <div class="thumbnail-post-content">
+                        <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div class="thumbnail-post-content-small">
+                        <p class="thumbnail-post-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+        {% for item in combined.volume %}
+            <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
+        <div class="one-thumbnail">
+            <div class="thumbnail-image-div">
+                {% if item.image.url != null %}
+                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
+                {% else %}
+                    {% if item.expertise.expertise == 'literature' %}
+                        <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
+                    {% elif item.expertise.expertise == 'art' %}
+                        <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+                    {% elif item.expertise.expertise == 'science' %}
+                            <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
+                    {% elif item.expertise.expertise == 'entertainment' %}
+                            <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="thumbnail-info">
+                <div class="thumbnail-category_author_date">
+                    <div class="thumbnail-expertise-date">
+                        {% if  item.expertise.expertise == 'literature' %}
+                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-category-pink">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'entertainment'%}
+                            <p class="thumbnail-category-purple">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'science' %}
+                            <p class="thumbnail-category-yellow">{{item.expertise.expertise}}</p>
+                        {% endif %}
+                        {% if  item.expertise.expertise == 'literature' %}
+                            {% if item.volume.title != null %}
+                                <p class="thumbnail-literature-title">{{item.volume.title}}</p>
+                            {% elif item.volume.book != null %}
+                                <p class="thumbnail-literature-title">{{item.book.title}}</p>
+                            {% endif %}
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-art-category">{{item.category}}</p>
+                        {% endif %}
+                        <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
+                    </div>
+                    <div class="thumbnail-author-div">
+                        {% if item.author.middleName != null %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}. {{item.author.lastName}}</p>
+                        {% else %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="thumbnail-title">{{item.title}}</h3>
+                <div class="thumbnail-content">
+                    {% if  item.expertise.expertise == 'literature' %}
+                    <div id="thumbnail-literature-content2" class="thumbnail-literature-content">
+                        <p  class="thumbnail-literature-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div id="thumbnail-literature-content-small2" class="thumbnail-literature-content-small">
+                        <p class="thumbnail-literature-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% elif item.expertise.expertise == 'art' and item.dimentionX != blank %}
+                        <table class="thumbnail-art-table">
+                                <tr>
+                                    <td class="thumbnail-art-col1">Materials: </td>
+                                    <td class="thumbnail-art-col2">{{item.materials}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thumbnail-art-col1">Dimentions: </td>
+                                    <td class="thumbnail-art-col2">{{item.dimentionX}}x{{item.dimentionY}} mm</td>
+                                </tr>
+                            </table>
+                    {% elif item.expertise.expertise == 'entertainment' or item.expertise.expertise == 'science' or item.expertise.expertise == 'art'%}
+                    <div class="thumbnail-post-content">
+                        <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div class="thumbnail-post-content-small">
+                        <p class="thumbnail-post-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+        {% for item in combined.chapter %}
+            <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
+        <div class="one-thumbnail">
+            <div class="thumbnail-image-div">
+                {% if item.image.url != null %}
+                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
+                {% else %}
+                    {% if item.expertise.expertise == 'literature' %}
+                        <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
+                    {% elif item.expertise.expertise == 'art' %}
+                        <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+                    {% elif item.expertise.expertise == 'science' %}
+                            <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
+                    {% elif item.expertise.expertise == 'entertainment' %}
+                            <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="thumbnail-info">
+                <div class="thumbnail-category_author_date">
+                    <div class="thumbnail-expertise-date">
+                        {% if  item.expertise.expertise == 'literature' %}
+                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-category-pink">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'entertainment'%}
+                            <p class="thumbnail-category-purple">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'science' %}
+                            <p class="thumbnail-category-yellow">{{item.expertise.expertise}}</p>
+                        {% endif %}
+                        {% if  item.expertise.expertise == 'literature' %}
+                            {% if item.volume.title != null %}
+                                <p class="thumbnail-literature-title">{{item.volume.title}}</p>
+                            {% elif item.volume.book != null %}
+                                <p class="thumbnail-literature-title">{{item.book.title}}</p>
+                            {% endif %}
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-art-category">{{item.category}}</p>
+                        {% endif %}
+                        <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
+                    </div>
+                    <div class="thumbnail-author-div">
+                        {% if item.author.middleName != null %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}. {{item.author.lastName}}</p>
+                        {% else %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="thumbnail-title">{{item.title}}</h3>
+                <div class="thumbnail-content">
+                    {% if  item.expertise.expertise == 'literature' %}
+                    <div id="thumbnail-literature-content3" class="thumbnail-literature-content">
+                        <p  class="thumbnail-literature-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div id="thumbnail-literature-content-small3" class="thumbnail-literature-content-small">
+                        <p class="thumbnail-literature-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% elif item.expertise.expertise == 'art' and item.dimentionX != blank %}
+                        <table class="thumbnail-art-table">
+                                <tr>
+                                    <td class="thumbnail-art-col1">Materials: </td>
+                                    <td class="thumbnail-art-col2">{{item.materials}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thumbnail-art-col1">Dimentions: </td>
+                                    <td class="thumbnail-art-col2">{{item.dimentionX}}x{{item.dimentionY}} mm</td>
+                                </tr>
+                            </table>
+                    {% elif item.expertise.expertise == 'entertainment' or item.expertise.expertise == 'science' or item.expertise.expertise == 'art'%}
+                    <div class="thumbnail-post-content">
+                        <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div class="thumbnail-post-content-small">
+                        <p class="thumbnail-post-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+        {% for item in combined.poem %}
+            <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
+        <div class="one-thumbnail">
+            <div class="thumbnail-image-div">
+                {% if item.image.url != null %}
+                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
+                {% else %}
+                    {% if item.expertise.expertise == 'literature' %}
+                        <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
+                    {% elif item.expertise.expertise == 'art' %}
+                        <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+                    {% elif item.expertise.expertise == 'science' %}
+                            <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
+                    {% elif item.expertise.expertise == 'entertainment' %}
+                            <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="thumbnail-info">
+                <div class="thumbnail-category_author_date">
+                    <div class="thumbnail-expertise-date">
+                        {% if  item.expertise.expertise == 'literature' %}
+                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-category-pink">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'entertainment'%}
+                            <p class="thumbnail-category-purple">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'science' %}
+                            <p class="thumbnail-category-yellow">{{item.expertise.expertise}}</p>
+                        {% endif %}
+                        {% if  item.expertise.expertise == 'literature' %}
+                            {% if item.volume.title != null %}
+                                <p class="thumbnail-literature-title">{{item.volume.title}}</p>
+                            {% elif item.volume.book != null %}
+                                <p class="thumbnail-literature-title">{{item.book.title}}</p>
+                            {% endif %}
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-art-category">{{item.category}}</p>
+                        {% endif %}
+                        <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
+                    </div>
+                    <div class="thumbnail-author-div">
+                        {% if item.author.middleName != null %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}. {{item.author.lastName}}</p>
+                        {% else %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="thumbnail-title">{{item.title}}</h3>
+                <div class="thumbnail-content">
+                    {% if  item.expertise.expertise == 'literature' %}
+                    <div id="thumbnail-literature-content4" class="thumbnail-literature-content">
+                        <p  class="thumbnail-literature-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div id="thumbnail-literature-content-small4" class="thumbnail-literature-content-small">
+                        <p class="thumbnail-literature-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% elif item.expertise.expertise == 'art' and item.dimentionX != blank %}
+                        <table class="thumbnail-art-table">
+                                <tr>
+                                    <td class="thumbnail-art-col1">Materials: </td>
+                                    <td class="thumbnail-art-col2">{{item.materials}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thumbnail-art-col1">Dimentions: </td>
+                                    <td class="thumbnail-art-col2">{{item.dimentionX}}x{{item.dimentionY}} mm</td>
+                                </tr>
+                            </table>
+                    {% elif item.expertise.expertise == 'entertainment' or item.expertise.expertise == 'science' or item.expertise.expertise == 'art'%}
+                    <div class="thumbnail-post-content">
+                        <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div class="thumbnail-post-content-small">
+                        <p class="thumbnail-post-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+        {% for item in combined.science %}
+            <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
+        <div class="one-thumbnail">
+            <div class="thumbnail-image-div">
+                {% if item.image.url != null %}
+                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
+                {% else %}
+                    {% if item.expertise.expertise == 'literature' %}
+                        <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
+                    {% elif item.expertise.expertise == 'art' %}
+                        <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+                    {% elif item.expertise.expertise == 'science' %}
+                            <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
+                    {% elif item.expertise.expertise == 'entertainment' %}
+                            <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="thumbnail-info">
+                <div class="thumbnail-category_author_date">
+                    <div class="thumbnail-expertise-date">
+                        {% if  item.expertise.expertise == 'literature' %}
+                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-category-pink">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'entertainment'%}
+                            <p class="thumbnail-category-purple">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'science' %}
+                            <p class="thumbnail-category-yellow">{{item.expertise.expertise}}</p>
+                        {% endif %}
+                        {% if  item.expertise.expertise == 'literature' %}
+                            {% if item.volume.title != null %}
+                                <p class="thumbnail-literature-title">{{item.volume.title}}</p>
+                            {% elif item.volume.book != null %}
+                                <p class="thumbnail-literature-title">{{item.book.title}}</p>
+                            {% endif %}
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-art-category">{{item.category}}</p>
+                        {% endif %}
+                        <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
+                    </div>
+                    <div class="thumbnail-author-div">
+                        {% if item.author.middleName != null %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}. {{item.author.lastName}}</p>
+                        {% else %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="thumbnail-title">{{item.title}}</h3>
+                <div class="thumbnail-content">
+                    {% if  item.expertise.expertise == 'literature' %}
+                    <div id="thumbnail-literature-content5" class="thumbnail-literature-content">
+                        <p  class="thumbnail-literature-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div id="thumbnail-literature-content-small5" class="thumbnail-literature-content-small">
+                        <p class="thumbnail-literature-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% elif item.expertise.expertise == 'art' and item.dimentionX != blank %}
+                        <table class="thumbnail-art-table">
+                                <tr>
+                                    <td class="thumbnail-art-col1">Materials: </td>
+                                    <td class="thumbnail-art-col2">{{item.materials}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thumbnail-art-col1">Dimentions: </td>
+                                    <td class="thumbnail-art-col2">{{item.dimentionX}}x{{item.dimentionY}} mm</td>
+                                </tr>
+                            </table>
+                    {% elif item.expertise.expertise == 'entertainment' or item.expertise.expertise == 'science' or item.expertise.expertise == 'art'%}
+                    <div class="thumbnail-post-content">
+                        <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div class="thumbnail-post-content-small">
+                        <p class="thumbnail-post-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+        {% for item in combined.post %}
+            <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
+        <div class="one-thumbnail">
+            <div class="thumbnail-image-div">
+                {% if item.image.url != null %}
+                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
+                {% else %}
+                    {% if item.expertise.expertise == 'literature' %}
+                        <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
+                    {% elif item.expertise.expertise == 'art' %}
+                        <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+                    {% elif item.expertise.expertise == 'science' %}
+                            <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
+                    {% elif item.expertise.expertise == 'entertainment' %}
+                            <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="thumbnail-info">
+                <div class="thumbnail-category_author_date">
+                    <div class="thumbnail-expertise-date">
+                        {% if  item.expertise.expertise == 'literature' %}
+                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-category-pink">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'entertainment'%}
+                            <p class="thumbnail-category-purple">{{item.expertise.expertise}}</p>
+                        {% elif item.expertise.expertise == 'science' %}
+                            <p class="thumbnail-category-yellow">{{item.expertise.expertise}}</p>
+                        {% endif %}
+                        {% if  item.expertise.expertise == 'literature' %}
+                            {% if item.volume.title != null %}
+                                <p class="thumbnail-literature-title">{{item.volume.title}}</p>
+                            {% elif item.volume.book != null %}
+                                <p class="thumbnail-literature-title">{{item.book.title}}</p>
+                            {% endif %}
+                        {% elif item.expertise.expertise == 'art' %}
+                            <p class="thumbnail-art-category">{{item.category}}</p>
+                        {% endif %}
+                        <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
+                    </div>
+                    <div class="thumbnail-author-div">
+                        {% if item.author.middleName != null %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}. {{item.author.lastName}}</p>
+                        {% else %}
+                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <h3 class="thumbnail-title">{{item.title}}</h3>
+                <div class="thumbnail-content">
+                    {% if  item.expertise.expertise == 'literature' %}
+                    <div id="thumbnail-literature-content6" class="thumbnail-literature-content">
+                        <p  class="thumbnail-literature-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div id="thumbnail-literature-content-small6" class="thumbnail-literature-content-small">
+                        <p class="thumbnail-literature-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% elif item.expertise.expertise == 'art' and item.dimentionX != blank %}
+                        <table class="thumbnail-art-table">
+                                <tr>
+                                    <td class="thumbnail-art-col1">Materials: </td>
+                                    <td class="thumbnail-art-col2">{{item.materials}}</td>
+                                </tr>
+                                <tr>
+                                    <td class="thumbnail-art-col1">Dimentions: </td>
+                                    <td class="thumbnail-art-col2">{{item.dimentionX}}x{{item.dimentionY}} mm</td>
+                                </tr>
+                            </table>
+                    {% elif item.expertise.expertise == 'entertainment' or item.expertise.expertise == 'science' or item.expertise.expertise == 'art'%}
+                    <div class="thumbnail-post-content">
+                        <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
+                    </div>
+                    <div class="thumbnail-post-content-small">
+                        <p class="thumbnail-post-content-small">{{item.content|highlight_code|safe|truncatewords:15}}</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </a>
+        {% endfor %}
+    </div>
     {% else %}
         <p>Fill the search field, to find posts :-)</p>
     {% endif %}
-    <h3>Searched...</h3>
-</body>
-</html>
+{% endblock %}

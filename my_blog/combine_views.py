@@ -48,3 +48,13 @@ class Search:
         self.entertainment = entertainment
         self.title = title
         self.content =content
+
+class SearchResult:
+    def __init__(self, art, book, volume, chapter, poem, science, post):
+        self.art = art
+        self.book = book
+        self.volume = volume
+        self.chapter = chapter
+        self.poem = poem
+        self.science = science
+        self.Post = post
