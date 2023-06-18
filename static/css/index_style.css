@@ -310,9 +310,131 @@ div.label-table{
     margin: 0 auto;
     width: fit-content;
 }
+/*****************/
+/*  parination  */
+/*****************/
 
+.pagination-nav{
+    font-size: 20px;
+    font-family: "CMU Serif";
+    width: fit-content;
+    margin: 20px auto;
+}
+.parination-hr{
+    border-top: 3px solid #f0932b;
+    border-bottom: 3px solid #f0932b;
+}
+#pagination-next{
+    margin-left: 30px;
+}
+#pagination-prev{
+    margin-right: 30px;
+}
+/****************/
+/*  mail form  */
+/***************/
+
+#contact-form{
+    background-color: #f0932b;
+}
+#contact-form-title {
+    width: fit-content;
+    margin: 0 auto;
+}
+.contact-form-div{
+    font-family: "CMU Serif";
+    font-size: 20px;
+    margin: 20px auto;
+    padding-bottom: 20px;
+}
+.mail-form-title-div{
+    margin: 30px 0;
+}
+.contact-form{
+    height: fit-content;
+    width: fit-content;
+    margin: 30px auto;
+    align-items: center;
+}
+.contact-form > div{
+    margin: 0px auto;
+}
+.contact-form-title{
+    font-size: 20px;
+    font-family: "CMU Serif";
+    text-align: center;
+}
+.mail-address, .mail-title, .mail-content{
+    float:left;
+    clear: left;
+    width: 100%;
+    display: flex;
+    float: left;
+}
+.text-mail{
+    font-family: "CMU Serif";
+    font-size: 18px;
+}
+.form-mail-address, .form-mail-title{
+    padding-left: 10px;
+    text-align: left!important;
+    width: 25vw;
+    border: 1px solid white;
+    border-radius: 7px;
+    text-align: center;
+    -moz-appearance:none;
+	-webkit-appearance:none;
+	-o-appearance:none;
+	outline: none;
+	content: none;
+    font-size: 18px;
+    font-family: "CMU Serif";
+    line-height: 30px;
+    width: 400px;
+    margin: 30px auto;
+}
+.form-mail-content{
+    padding-left: 10px;
+    text-align: left!important;
+    width: 25vw;
+    border: 1px solid white;
+    border-radius: 7px;
+    text-align: center;
+    -moz-appearance:none;
+	-webkit-appearance:none;
+	-o-appearance:none;
+	outline: none;
+	content: none;
+    font-size: 18px;
+    font-family: "CMU Serif";
+    line-height: 30px;
+    width: 400px;
+    height: 200px;
+    margin: 30px auto;
+}
+.btn-send{
+    appearance: none;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding: 7px;
+    font-size: 18px;
+    font-family: "Helvetica";
+    font-weight: bolder;
+    color: white;
+    border: 3px solid white;
+    background-color: #f0932b;
+    border-radius: 7px;
+    text-transform: uppercase;
+}
+.email-send-success{
+    font-family: "CMU Serif";
+    font-size: 35px;
+    text-align: center;
+    margin: 30vh auto;
+}
+/**********************************************/
 /*  the part below stylize the search section*/
-
+/********************************************/
 .form-column{
     height: max-content;
     padding: 20px;

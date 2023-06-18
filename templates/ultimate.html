@@ -4,57 +4,58 @@
 {% block content %}
 
 <!--mathjax-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 {% load templatetags %}
-    <div class="carousel">
-        <ul>
-    <div class="owl-carousel">
-    <!-- Iterate over seat_list -->
-    {% for seat in combined.roundabout %}
-        <a class="detail-carousel" href="{%url 'details' seat.class_name seat.id%}">
-        <div class="wrapper">
-            {% if seat.image.url != null %}
-            <img class="image" src="{{seat.image.url}}" alt="{{seat.image.name}}" class="title_image">
-            {% else %}
-                {% if seat.expertise.expertise == 'literature' %}
-                <img class="image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
-                {% elif seat.expertise.expertise == 'art' %}
-                <img class="image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
-                {% elif seat.expertise.expertise == 'science' %}
-                {% elif seat.expertise.expertise == 'entertainment' %}
-                {% endif %}
-            {% endif %}
-            <div class="post_info">
-                {% if  seat.expertise.expertise == 'literature' %}
-                    <p class="latest-category-blue">{{seat.expertise.expertise}}</p>
-                {% elif seat.expertise.expertise == 'art' %}
-                    <p class="latest-category-pink">{{seat.expertise.expertise}}</p>
-                {% elif seat.expertise.expertise == 'entertainment'%}
-                    <p class="latest-category-purple">{{seat.expertise.expertise}}</p>
-                {% elif seat.expertise.expertise == 'science' %}
-                    <p class="latest-category-yellow">{{seat.expertise.expertise}}</p>
-                {% endif %}
-                <div class="title">
-                    <p>{{seat.title|truncatechars:35}}</p>
-                </div>
-                <div class="author_date">
-                    {% if seat.author.middleName != null %}
-                    <p class="author">{{seat.author.firstName.0}}. {{seat.author.middleName.0}}. {{seat.author.lastName}}</p>
+<div class="carousel">
+    <ul>
+        <div class="owl-carousel">
+            <!-- Iterate over seat_list -->
+            {% for seat in combined.roundabout %}
+            <a class="detail-carousel" href="{%url 'details' seat.class_name seat.id%}">
+                <div class="wrapper">
+                    {% if seat.image.url != null %}
+                    <img class="image" src="{{seat.image.url}}" alt="{{seat.image.name}}" class="title_image">
                     {% else %}
-                    <p class="author">{{seat.author.firstName.0}}. {{seat.author.lastName}}</p>
+                    {% if seat.expertise.expertise == 'literature' %}
+                    <img class="image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                    {% elif seat.expertise.expertise == 'art' %}
+                    <img class="image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
+                    {% elif seat.expertise.expertise == 'science' %}
+                    {% elif seat.expertise.expertise == 'entertainment' %}
                     {% endif %}
-                    <p class="date">{{seat.date|date:"d.m.Y"}}</p>
+                    {% endif %}
+                    <div class="post_info">
+                        {% if seat.expertise.expertise == 'literature' %}
+                        <p class="latest-category-blue">{{seat.expertise.expertise}}</p>
+                        {% elif seat.expertise.expertise == 'art' %}
+                        <p class="latest-category-pink">{{seat.expertise.expertise}}</p>
+                        {% elif seat.expertise.expertise == 'entertainment'%}
+                        <p class="latest-category-purple">{{seat.expertise.expertise}}</p>
+                        {% elif seat.expertise.expertise == 'science' %}
+                        <p class="latest-category-yellow">{{seat.expertise.expertise}}</p>
+                        {% endif %}
+                        <div class="title">
+                            <p>{{seat.title|truncatechars:35}}</p>
+                        </div>
+                        <div class="author_date">
+                            {% if seat.author.middleName != null %}
+                            <p class="author">{{seat.author.firstName.0}}. {{seat.author.middleName.0}}.
+                                {{seat.author.lastName}}</p>
+                            {% else %}
+                            <p class="author">{{seat.author.firstName.0}}. {{seat.author.lastName}}</p>
+                            {% endif %}
+                            <p class="date">{{seat.date|date:"d.m.Y"}}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </a>
+            <!-- If seat_list is empty  -->
+            {% empty %}
+            <li>No seats yet.</li>
+            {% endfor %}
         </div>
-        </a>
-    <!-- If seat_list is empty  -->
-    {% empty %}
-    <li>No seats yet.</li>
-    {% endfor %}
-    </div>
-</ul>
-    </div>
+    </ul>
+</div>
 <!--scripts-->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -64,93 +65,95 @@
 
 <ul>
     <div class="latest">
-    <!-- Iterate over post_list -->
-    {% for post in combined.latest  %}
+        <!-- Iterate over post_list -->
+        {% for post in combined.latest %}
         <div class="one-post">
             <div class="latest-image-div">
                 <a href="{%url 'details' post.class_name post.id%}">
-                {% if post.image.url != null %}
+                    {% if post.image.url != null %}
                     <img class="latest-image" src="{{post.image.url}}" alt="{{post.image.name}}" class="title_image">
-                {% else %}
+                    {% else %}
                     {% if post.expertise.expertise == 'literature' %}
-                        <img class="latest-image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
+                    <img class="latest-image" src="{% static 'literature_img.png' %}" alt="literature"
+                         class="title_image">
                     {% elif post.expertise.expertise == 'art' %}
-                        <img class="latest-image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
+                    <img class="latest-image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
                     {% elif post.expertise.expertise == 'science' %}
-                        <img class="latest-image" src="{% static 'science_img.png' %}" alt="art" class="title_image">
+                    <img class="latest-image" src="{% static 'science_img.png' %}" alt="art" class="title_image">
                     {% elif post.expertise.expertise == 'entertainment' %}
-                        <img class="latest-image" src="{% static 'entertainment_img.png' %}" alt="art" class="title_image">
+                    <img class="latest-image" src="{% static 'entertainment_img.png' %}" alt="art" class="title_image">
                     {% endif %}
-                {% endif %}
+                    {% endif %}
                 </a>
             </div>
-<!--            <a style=" text-decoration: none; float: left"  href="{%url 'details' post.class_name post.id%}">Read on...</a>-->
+            <!--            <a style=" text-decoration: none; float: left"  href="{%url 'details' post.class_name post.id%}">Read on...</a>-->
             <div class="latest-post-info">
                 <div class="latest-category-author-date">
-                    {% if  post.expertise.expertise == 'literature' %}
-                        <p class="latest-category-blue">{{post.expertise.expertise}}</p>
+                    {% if post.expertise.expertise == 'literature' %}
+                    <p class="latest-category-blue">{{post.expertise.expertise}}</p>
                     {% elif post.expertise.expertise == 'art' %}
-                        <p class="latest-category-pink">{{post.expertise.expertise}}</p>
+                    <p class="latest-category-pink">{{post.expertise.expertise}}</p>
                     {% elif post.expertise.expertise == 'entertainment'%}
-                        <p class="latest-category-purple">{{post.expertise.expertise}}</p>
+                    <p class="latest-category-purple">{{post.expertise.expertise}}</p>
                     {% elif post.expertise.expertise == 'science' %}
-                        <p class="latest-category-yellow">{{post.expertise.expertise}}</p>
+                    <p class="latest-category-yellow">{{post.expertise.expertise}}</p>
                     {% endif %}
                     <br>
                     <div class="latest-date-author">
                         <p class="latest-date">{{post.date|date:"d.m.Y"}}</p>
                         {% if post.author.middleName != null %}
-                            <p class="latest-author">{{post.author.firstName.0}}. {{post.author.middleName.0}}. {{post.author.lastName}}</p>
+                        <p class="latest-author">{{post.author.firstName.0}}. {{post.author.middleName.0}}.
+                            {{post.author.lastName}}</p>
                         {% else %}
-                            <p class="latest-author">{{post.author.firstName.0}}. {{post.author.lastName}}</p>
+                        <p class="latest-author">{{post.author.firstName.0}}. {{post.author.lastName}}</p>
                         {% endif %}
                     </div>
                 </div>
                 <br>
                 <h3 class="latest-title">{{post.title}}</h3>
                 {% if post.expertise.expertise == 'art' %}
-                    <p class="latest-art-category">{{post.category}}</p>
+                <p class="latest-art-category">{{post.category}}</p>
                 {% endif %}
-                    <div id="latest-content" class="latest-content">
-                        {% if  post.expertise.expertise == 'literature' %}
-                            {% if post.volume.title != null %}
-                                <p class="latest-literature-title">({{post.volume.title}})</p>
-                            {% endif %}
-                            {% if post.book.title != null %}
-                                <p class="latest-literature-title">({{post.book.title}})</p>
-                            {% endif %}
-                            <p class="latest-literature-content">{{post.content|safe|truncatewords:75}}</p>
-                            <p>[...]</p>
-                        {% elif post.expertise.expertise == 'art' %}
-                            <table class="latest-art-table">
-                                <tr>
-                                    <td class="latest-art-col1">Materials: </td>
-                                    <td class="latest-art-col2">{{post.materials}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="latest-art-col1">Dimentions: </td>
-                                    <td class="latest-art-col2">{{post.dimentionX}}x{{post.dimentionY}} mm</td>
-                                </tr>
-                            </table>
-                            <div class="latest-content">
-                                <p>{{post.content|safe|truncatewords:100}}</p>
-                            </div>
-                        {% elif post.expertise.expertise == 'entertainment' or post.expertise.expertise == 'science' %}
-                            <p class="latest-content">{{post.content|highlight_code|safe|truncatewords:75}}</p>
-                        {% endif %}
+                <div id="latest-content" class="latest-content">
+                    {% if post.expertise.expertise == 'literature' %}
+                    {% if post.volume.title != null %}
+                    <p class="latest-literature-title">({{post.volume.title}})</p>
+                    {% endif %}
+                    {% if post.book.title != null %}
+                    <p class="latest-literature-title">({{post.book.title}})</p>
+                    {% endif %}
+                    <p class="latest-literature-content">{{post.content|safe|truncatewords:75}}</p>
+                    <p>[...]</p>
+                    {% elif post.expertise.expertise == 'art' %}
+                    <table class="latest-art-table">
+                        <tr>
+                            <td class="latest-art-col1">Materials:</td>
+                            <td class="latest-art-col2">{{post.materials}}</td>
+                        </tr>
+                        <tr>
+                            <td class="latest-art-col1">Dimentions:</td>
+                            <td class="latest-art-col2">{{post.dimentionX}}x{{post.dimentionY}} mm</td>
+                        </tr>
+                    </table>
+                    <div class="latest-content">
+                        <p>{{post.content|safe|truncatewords:100}}</p>
                     </div>
-                <a class="detail-latest" href="{%url 'details' post.class_name post.id%}">
-                <div class="detail-latest-div">
-                    <p class="latest-detail-link">Read the article</p>
-                    <img class="latest-right-arrow" src="{% static 'arrow_right.png' %}" alt="art">
+                    {% elif post.expertise.expertise == 'entertainment' or post.expertise.expertise == 'science' %}
+                    <p class="latest-content">{{post.content|highlight_code|safe|truncatewords:75}}</p>
+                    {% endif %}
                 </div>
+                <a class="detail-latest" href="{%url 'details' post.class_name post.id%}">
+                    <div class="detail-latest-div">
+                        <p class="latest-detail-link">Read the article</p>
+                        <img class="latest-right-arrow" src="{% static 'arrow_right.png' %}" alt="art">
+                    </div>
                 </a>
             </div>
         </div>
-    <!-- If post_list is empty  -->
-    {% empty %}
-    <li>No posts yet.</li>
-    {% endfor %}
+        <!-- If post_list is empty  -->
+        {% empty %}
+        <li>No posts yet.</li>
+        {% endfor %}
     </div>
 </ul>
 
@@ -169,92 +172,97 @@
         <div class="one-thumbnail">
             <div class="thumbnail-image-div">
                 {% if thumb.image.url != null %}
-                    <img class="thumbnail-image" src="{{thumb.image.url}}" alt="{{thumb.image.name}}">
+                <img class="thumbnail-image" src="{{thumb.image.url}}" alt="{{thumb.image.name}}">
                 {% else %}
-                    {% if thumb.expertise.expertise == 'literature' %}
-                        <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
-                    {% elif thumb.expertise.expertise == 'art' %}
-                        <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
-                    {% elif thumb.expertise.expertise == 'science' %}
-                            <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
-                    {% elif thumb.expertise.expertise == 'entertainment' %}
-                            <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
-                    {% endif %}
+                {% if thumb.expertise.expertise == 'literature' %}
+                <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
+                {% elif thumb.expertise.expertise == 'art' %}
+                <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+                {% elif thumb.expertise.expertise == 'science' %}
+                <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
+                {% elif thumb.expertise.expertise == 'entertainment' %}
+                <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
+                {% endif %}
                 {% endif %}
             </div>
             <div class="thumbnail-info">
                 <div class="thumbnail-category_author_date">
                     <div class="thumbnail-expertise-date">
-                        {% if  thumb.expertise.expertise == 'literature' %}
-                            <p class="thumbnail-category-blue">{{thumb.expertise.expertise}}</p>
+                        {% if thumb.expertise.expertise == 'literature' %}
+                        <p class="thumbnail-category-blue">{{thumb.expertise.expertise}}</p>
                         {% elif thumb.expertise.expertise == 'art' %}
-                            <p class="thumbnail-category-pink">{{thumb.expertise.expertise}}</p>
+                        <p class="thumbnail-category-pink">{{thumb.expertise.expertise}}</p>
                         {% elif thumb.expertise.expertise == 'entertainment'%}
-                            <p class="thumbnail-category-purple">{{thumb.expertise.expertise}}</p>
+                        <p class="thumbnail-category-purple">{{thumb.expertise.expertise}}</p>
                         {% elif thumb.expertise.expertise == 'science' %}
-                            <p class="thumbnail-category-yellow">{{thumb.expertise.expertise}}</p>
+                        <p class="thumbnail-category-yellow">{{thumb.expertise.expertise}}</p>
                         {% endif %}
-                        {% if  thumb.expertise.expertise == 'literature' %}
-                            {% if thumb.volume.title != null %}
-                                <p class="thumbnail-literature-title">{{thumb.volume.title}}</p>
-                            {% elif thumb.volume.book != null %}
-                                <p class="thumbnail-literature-title">{{thumb.book.title}}</p>
-                            {% endif %}
+                        {% if thumb.expertise.expertise == 'literature' %}
+                        {% if thumb.volume.title != null %}
+                        <p class="thumbnail-literature-title">{{thumb.volume.title}}</p>
+                        {% elif thumb.volume.book != null %}
+                        <p class="thumbnail-literature-title">{{thumb.book.title}}</p>
+                        {% endif %}
                         {% elif thumb.expertise.expertise == 'art' %}
-                            <p class="thumbnail-art-category">{{thumb.category}}</p>
+                        <p class="thumbnail-art-category">{{thumb.category}}</p>
                         {% endif %}
                         <p class="thumbnail-date">{{thumb.date|date:"d.m.Y"}}</p>
                     </div>
                     <div class="thumbnail-author-div">
                         {% if thumb.author.middleName != null %}
-                            <p class="thumbnail-author">{{thumb.author.firstName.0}}. {{thumb.author.middleName.0}}. {{thumb.author.lastName}}</p>
+                        <p class="thumbnail-author">{{thumb.author.firstName.0}}. {{thumb.author.middleName.0}}.
+                            {{thumb.author.lastName}}</p>
                         {% else %}
-                            <p class="thumbnail-author">{{thumb.author.firstName.0}}. {{thumb.author.lastName}}</p>
+                        <p class="thumbnail-author">{{thumb.author.firstName.0}}. {{thumb.author.lastName}}</p>
                         {% endif %}
                     </div>
                 </div>
                 <h3 class="thumbnail-title">{{thumb.title}}</h3>
                 <div class="thumbnail-content">
-                    {% if  thumb.expertise.expertise == 'literature' %}
+                    {% if thumb.expertise.expertise == 'literature' %}
                     <div id="thumbnail-literature-content" class="thumbnail-literature-content">
-                        <p  class="thumbnail-literature-content">{{thumb.content|highlight_code|safe|truncatewords:25}}</p>
+                        <p class="thumbnail-literature-content">
+                            {{thumb.content|highlight_code|safe|truncatewords:25}}</p>
                     </div>
                     <div id="thumbnail-literature-content-small" class="thumbnail-literature-content-small">
-                        <p class="thumbnail-literature-content-small">{{thumb.content|highlight_code|safe|truncatewords:15}}</p>
+                        <p class="thumbnail-literature-content-small">
+                            {{thumb.content|highlight_code|safe|truncatewords:15}}</p>
                     </div>
                     {% elif thumb.expertise.expertise == 'art' and thumb.dimentionX != blank %}
-                        <table class="thumbnail-art-table">
-                                <tr>
-                                    <td class="thumbnail-art-col1">Materials: </td>
-                                    <td class="thumbnail-art-col2">{{thumb.materials}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="thumbnail-art-col1">Dimentions: </td>
-                                    <td class="thumbnail-art-col2">{{thumb.dimentionX}}x{{thumb.dimentionY}} mm</td>
-                                </tr>
-                            </table>
-                    {% elif thumb.expertise.expertise == 'entertainment' or thumb.expertise.expertise == 'science' or thumb.expertise.expertise == 'art'%}
+                    <table class="thumbnail-art-table">
+                        <tr>
+                            <td class="thumbnail-art-col1">Materials:</td>
+                            <td class="thumbnail-art-col2">{{thumb.materials}}</td>
+                        </tr>
+                        <tr>
+                            <td class="thumbnail-art-col1">Dimentions:</td>
+                            <td class="thumbnail-art-col2">{{thumb.dimentionX}}x{{thumb.dimentionY}} mm</td>
+                        </tr>
+                    </table>
+                    {% elif thumb.expertise.expertise == 'entertainment' or thumb.expertise.expertise == 'science' %}
                     <div class="thumbnail-post-content">
                         <p class="thumbnail-post-content">{{thumb.content|highlight_code|safe|truncatewords:25}}</p>
                     </div>
                     <div class="thumbnail-post-content-small">
-                        <p class="thumbnail-post-content-small">{{thumb.content|highlight_code|safe|truncatewords:15}}</p>
+                        <p class="thumbnail-post-content-small">
+                            {{thumb.content|highlight_code|safe|truncatewords:15}}</p>
                     </div>
                     {% endif %}
                 </div>
             </div>
         </div>
-        </a>
+    </a>
     <div class="ultimate-thumbnail-gap"></div>
     <!-- If thumb_list is empty  -->
     {% empty %}
-        <p>No thumbnails</p>
+    <p>No thumbnails</p>
     {% endfor %}
-    </div>
+</div>
 
-
+<hr id="records-found-divider">
+<div class="pagination-nav">
     {% if combined.thumbnail.has_previous %}
-    <a href="?page={{ combined.thumbnail.previous_page_number }}">« Previous page</a>
+    <a id="pagination-prev" href="?page={{ combined.thumbnail.previous_page_number }}">« Previous page</a>
 
     {% if combined.thumbnail.number > 3 %}
     <a href="?page=1">1</a>
@@ -280,6 +288,39 @@
     <a href="?page={{ combined.thumbnail.paginator.num_pages }}">{{ combined.thumbnail.paginator.num_pages }}</a>
     {% endif %}
 
-    <a href="?page={{ combined.thumbnail.next_page_number }}">Next Page »</a>
+    <a id="pagination-next" href="?page={{ combined.thumbnail.next_page_number }}">Next Page »</a>
     {% endif %}
+</div>
+
+<hr id="records-found-divider">
+
+
+<section id="contact-form">
+    <form class="d-flex" id="form-mail" method=POST action="{%url 'email_send'%}">
+        {% csrf_token %}
+        <div class="mail-form-title-div">
+            <p class="contact-form-title">Any questions, feedback, collaboration proposal or lets say...
+            commision?</p>
+            <p class="contact-form-title">Write to us :-)</p>
+        </div>
+        <div class="mail-address">
+            <p class="text-mail">Address: </p>
+            <input class="form-mail-address" name="email" type="text" placeholder="Your email">
+        </div>
+        <div class="mail-title">
+            <p class="text-mail">Title: </p>
+            <input class="form-mail-title" name="title" type="text" placeholder="Title">
+        </div>
+        <div class="mail-content">
+            <p class="text-mail"> Mail:</p>
+            <textarea class="form-mail-content" rows="1" name="content" oninput="auto_height(this)"
+                      placeholder="Write the mail here..."></textarea>
+        </div>
+        <div class="mail-address">
+        <button id="btn-send" class="btn-send" type="submit">Send</button>
+        </div>
+    </form>
+</section>
+
+
 {% endblock %}

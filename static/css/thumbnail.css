@@ -320,6 +320,7 @@ a.detail-thumbnail > div:hover{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(25vw, 25vw));
     grid-gap: 5px;
+    margin-bottom: 20px;
 }
 .art-detail-thumbnail{
     height: 25vw;

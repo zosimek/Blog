@@ -171,6 +171,8 @@
                 <div class="thumbnail-image-div">
                     {% if thumb.image.url != null %}
                     <img class="thumbnail-image" src="{{thumb.image.url}}" alt="{{thumb.image.name}}">
+                    {% elif thumb.cover.url != null %}
+                    <img class="thumbnail-image" src="{{thumb.cover.url}}" alt="{{thumb.cover.name}}">
                     {% else %}
                     {% if thumb.expertise.expertise == 'literature' %}
                     <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
@@ -237,8 +239,7 @@
                                 <td class="thumbnail-art-col2">{{thumb.dimentionX}}x{{thumb.dimentionY}} mm</td>
                             </tr>
                         </table>
-                        {% elif thumb.expertise.expertise == 'entertainment' or thumb.expertise.expertise == 'science'
-                        or thumb.expertise.expertise == 'art'%}
+                        {% elif thumb.expertise.expertise == 'entertainment' or thumb.expertise.expertise == 'science'%}
                         <div class="thumbnail-post-content">
                             <p class="thumbnail-post-content">{{thumb.content|highlight_code|safe|truncatewords:25}}</p>
                         </div>
@@ -257,37 +258,35 @@
         <p>No thumbnails</p>
         {% endfor %}
     </div>
-    {% if combined.has_previous %}
-    <a href="?page={{ combined.previous_page_number }}">« Previous page</a>
-
-    {% if combined.number > 3 %}
-    <a href="?page=1">1</a>
-    {% if combined.number > 4 %}
-    <span>...</span>
-    {% endif %}
-    {% endif %}
-    {% endif %}
-
-    {% for num in combined.paginator.page_range %}
-    {% if combined.number == num %}
-    <a href="?page={{ num }}">{{ num }}</a>
-    {% elif num > combined.number|add:'-3' and num < combined.number|add:'3' %}
-    <a href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
-    {% endfor %}
-
-    {% if combined.has_next %}
-    {% if combined.number < combined.paginator.num_pages|add:'-3' %}
-    <span>...</span>
-    <a href="?page={{ combined.paginator.num_pages }}">{{ combined.paginator.num_pages }}</a>
-    {% elif combined.number < combined.paginator.num_pages|add:'-2' %}
-    <a href="?page={{ combined.paginator.num_pages }}">{{ combined.paginator.num_pages }}</a>
-    {% endif %}
-
-    <a href="?page={{ combined.next_page_number }}">Next Page »</a>
-    {% endif %}
-    {% else %}
-    <p id="search-form-empty">Fill the search field, to find posts :-)</p>
     {% endif %}
 </div>
+
+
+
+<section id="contact-form">
+    <form class="d-flex" id="form-mail" method=POST action="{%url 'email_send'%}">
+        {% csrf_token %}
+        <div class="mail-form-title-div">
+            <p class="contact-form-title">Any questions, feedback, collaboration proposal or lets say...
+            commision?</p>
+            <p class="contact-form-title">Write to us :-)</p>
+        </div>
+        <div class="mail-address">
+            <p class="text-mail">Address: </p>
+            <input class="form-mail-address" name="email" type="text" placeholder="Your email">
+        </div>
+        <div class="mail-title">
+            <p class="text-mail">Title: </p>
+            <input class="form-mail-title" name="title" type="text" placeholder="Title">
+        </div>
+        <div class="mail-content">
+            <p class="text-mail"> Mail:</p>
+            <textarea class="form-mail-content" rows="1" name="content" oninput="auto_height(this)"
+                      placeholder="Write the mail here..."></textarea>
+        </div>
+        <div class="mail-address">
+        <button id="btn-send" class="btn-send" type="submit">Send</button>
+        </div>
+    </form>
+</section>
 {% endblock %}

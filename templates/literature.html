@@ -178,8 +178,9 @@
     {% endfor %}
     </div>
 
-
-    {% if combined.books_volumes.has_previous %}
+    <hr id="records-found-divider">
+    <div class="pagination-nav">
+        {% if combined.books_volumes.has_previous %}
     <a href="?page={{ combined.books_volumes.previous_page_number }}">« Previous page</a>
 
     {% if combined.books_volumes.number > 3 %}
@@ -208,4 +209,34 @@
 
     <a href="?page={{ combined.books_volumes.next_page_number }}">Next Page »</a>
     {% endif %}
+    </div>
+    <hr id="records-found-divider">
+
+
+<section id="contact-form">
+    <form class="d-flex" id="form-mail" method=POST action="{%url 'email_send'%}">
+        {% csrf_token %}
+        <div class="mail-form-title-div">
+            <p class="contact-form-title">Any questions, feedback, collaboration proposal or lets say...
+            commision?</p>
+            <p class="contact-form-title">Write to us :-)</p>
+        </div>
+        <div class="mail-address">
+            <p class="text-mail">Address: </p>
+            <input class="form-mail-address" name="email" type="text" placeholder="Your email">
+        </div>
+        <div class="mail-title">
+            <p class="text-mail">Title: </p>
+            <input class="form-mail-title" name="title" type="text" placeholder="Title">
+        </div>
+        <div class="mail-content">
+            <p class="text-mail"> Mail:</p>
+            <textarea class="form-mail-content" rows="1" name="content" oninput="auto_height(this)"
+                      placeholder="Write the mail here..."></textarea>
+        </div>
+        <div class="mail-address">
+        <button id="btn-send" class="btn-send" type="submit">Send</button>
+        </div>
+    </form>
+</section>
 {% endblock %}

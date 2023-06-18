@@ -1,7 +1,9 @@
 import contextvars
+import re
 from datetime import datetime, timedelta
 from string import digits
 
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -661,8 +663,37 @@ def search(request):
                         records += 1
 
 
-            return render(request, 'search.html', {'combined': combined, 'sentence':searched, 'records': records})
+            return render(request, 'search.html', {'combined': combined, 'search_query': combined_queryset, 'sentence':searched, 'records': records})
         else:
+
             return render(request, 'search.html', {})
     else:
         return render(request, 'search.html', {})
+
+############################################    EMAIL  SEND    #########################################################
+
+def email_send(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+
+        if(email != None and title != None and content != None):
+            mail_template = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
+            if re.match(mail_template,email):
+                # Send the email
+                send_mail(
+                    title,
+                    content,
+                    email,
+                    ['zof.dobrowolska@gmail.com'],
+                    fail_silently=False,
+                )
+
+                success = "Email send successfully :-)"
+
+                return render(request, 'email_send.html', {'success': success})  # Render a success page after sending the email
+
+    success = "Send unsuccessful. Make sure to fill all the fields."
+
+    return render(request, 'email_send.html', {'success': success})  # Render the email form initially
