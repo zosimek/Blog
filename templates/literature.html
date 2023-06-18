@@ -177,4 +177,35 @@
         <p>No thumbnails</p>
     {% endfor %}
     </div>
+
+
+    {% if combined.books_volumes.has_previous %}
+    <a href="?page={{ combined.books_volumes.previous_page_number }}">« Previous page</a>
+
+    {% if combined.books_volumes.number > 3 %}
+    <a href="?page=1">1</a>
+    {% if combined.books_volumes.number > 4 %}
+    <span>...</span>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+
+    {% for num in combined.books_volumes.paginator.page_range %}
+    {% if combined.books_volumes.number == num %}
+    <a href="?page={{ num }}">{{ num }}</a>
+    {% elif num > combined.books_volumes.number|add:'-3' and num < combined.books_volumes.number|add:'3' %}
+    <a href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if combined.books_volumes.has_next %}
+    {% if combined.books_volumes.number < combined.books_volumes.paginator.num_pages|add:'-3' %}
+    <span>...</span>
+    <a href="?page={{ combined.books_volumes.paginator.num_pages }}">{{ combined.books_volumes.paginator.num_pages }}</a>
+    {% elif combined.books_volumes.number < combined.books_volumes.paginator.num_pages|add:'-2' %}
+    <a href="?page={{ combined.books_volumes.paginator.num_pages }}">{{ combined.books_volumes.paginator.num_pages }}</a>
+    {% endif %}
+
+    <a href="?page={{ combined.books_volumes.next_page_number }}">Next Page »</a>
+    {% endif %}
 {% endblock %}

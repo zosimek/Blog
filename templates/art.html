@@ -159,4 +159,33 @@
     </div>
 
 
+    {% if combined.thumbnail.has_previous %}
+    <a href="?page={{ combined.thumbnail.previous_page_number }}">« Previous page</a>
+
+    {% if combined.thumbnail.number > 3 %}
+    <a href="?page=1">1</a>
+    {% if combined.thumbnail.number > 4 %}
+    <span>...</span>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+
+    {% for num in combined.thumbnail.paginator.page_range %}
+    {% if combined.thumbnail.number == num %}
+    <a href="?page={{ num }}">{{ num }}</a>
+    {% elif num > combined.thumbnail.number|add:'-3' and num < combined.thumbnail.number|add:'3' %}
+    <a href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if combined.thumbnail.has_next %}
+    {% if combined.thumbnail.number < combined.thumbnail.paginator.num_pages|add:'-3' %}
+    <span>...</span>
+    <a href="?page={{ combined.thumbnail.paginator.num_pages }}">{{ combined.thumbnail.paginator.num_pages }}</a>
+    {% elif combined.thumbnail.number < combined.thumbnail.paginator.num_pages|add:'-2' %}
+    <a href="?page={{ combined.thumbnail.paginator.num_pages }}">{{ combined.thumbnail.paginator.num_pages }}</a>
+    {% endif %}
+
+    <a href="?page={{ combined.thumbnail.next_page_number }}">Next Page »</a>
+    {% endif %}
 {% endblock %}

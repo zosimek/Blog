@@ -4,11 +4,12 @@ class AuthorQueryset:
         self.authors = authors
 
 class UltimateQueryset:
-    def __init__(self, roundabout, thumbnail, latest, quote):
+    def __init__(self, roundabout, thumbnail, latest, quote, paginator):
         self.roundabout = roundabout
         self.thumbnail = thumbnail
         self.latest = latest
         self.quote = quote
+        self.paginator = paginator
 
 class ArtQueryset:
     def __init__(self, roundabout, thumbnail, latest, quote, art_categories):

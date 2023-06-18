@@ -1,6 +1,8 @@
+import contextvars
 from datetime import datetime, timedelta
 from string import digits
 
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse
 from operator import attrgetter
@@ -48,10 +50,14 @@ class AuthorDetailView(DetailView):
 ################################################    ULTIMATE    ########################################################
 
 class Ultimate(ListView):
+    model = Poem
     template_name = 'ultimate.html'
     context_object_name = 'combined'
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+
         art_seat = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:2]
         chapter_seat = Chapter.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:2]
         poem_seat = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:2]
@@ -75,6 +81,10 @@ class Ultimate(ListView):
         thumbnail = sorted(chain(art_finger1, art_finger2, chapter_finger1, chapter_finger2, poem_finger1, poem_finger2,
                                  post_finger1, post_finger2), key=attrgetter('date'), reverse=True)[1:]
 
+        paginator = Paginator(thumbnail, 10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         art_latest = Artwork.objects.filter(readyToLaunch=True).order_by('-date')[:1]
         chapter_latest = Chapter.objects.filter(readyToLaunch=True).order_by('-date')[:1]
         poem_latest = Poem.objects.filter(readyToLaunch=True).order_by('-date')[:1]
@@ -85,16 +95,26 @@ class Ultimate(ListView):
 
         quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
-        return combined
+        # combined = UltimateQueryset(roundabout, thumbnail, latest, quote, paginator)
+        # return combined
 
+        context['combined'] = {
+                'roundabout': roundabout,
+                'thumbnail': page_obj,  # Use the paginated queryset
+                'latest': latest,
+                'quote': quote
+                }
+        return context
 
 ################################################       ART      ########################################################
 class Art(ListView):
+    model = Artwork
     template_name = 'art.html'
     context_object_name = 'combined'
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
 
         latest = Artwork.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 
@@ -121,21 +141,35 @@ class Art(ListView):
             thumbnail_art = sorted(chain(thumbnail1, thumbnail2), key=attrgetter('date'),
                                    reverse=True)
 
+        paginator = Paginator(thumbnail_art, 12)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 
         art_categories = CategoryArt.objects.all()
 
-        combined = ArtQueryset(roundabout, thumbnail_art, latest, quote, art_categories)
-        return combined
+        # combined = ArtQueryset(roundabout, thumbnail_art, latest, quote, art_categories)
+        # return combined
+
+        context['combined'] = {
+            'roundabout': roundabout,
+            'thumbnail': page_obj,  # Use the paginated queryset
+            'latest': latest,
+            'quote': quote
+        }
+        return context
 
 
 ###############################################    LITERATURE    #######################################################
 class Literature(ListView):
+    model = Book
     template_name = 'literature.html'
     context_object_name = 'combined'
 
-    def get_queryset(self):
-        expertise = Expertise.objects.get(expertise='literature')
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
 
         roundabout_poems = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:4]
         roundabout_chapters = Chapter.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:4]
@@ -145,7 +179,10 @@ class Literature(ListView):
         books_volumes1 = Book.objects.filter(readyToLaunch=True)
         books_volumes2 = Volume.objects.filter(readyToLaunch=True)
 
-        books_volumes = chain(books_volumes1, books_volumes2)
+        books_volumes = list(chain(books_volumes1, books_volumes2))
+        paginator = Paginator(books_volumes, 5)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
 
         thumbnail_poem1 = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')
         thumbnail_poem2 = Poem.objects.filter(readyToLaunch=True, promote=False).order_by('-date')
@@ -168,9 +205,21 @@ class Literature(ListView):
         current_date = datetime.now().date()
         two_weeks_back = current_date - timedelta(days=14)
 
-        combined = LiteratureQueryset(roundabout, books_volumes, thumbnail, latest, quote, literature_genre,
-                                      current_date, two_weeks_back)
-        return combined
+        # combined = LiteratureQueryset(roundabout, books_volumes, thumbnail, latest, quote, literature_genre,
+        #                               current_date, two_weeks_back)
+        # return combined
+
+        context['combined'] = {
+            'roundabout': roundabout,
+            'books_volumes': page_obj,
+            'thumbnail': thumbnail,  # Use the paginated queryset
+            'latest': latest,
+            'quote': quote,
+            'literature_genre': literature_genre,
+            'current_date': current_date,
+            'two_weeks_back': two_weeks_back
+        }
+        return context
 
 
 def book_volume(request, class_name, id):
@@ -192,10 +241,14 @@ def book_volume(request, class_name, id):
 
 #############################################    ENTERTAINMENT    ######################################################
 class Entertainment(ListView):
+    model = Post
     template_name = 'entertainment.html'
     context_object_name = 'combined'
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+
         expertise1 = Expertise.objects.get(expertise='entertainment')
         expertise2 = Expertise.objects.get(expertise='art')
         expertise3 = Expertise.objects.get(expertise='literature')
@@ -241,6 +294,10 @@ class Entertainment(ListView):
                                  thumbnail_model4_qs2), key=attrgetter('date'),
                            reverse=True)
 
+        paginator = Paginator(thumbnail, 10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         latest_post1 = Post.objects.filter(readyToLaunch=True, expertise=expertise1.id).order_by('-date')[:1]
         latest_post2 = Post.objects.filter(readyToLaunch=True, expertise=expertise2.id).order_by('-date')[:1]
         latest_post3 = Post.objects.filter(readyToLaunch=True, expertise=expertise3.id).order_by('-date')[:1]
@@ -252,16 +309,28 @@ class Entertainment(ListView):
 
         quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
-        return combined
+        # combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
+        # return combined
+
+        context['combined'] = {
+            'roundabout': roundabout,
+            'thumbnail': page_obj,  # Use the paginated queryset
+            'latest': latest,
+            'quote': quote
+        }
+        return context
 
 
 ################################################    SCIENCE    #########################################################
 class SciencePost(ListView):
+    model = Post
     template_name = 'science.html'
     context_object_name = 'combined'
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
+
+        context = super().get_context_data(**kwargs)
+
         expertise = Expertise.objects.get(expertise='science')
 
         roundabout1 = Science.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by(
@@ -277,13 +346,24 @@ class SciencePost(ListView):
         thumbnail = sorted(chain(thumbnail_model1_qs1, thumbnail_model1_qs2), key=attrgetter('date'),
                            reverse=True)
 
+        paginator = Paginator(thumbnail, 10)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
         latest = Science.objects.filter(readyToLaunch=True, expertise=expertise.id).order_by('-date')[:1]
 
         quote = Quote.objects.filter(readyToLaunch=True).order_by('-date')[:1]
 
-        combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
-        return combined
+        # combined = UltimateQueryset(roundabout, thumbnail, latest, quote)
+        # return combined
 
+        context['combined'] = {
+            'roundabout': roundabout,
+            'thumbnail': page_obj,  # Use the paginated queryset
+            'latest': latest,
+            'quote': quote
+        }
+        return context
 
 ########################################################################################################################
 ##############################################       DETAIL      #######################################################
@@ -557,17 +637,25 @@ def search(request):
             # conbined = Search(searched, expertise_art, expertise_literature, expertise_science, expertise_entertainment,
             #                   content_title, content_content)
 
-            combined = {'art': art, 'book': book, 'volume': volume, 'chapter': chapter, 'poem': poem, 'science': science,
+            combined_all = {'art': art, 'book': book, 'volume': volume, 'chapter': chapter, 'poem': poem, 'science': science,
                         'post': post}
+
+            combined_queryset = list(art) + list(book) + list(volume) + list(chapter) + list(poem) + list(science) + list(post)
+            paginator = Paginator(combined_queryset, 10)  # Set the number of items per page
+
+            page_number = request.GET.get('page')  # Get the current page number from the request
+
+            combined = paginator.get_page(page_number)
+
             empty_combined = 0
-            for val in combined.values():
+            for val in combined_all.values():
                 if val == []:
                     empty_combined += 1
-            if empty_combined == len(combined):
+            if empty_combined == len(combined_all):
                 combined = 'empty'
 
             records = 0
-            for val in combined.values():
+            for val in combined_all.values():
                 if val != []:
                     for item in val:
                         records += 1

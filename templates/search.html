@@ -165,317 +165,127 @@
         </div>
         <hr id="records-found-divider">
 
-        {% for item in combined.art %}
-        <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
+        {% for thumb in combined %}
+        <a class="detail-thumbnail" href="{%url 'details' thumb.class_name thumb.id%}">
             <div class="one-thumbnail">
                 <div class="thumbnail-image-div">
-                    {% if item.image.url != null %}
-                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
+                    {% if thumb.image.url != null %}
+                    <img class="thumbnail-image" src="{{thumb.image.url}}" alt="{{thumb.image.name}}">
                     {% else %}
+                    {% if thumb.expertise.expertise == 'literature' %}
+                    <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
+                    {% elif thumb.expertise.expertise == 'art' %}
                     <img class="thumbnail-image" src="{% static 'art_img.png' %}" alt="art">
+                    {% elif thumb.expertise.expertise == 'science' %}
+                    <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
+                    {% elif thumb.expertise.expertise == 'entertainment' %}
+                    <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
+                    {% endif %}
                     {% endif %}
                 </div>
                 <div class="thumbnail-info">
                     <div class="thumbnail-category_author_date">
                         <div class="thumbnail-expertise-date">
-                            <p class="thumbnail-category-pink">{{item.expertise.expertise}}</p>
-                            <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
+                            {% if thumb.expertise.expertise == 'literature' %}
+                            <p class="thumbnail-category-blue">{{thumb.expertise.expertise}}</p>
+                            {% elif thumb.expertise.expertise == 'art' %}
+                            <p class="thumbnail-category-pink">{{thumb.expertise.expertise}}</p>
+                            {% elif thumb.expertise.expertise == 'entertainment'%}
+                            <p class="thumbnail-category-purple">{{thumb.expertise.expertise}}</p>
+                            {% elif thumb.expertise.expertise == 'science' %}
+                            <p class="thumbnail-category-yellow">{{thumb.expertise.expertise}}</p>
+                            {% endif %}
+                            {% if thumb.expertise.expertise == 'literature' %}
+                            {% if thumb.volume.title != null %}
+                            <p class="thumbnail-literature-title">{{thumb.volume.title}}</p>
+                            {% elif thumb.volume.book != null %}
+                            <p class="thumbnail-literature-title">{{thumb.book.title}}</p>
+                            {% endif %}
+                            {% elif thumb.expertise.expertise == 'art' %}
+                            <p class="thumbnail-art-category">{{thumb.category}}</p>
+                            {% endif %}
+                            <p class="thumbnail-date">{{thumb.date|date:"d.m.Y"}}</p>
                         </div>
                         <div class="thumbnail-author-div">
-                            {% if item.author.middleName != null %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}.
-                                {{item.author.lastName}}</p>
+                            {% if thumb.author.middleName != null %}
+                            <p class="thumbnail-author">{{thumb.author.firstName.0}}. {{thumb.author.middleName.0}}.
+                                {{thumb.author.lastName}}</p>
                             {% else %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
+                            <p class="thumbnail-author">{{thumb.author.firstName.0}}. {{thumb.author.lastName}}</p>
                             {% endif %}
                         </div>
                     </div>
-                    <h3 class="thumbnail-title">{{item.title}}</h3>
+                    <h3 class="thumbnail-title">{{thumb.title}}</h3>
                     <div class="thumbnail-content">
-                        {% if item.expertise.expertise == 'art' and item.dimentionX != blank %}
-                            <table class="thumbnail-art-table">
-                                <tr>
-                                    <td class="thumbnail-art-col1">Materials:</td>
-                                    <td class="thumbnail-art-col2">{{item.materials}}</td>
-                                </tr>
-                                <tr>
-                                    <td class="thumbnail-art-col1">Dimentions:</td>
-                                    <td class="thumbnail-art-col2">{{item.dimentionX}}x{{item.dimentionY}} mm</td>
-                                </tr>
-                            </table>
-                        {% elif item.expertise.expertise == 'entertainment' or item.expertise.expertise == 'science'%}
-                            <div class="thumbnail-post-content">
-                                <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
-                            </div>
-                            <div class="thumbnail-post-content-small">
-                                <p class="thumbnail-post-content-small">
-                                    {{item.content|highlight_code|safe|truncatewords:15}}</p>
-                            </div>
+                        {% if thumb.expertise.expertise == 'literature' %}
+                        <div id="thumbnail-literature-content" class="thumbnail-literature-content">
+                            <p class="thumbnail-literature-content">
+                                {{thumb.content|highlight_code|safe|truncatewords:25}}</p>
+                        </div>
+                        <div id="thumbnail-literature-content-small" class="thumbnail-literature-content-small">
+                            <p class="thumbnail-literature-content-small">
+                                {{thumb.content|highlight_code|safe|truncatewords:15}}</p>
+                        </div>
+                        {% elif thumb.expertise.expertise == 'art' and thumb.dimentionX != blank %}
+                        <table class="thumbnail-art-table">
+                            <tr>
+                                <td class="thumbnail-art-col1">Materials:</td>
+                                <td class="thumbnail-art-col2">{{thumb.materials}}</td>
+                            </tr>
+                            <tr>
+                                <td class="thumbnail-art-col1">Dimentions:</td>
+                                <td class="thumbnail-art-col2">{{thumb.dimentionX}}x{{thumb.dimentionY}} mm</td>
+                            </tr>
+                        </table>
+                        {% elif thumb.expertise.expertise == 'entertainment' or thumb.expertise.expertise == 'science'
+                        or thumb.expertise.expertise == 'art'%}
+                        <div class="thumbnail-post-content">
+                            <p class="thumbnail-post-content">{{thumb.content|highlight_code|safe|truncatewords:25}}</p>
+                        </div>
+                        <div class="thumbnail-post-content-small">
+                            <p class="thumbnail-post-content-small">
+                                {{thumb.content|highlight_code|safe|truncatewords:15}}</p>
+                        </div>
                         {% endif %}
                     </div>
                 </div>
             </div>
         </a>
-        {% endfor %}
-        {% for item in combined.book %}
-        <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
-            <div class="one-thumbnail">
-                <div class="thumbnail-image-div">
-                    {% if item.cover.url != null %}
-                    <img class="thumbnail-image" src="{{item.cover.url}}" alt="{{item.image.name}}">
-                    {% else %}
-                    <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
-                    {% endif %}
-                </div>
-                <div class="thumbnail-info">
-                    <div class="thumbnail-category_author_date">
-                        <div class="thumbnail-expertise-date">
-                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
-                            {% if item.volume.title != null %}
-                            <p class="thumbnail-literature-title">{{item.volume.title}}</p>
-                            {% elif item.volume.book != null %}
-                            <p class="thumbnail-literature-title">{{item.book.title}}</p>
-                            {% endif %}
-                            <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
-                        </div>
-                        <div class="thumbnail-author-div">
-                            {% if item.author.middleName != null %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}.
-                                {{item.author.lastName}}</p>
-                            {% else %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <h3 class="thumbnail-title">{{item.title}}</h3>
-                    <div class="thumbnail-content">
-                        <div id="thumbnail-literature-content1" class="thumbnail-literature-content">
-                            <p class="thumbnail-literature-content">
-                                {{item.content|highlight_code|safe|truncatewords:25}}</p>
-                        </div>
-                        <div id="thumbnail-literature-content-small1" class="thumbnail-literature-content-small">
-                            <p class="thumbnail-literature-content-small">
-                                {{item.content|highlight_code|safe|truncatewords:15}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-        {% for item in combined.volume %}
-        <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
-            <div class="one-thumbnail">
-                <div class="thumbnail-image-div">
-                    {% if item.cover.url != null %}
-                    <img class="thumbnail-image" src="{{item.cover.url}}" alt="{{item.image.name}}">
-                    {% else %}
-                    <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
-                    {% endif %}
-                </div>
-                <div class="thumbnail-info">
-                    <div class="thumbnail-category_author_date">
-                        <div class="thumbnail-expertise-date">
-                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
-                            {% if item.volume.title != null %}
-                            <p class="thumbnail-literature-title">{{item.volume.title}}</p>
-                            {% elif item.volume.book != null %}
-                            <p class="thumbnail-literature-title">{{item.book.title}}</p>
-                            {% endif %}
-                            <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
-                        </div>
-                        <div class="thumbnail-author-div">
-                            {% if item.author.middleName != null %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}.
-                                {{item.author.lastName}}</p>
-                            {% else %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <h3 class="thumbnail-title">{{item.title}}</h3>
-                    <div class="thumbnail-content">
-                        <div id="thumbnail-literature-content1" class="thumbnail-literature-content">
-                            <p class="thumbnail-literature-content">
-                                {{item.content|highlight_code|safe|truncatewords:25}}</p>
-                        </div>
-                        <div id="thumbnail-literature-content-small1" class="thumbnail-literature-content-small">
-                            <p class="thumbnail-literature-content-small">
-                                {{item.content|highlight_code|safe|truncatewords:15}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-        {% for item in combined.chapter %}
-        <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
-            <div class="one-thumbnail">
-                <div class="thumbnail-image-div">
-                    {% if item.image.url != null %}
-                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
-                    {% else %}
-                    <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
-                    {% endif %}
-                </div>
-                <div class="thumbnail-info">
-                    <div class="thumbnail-category_author_date">
-                        <div class="thumbnail-expertise-date">
-                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
-                            {% if item.volume.title != null %}
-                            <p class="thumbnail-literature-title">{{item.volume.title}}</p>
-                            {% elif item.volume.book != null %}
-                            <p class="thumbnail-literature-title">{{item.book.title}}</p>
-                            {% endif %}
-                            <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
-                        </div>
-                        <div class="thumbnail-author-div">
-                            {% if item.author.middleName != null %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}.
-                                {{item.author.lastName}}</p>
-                            {% else %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <h3 class="thumbnail-title">{{item.title}}</h3>
-                    <div class="thumbnail-content">
-                        <div id="thumbnail-literature-content1" class="thumbnail-literature-content">
-                            <p class="thumbnail-literature-content">
-                                {{item.content|highlight_code|safe|truncatewords:25}}</p>
-                        </div>
-                        <div id="thumbnail-literature-content-small1" class="thumbnail-literature-content-small">
-                            <p class="thumbnail-literature-content-small">
-                                {{item.content|highlight_code|safe|truncatewords:15}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-        {% for item in combined.poem %}
-        <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
-            <div class="one-thumbnail">
-                <div class="thumbnail-image-div">
-                    {% if item.image.url != null %}
-                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
-                    {% else %}
-                    <img class="thumbnail-image" src="{% static 'literature_img.png' %}" alt="literature">
-                    {% endif %}
-                </div>
-                <div class="thumbnail-info">
-                    <div class="thumbnail-category_author_date">
-                        <div class="thumbnail-expertise-date">
-                            <p class="thumbnail-category-blue">{{item.expertise.expertise}}</p>
-                            {% if item.volume.title != null %}
-                            <p class="thumbnail-literature-title">{{item.volume.title}}</p>
-                            {% elif item.volume.book != null %}
-                            <p class="thumbnail-literature-title">{{item.book.title}}</p>
-                            {% endif %}
-                            <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
-                        </div>
-                        <div class="thumbnail-author-div">
-                            {% if item.author.middleName != null %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}.
-                                {{item.author.lastName}}</p>
-                            {% else %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <h3 class="thumbnail-title">{{item.title}}</h3>
-                    <div class="thumbnail-content">
-                        <div id="thumbnail-literature-content1" class="thumbnail-literature-content">
-                            <p class="thumbnail-literature-content">
-                                {{item.content|highlight_code|safe|truncatewords:25}}</p>
-                        </div>
-                        <div id="thumbnail-literature-content-small1" class="thumbnail-literature-content-small">
-                            <p class="thumbnail-literature-content-small">
-                                {{item.content|highlight_code|safe|truncatewords:15}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-        {% for item in combined.science %}
-        <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
-            <div class="one-thumbnail">
-                <div class="thumbnail-image-div">
-                    {% if item.image.url != null %}
-                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
-                    {% else %}
-                    <img class="thumbnail-image" src="{% static 'science_img.png' %}" alt="science">
-                    {% endif %}
-                </div>
-                <div class="thumbnail-info">
-                    <div class="thumbnail-category_author_date">
-                        <div class="thumbnail-expertise-date">
-                            <p class="thumbnail-category-yellow">{{item.expertise.expertise}}</p>
-                            <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
-                        </div>
-                        <div class="thumbnail-author-div">
-                            {% if item.author.middleName != null %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}.
-                                {{item.author.lastName}}</p>
-                            {% else %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <h3 class="thumbnail-title">{{item.title}}</h3>
-                    <div class="thumbnail-content">
-                        <div class="thumbnail-post-content">
-                            <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
-                        </div>
-                        <div class="thumbnail-post-content-small">
-                            <p class="thumbnail-post-content-small">
-                                {{item.content|highlight_code|safe|truncatewords:15}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-        {% for item in combined.post %}
-        <a class="detail-thumbnail" href="{%url 'details' item.class_name item.id%}">
-            <div class="one-thumbnail">
-                <div class="thumbnail-image-div">
-                    {% if item.image.url != null %}
-                    <img class="thumbnail-image" src="{{item.image.url}}" alt="{{item.image.name}}">
-                    {% else %}
-                    <img class="thumbnail-image" src="{% static 'entertainment_img.png' %}" alt="entertainment">
-                    {% endif %}
-                </div>
-                <div class="thumbnail-info">
-                    <div class="thumbnail-category_author_date">
-                        <div class="thumbnail-expertise-date">
-                            <p class="thumbnail-category-purple">{{item.expertise.expertise}}</p>
-                            <p class="thumbnail-date">{{item.date|date:"d.m.Y"}}</p>
-                        </div>
-                        <div class="thumbnail-author-div">
-                            {% if item.author.middleName != null %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.middleName.0}}.
-                                {{item.author.lastName}}</p>
-                            {% else %}
-                            <p class="thumbnail-author">{{item.author.firstName.0}}. {{item.author.lastName}}</p>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <h3 class="thumbnail-title">{{item.title}}</h3>
-                    <div class="thumbnail-content">
-                        <div class="thumbnail-post-content">
-                            <p class="thumbnail-post-content">{{item.content|highlight_code|safe|truncatewords:25}}</p>
-                        </div>
-                        <div class="thumbnail-post-content-small">
-                            <p class="thumbnail-post-content-small">
-                                {{item.content|highlight_code|safe|truncatewords:15}}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
+        <div class="ultimate-thumbnail-gap"></div>
+        <!-- If thumb_list is empty  -->
+        {% empty %}
+        <p>No thumbnails</p>
         {% endfor %}
     </div>
+    {% if combined.has_previous %}
+    <a href="?page={{ combined.previous_page_number }}">« Previous page</a>
+
+    {% if combined.number > 3 %}
+    <a href="?page=1">1</a>
+    {% if combined.number > 4 %}
+    <span>...</span>
+    {% endif %}
+    {% endif %}
+    {% endif %}
+
+    {% for num in combined.paginator.page_range %}
+    {% if combined.number == num %}
+    <a href="?page={{ num }}">{{ num }}</a>
+    {% elif num > combined.number|add:'-3' and num < combined.number|add:'3' %}
+    <a href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if combined.has_next %}
+    {% if combined.number < combined.paginator.num_pages|add:'-3' %}
+    <span>...</span>
+    <a href="?page={{ combined.paginator.num_pages }}">{{ combined.paginator.num_pages }}</a>
+    {% elif combined.number < combined.paginator.num_pages|add:'-2' %}
+    <a href="?page={{ combined.paginator.num_pages }}">{{ combined.paginator.num_pages }}</a>
+    {% endif %}
+
+    <a href="?page={{ combined.next_page_number }}">Next Page »</a>
+    {% endif %}
     {% else %}
     <p id="search-form-empty">Fill the search field, to find posts :-)</p>
     {% endif %}
