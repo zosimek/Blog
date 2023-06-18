@@ -176,7 +176,7 @@
         </section>
         <section class="section2" >{% block content %}{% endblock %}</section>
         <section class="section3">{% block about %}{% endblock %}</section>
-        <a class="to-top">
+        <a class="to-top" id="to-top">
             <img class="to-top-img" src="{% static 'up_white.png' %}" alt="up"/>
         </a>
     </div>
@@ -185,8 +185,8 @@
 <script src="{% static 'navbar.js' %}"></script>
 <script src="{% static 'upButton.js' %}"></script>
 
+<!--    SCROLL INDICATOR    -->
 <script>
-    // When the user scrolls the page, execute myFunction
     window.onscroll = function () {
         myFunction()
     };
@@ -198,6 +198,7 @@
         document.getElementById("myBar").style.width = scrolled + "%";
     }
 </script>
+<!--    SEARCH NAV BUTTON   -->
 <script>
     $('.nav-a-search-img').on('click', function () {
         var section1 = $('.section1');
@@ -208,6 +209,7 @@
         }
     });
 </script>
+<!--    SEARCH   CHECKBOX   -->
 <script>
     $('#form-expertise-all').click(function(event) {
     if(this.checked) {
