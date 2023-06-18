@@ -469,7 +469,7 @@ p.records-found-text{
     font-size: 18px;
     font-family: "CMU Serif";
     font-weight: bolder;
-    font-size: 20px;
+    font-size: 30px;
 }
 .records-found-text:first-child{
     margin-right: 20px;

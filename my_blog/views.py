@@ -563,11 +563,17 @@ def search(request):
             for val in combined.values():
                 if val == []:
                     empty_combined += 1
-            print(str(empty_combined) + "   " + str(len(combined)))
             if empty_combined == len(combined):
                 combined = 'empty'
-                print(combined)
-            return render(request, 'search.html', {'combined': combined, 'sentence':searched, 'records': len(combined)})
+
+            records = 0
+            for val in combined.values():
+                if val != []:
+                    for item in val:
+                        records += 1
+
+
+            return render(request, 'search.html', {'combined': combined, 'sentence':searched, 'records': records})
         else:
             return render(request, 'search.html', {})
     else:
