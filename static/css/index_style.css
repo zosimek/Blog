@@ -244,7 +244,7 @@ section {
 }
 
 .section1{
-    /*display: none;*/
+    display: none;
     height: fit-content;
     /*background: white;*/
     background: #f0932b;
@@ -284,6 +284,12 @@ section {
     opacity: 0;
     pointer-events: none;
     transition: all .4s;
+}
+p#search-form-empty{
+    font-family: "CMU Serif"!important;
+    font-size: 30px!important;
+    width: fit-content!important;
+    margin: 20px auto!important;
 }
 
 .to-top.active{
@@ -457,6 +463,29 @@ input[type=checkbox] {
     background-color: #f0932b;
     border-radius: 7px;
     text-transform: uppercase;
+}
+p.records-found-text{
+    display: inline;
+    font-size: 18px;
+    font-family: "CMU Serif";
+    font-weight: bolder;
+    font-size: 20px;
+}
+.records-found-text:first-child{
+    margin-right: 20px;
+    font-weight: normal;
+}
+.records-found-text:last-child{
+    margin-left: 20px;
+    font-weight: normal;
+}
+div#records-found-text{
+    width: fit-content;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+#records-found-divider{
+    border-top: 3px solid #f0932b;
 }
 
 

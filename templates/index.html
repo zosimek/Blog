@@ -102,7 +102,7 @@
     </div>
 
     <div class="main-content">
-        <section class="section1">
+        <section class="section1" id="section1">
             <div class="container-fluid">
                 <form class="d-flex" method=POST action="{%url 'search'%}">
                     {% csrf_token %}
@@ -174,7 +174,7 @@
                 </form>
             </div>
         </section>
-        <section class="section2">{% block content %}{% endblock %}</section>
+        <section class="section2" >{% block content %}{% endblock %}</section>
         <section class="section3">{% block about %}{% endblock %}</section>
         <a class="to-top">
             <img class="to-top-img" src="{% static 'up_white.png' %}" alt="up"/>
