@@ -222,6 +222,7 @@ a.detail-thumbnail > div:hover{
     display: flex;
     height: fit-content;
     margin-bottom: 3px;
+    margin-bottom: 3px;
 }
 .thumbnail-image-div{
     height: inherit;
