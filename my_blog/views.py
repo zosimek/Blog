@@ -5,6 +5,7 @@ from string import digits
 
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render
 from django.http import HttpResponse
 from operator import attrgetter
@@ -57,7 +58,6 @@ class Ultimate(ListView):
     context_object_name = 'combined'
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
 
         art_seat = Artwork.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:2]
@@ -101,12 +101,13 @@ class Ultimate(ListView):
         # return combined
 
         context['combined'] = {
-                'roundabout': roundabout,
-                'thumbnail': page_obj,  # Use the paginated queryset
-                'latest': latest,
-                'quote': quote
-                }
+            'roundabout': roundabout,
+            'thumbnail': page_obj,  # Use the paginated queryset
+            'latest': latest,
+            'quote': quote
+        }
         return context
+
 
 ################################################       ART      ########################################################
 class Art(ListView):
@@ -170,7 +171,6 @@ class Literature(ListView):
     context_object_name = 'combined'
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
 
         roundabout_poems = Poem.objects.filter(readyToLaunch=True, promote=True).order_by('-date')[:4]
@@ -248,7 +248,6 @@ class Entertainment(ListView):
     context_object_name = 'combined'
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
 
         expertise1 = Expertise.objects.get(expertise='entertainment')
@@ -330,7 +329,6 @@ class SciencePost(ListView):
     context_object_name = 'combined'
 
     def get_context_data(self, **kwargs):
-
         context = super().get_context_data(**kwargs)
 
         expertise = Expertise.objects.get(expertise='science')
@@ -366,6 +364,7 @@ class SciencePost(ListView):
             'quote': quote
         }
         return context
+
 
 ########################################################################################################################
 ##############################################       DETAIL      #######################################################
@@ -452,12 +451,16 @@ def search(request):
                 if expertise_art == "on":
                     art1 = Artwork.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by(
                         '-date')
-                    art2 = Artwork.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    art2 = Artwork.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
                     for word in searched_words[1:]:
                         art1 &= Artwork.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
                             '-date')
-                        art2 &= Artwork.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        art2 &= Artwork.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
                     art = chain(art1, art2)
                     art = list(dict.fromkeys(art))
@@ -466,36 +469,52 @@ def search(request):
                 if expertise_literature == "on":
                     book1 = Book.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by(
                         '-date')
-                    book2 = Book.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    book2 = Book.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
                     volume1 = Volume.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by(
                         '-date')
-                    volume2 = Volume.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    volume2 = Volume.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
                     chapter1 = Chapter.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by(
                         '-date')
                     chapter2 = Chapter.objects.filter(readyToLaunch=True,
-                                                      content__icontains=searched_words[0]).order_by('-date')
+                                                      content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by('-date')
                     poem1 = Poem.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by(
                         '-date')
-                    poem2 = Poem.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    poem2 = Poem.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
                     for word in searched_words[1:]:
                         book1 &= Book.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
                             '-date')
-                        book2 &= Book.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        book2 &= Book.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
                         volume1 &= Volume.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
                             '-date')
-                        volume2 &= Volume.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        volume2 &= Volume.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
                         chapter1 &= Chapter.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
                             '-date')
-                        chapter2 &= Chapter.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        chapter2 &= Chapter.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
                         poem1 &= Poem.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
                             '-date')
-                        poem2 &= Poem.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        poem2 &= Poem.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
                     book = chain(book1, book2)
                     book = list(dict.fromkeys(book))
@@ -513,12 +532,15 @@ def search(request):
                 if expertise_science == "on":
                     science1 = Science.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by(
                         '-date')
-                    science2 = Science.objects.filter(readyToLaunch=True,
-                                                      content__icontains=searched_words[0]).order_by('-date')
+                    science2 = Science.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by('-date')
                     for word in searched_words[1:]:
                         science1 &= Science.objects.filter(readyToLaunch=True, title__icontains=word).order_by(
                             '-date')
-                        science2 &= Science.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        science2 &= Science.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
                     science = chain(science1, science2)
                     science = list(dict.fromkeys(science))
@@ -527,40 +549,64 @@ def search(request):
                 if expertise_entertainment == "on":
                     post1 = Post.objects.filter(readyToLaunch=True, title__icontains=searched_words[0]).order_by(
                         '-date')
-                    post2 = Post.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    post2 = Post.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
                     for word in searched_words[1:]:
                         post1 &= Post.objects.filter(readyToLaunch=True, title__icontains=word).order_by('-date')
-                        post2 &= Post.objects.filter(readyToLaunch=True, content__icontains=word).order_by('-date')
+                        post2 &= Post.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by('-date')
                     post = chain(post1, post2)
                     post = list(dict.fromkeys(post))
                 else:
                     post = None
             elif content_title != "on" and content_content == "on":
                 if expertise_art == "on":
-                    art = Artwork.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    art = Artwork.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
                     for word in searched_words[1:]:
-                        art &= Artwork.objects.filter(readyToLaunch=True, content__icontains=word).order_by('-date')
+                        art &= Artwork.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by('-date')
                 else:
                     art = None
                 if expertise_literature == "on":
-                    book = Book.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    book = Book.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
-                    volume = Volume.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    volume = Volume.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
-                    chapter = Chapter.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    chapter = Chapter.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
-                    poem = Poem.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    poem = Poem.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
                     for word in searched_words[1:]:
-                        book &= Book.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        book &= Book.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
-                        volume &= Volume.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        volume &= Volume.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
-                        chapter &= Chapter.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        chapter &= Chapter.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
-                        poem &= Poem.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        poem &= Poem.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
                 else:
                     book = None
@@ -568,18 +614,26 @@ def search(request):
                     chapter = None
                     poem = None
                 if expertise_science == "on":
-                    science = Science.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    science = Science.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
                     for word in searched_words[1:]:
-                        science &= Science.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        science &= Science.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
                 else:
                     science = None
                 if expertise_entertainment == "on":
-                    post = Post.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).order_by(
+                    post = Post.objects.filter(readyToLaunch=True, content__icontains=searched_words[0]).exclude(
+                        Q(content__icontains='<img') | Q(content__icontains='</img>')
+                    ).order_by(
                         '-date')
                     for word in searched_words[1:]:
-                        post &= Post.objects.filter(readyToLaunch=True, content__icontains=word).order_by(
+                        post &= Post.objects.filter(readyToLaunch=True, content__icontains=word).exclude(
+                            Q(content__icontains='<img') | Q(content__icontains='</img>')
+                        ).order_by(
                             '-date')
                 else:
                     post = None
@@ -639,8 +693,9 @@ def search(request):
             # conbined = Search(searched, expertise_art, expertise_literature, expertise_science, expertise_entertainment,
             #                   content_title, content_content)
 
-            combined_all = {'art': art, 'book': book, 'volume': volume, 'chapter': chapter, 'poem': poem, 'science': science,
-                        'post': post}
+            combined_all = {'art': art, 'book': book, 'volume': volume, 'chapter': chapter, 'poem': poem,
+                            'science': science,
+                            'post': post}
 
             combined_queryset = []
 
@@ -671,13 +726,15 @@ def search(request):
             #         for item in val:
             #             records += 1
 
-
-            return render(request, 'search.html', {'combined': combined, 'search_query': combined_queryset, 'sentence':searched, 'records': records})
+            return render(request, 'search.html',
+                          {'combined': combined, 'search_query': combined_queryset, 'sentence': searched,
+                           'records': records})
         else:
 
             return render(request, 'search.html', {})
     else:
         return render(request, 'search.html', {})
+
 
 ############################################    EMAIL  SEND    #########################################################
 
@@ -687,9 +744,9 @@ def email_send(request):
         title = request.POST.get('title')
         content = request.POST.get('content')
 
-        if(email != None and title != None and content != None):
+        if (email != None and title != None and content != None):
             mail_template = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
-            if re.match(mail_template,email):
+            if re.match(mail_template, email):
                 # Send the email
                 send_mail(
                     title,
@@ -701,7 +758,8 @@ def email_send(request):
 
                 success = "Email send successfully :-)"
 
-                return render(request, 'email_send.html', {'success': success})  # Render a success page after sending the email
+                return render(request, 'email_send.html',
+                              {'success': success})  # Render a success page after sending the email
 
     success = "Send unsuccessful. Make sure to fill all the fields."
 
