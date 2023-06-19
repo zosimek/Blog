@@ -138,7 +138,8 @@
                                 </div>
                                 <div class="form-expertise-search-div">
                                     <input class="form-expertise-search-item" type="checkbox"
-                                           id="form-expertise-entertainment" name="form-expertise-entertainment" checked>
+                                           id="form-expertise-entertainment" name="form-expertise-entertainment"
+                                           checked>
                                     <label class="form-expertise-search-item" for="form-expertise-entertainment">entertainment</label>
                                 </div>
                             </div>
@@ -174,7 +175,7 @@
                 </form>
             </div>
         </section>
-        <section class="section2" >{% block content %}{% endblock %}</section>
+        <section class="section2">{% block content %}{% endblock %}</section>
         <section class="section3">{% block about %}{% endblock %}</section>
         <a class="to-top" id="to-top">
             <img class="to-top-img" src="{% static 'up_white.png' %}" alt="up"/>
@@ -182,83 +183,13 @@
     </div>
 </main>
 
+{% block extrascripts %}
 <script src="{% static 'navbar.js' %}"></script>
 <script src="{% static 'upButton.js' %}"></script>
+<script src="{% static 'checkbox_all.js' %}"></script>
+<script src="{% static 'scroll_indicator.js' %}"></script>
+<script src="{% static 'search_nav_button.js' %}"></script>
+{% endblock %}
 
-<!--    SCROLL INDICATOR    -->
-<script>
-    window.onscroll = function () {
-        myFunction()
-    };
-
-    function myFunction() {
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
-        document.getElementById("myBar").style.width = scrolled + "%";
-    }
-</script>
-<!--    SEARCH NAV BUTTON   -->
-<script>
-    $('.nav-a-search-img').on('click', function () {
-        var section1 = $('.section1');
-        if (section1.is(':visible')) {
-            section1.hide('slow');
-        } else {
-            section1.show('slow');
-        }
-    });
-</script>
-<!--    SEARCH   CHECKBOX   -->
-<script>
-    $('#form-expertise-all').click(function(event) {
-    if(this.checked) {
-        $('#form-expertise-art').each(function() {
-            this.checked = true;
-        });
-        $('#form-expertise-literature').each(function() {
-            this.checked = true;
-        });
-        $('#form-expertise-science').each(function() {
-            this.checked = true;
-        });
-        $('#form-expertise-entertainment').each(function() {
-            this.checked = true;
-        });
-    } else {
-        $('#form-expertise-art').each(function() {
-            this.checked = false;
-        });
-        $('#form-expertise-literature').each(function() {
-            this.checked = false;
-        });
-        $('#form-expertise-science').each(function() {
-            this.checked = false;
-        });
-        $('#form-expertise-entertainment').each(function() {
-            this.checked = false;
-        });
-    }
-});
-</script>
-<script>
-    $('#form-content-all').click(function(event) {
-    if(this.checked) {
-        $('#form-content-title').each(function() {
-            this.checked = true;
-        });
-        $('#form-content-content').each(function() {
-            this.checked = true;
-        });
-    } else {
-        $('#form-content-title').each(function() {
-            this.checked = false;
-        });
-        $('#form-content-content').each(function() {
-            this.checked = false;
-        });
-    }
-});
-</script>
 </body>
 </html>
