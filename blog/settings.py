@@ -130,7 +130,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'zof.dobrowolska@gmail.com'
-EMAIL_HOST_PASSWORD = 'gAAAAABkj5o3Aj0M8BlTyWhHZWlCRWqIAWoduFdN0Q4D_s1AnkhIt37Hn5rELkGTJJ-Y31vgV29-vyC5kr4x7V5QWSdNFUQlrcAR8hl5qJkUiJC8-MoNsYE='
+EMAIL_HOST_PASSWORD = 'gcyblgisbskhrpof'
 # decrypt this string with key like so : <my ideal men hight (with dot) + "_" + current love initials (capitals) + "_" + phune pin code>
 # use the function in blog/mail_password.py
 #gAAAAABkj5o3Aj0M8BlTyWhHZWlCRWqIAWoduFdN0Q4D_s1AnkhIt37Hn5rELkGTJJ-Y31vgV29-vyC5kr4x7V5QWSdNFUQlrcAR8hl5qJkUiJC8-MoNsYE=

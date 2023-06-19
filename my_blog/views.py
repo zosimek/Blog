@@ -642,7 +642,16 @@ def search(request):
             combined_all = {'art': art, 'book': book, 'volume': volume, 'chapter': chapter, 'poem': poem, 'science': science,
                         'post': post}
 
-            combined_queryset = list(art) + list(book) + list(volume) + list(chapter) + list(poem) + list(science) + list(post)
+            combined_queryset = []
+
+            records = 0
+            for val in combined_all.values():
+                if val is not None:
+                    combined_queryset += val
+                    if len(val) != 0:
+                        for item in val:
+                            records += 1
+
             paginator = Paginator(combined_queryset, 10)  # Set the number of items per page
 
             page_number = request.GET.get('page')  # Get the current page number from the request
@@ -656,11 +665,11 @@ def search(request):
             if empty_combined == len(combined_all):
                 combined = 'empty'
 
-            records = 0
-            for val in combined_all.values():
-                if val != []:
-                    for item in val:
-                        records += 1
+            # records = 0
+            # for val in combined_all.values():
+            #     if val != []:
+            #         for item in val:
+            #             records += 1
 
 
             return render(request, 'search.html', {'combined': combined, 'search_query': combined_queryset, 'sentence':searched, 'records': records})
