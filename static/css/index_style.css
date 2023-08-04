@@ -252,6 +252,7 @@ section {
 .section2{
     height: fit-content;
     display: unset;
+    background-color: #f0932b;
 }
 .section3{
     height: fit-content;
@@ -613,7 +614,7 @@ div#records-found-text{
 
 /*   the part below hides the navbar when the screen width is to small
       and enables to show the mobile version of side-navbar*/
-@media screen and (max-width: 1325px){
+@media screen and (max-width: 1437px){
     .header,
     .nav{
         font-size: 12px;
@@ -638,7 +639,7 @@ div#records-found-text{
     }
 }
 
-@media screen and (max-width: 1048px){
+@media screen and (max-width: 1143px){
     .header,
     .nav{
         display: none;
@@ -679,8 +680,14 @@ div#records-found-text{
     }
     .section1{
         height: fit-content;
-        width: 100%;
         /*background: #f0932b;*/
+    }
+}
+
+/* search section */
+@media screen and (max-width: 535px) {
+    div.form-expertise-search{
+        margin-left: 40px;
     }
 }
 
@@ -737,7 +744,7 @@ div#records-found-text{
     margin-bottom: 15px;
 }
 
-@media screen and (min-width: 687px){
+@media screen and (min-width: 768px){
     .mob-menu{
         display: none;
     }
@@ -752,7 +759,7 @@ div#records-found-text{
     padding: 15px 0 0 15px;
 }
 
-@media screen and (max-width: 687px){
+@media screen and (max-width: 767px){
     .min-nav{
         display: none;
     }
@@ -767,7 +774,7 @@ div#records-found-text{
         aspect-ratio: 1 / 1;
     }
 }
-@media screen and (min-width: 983px){
+@media screen and (min-width: 1144px){
     .min-nav{
         display: none;
     }

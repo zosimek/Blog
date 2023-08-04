@@ -58,6 +58,7 @@
                 <a class="nav-a-literature" href="{%url 'literature'%}">LITERATURE</a>
                 <a class="nav-a-science" href="{%url 'science'%}">SCIENCE</a>
                 <a class="nav-a-entertainment" href="{%url 'entertainment'%}">ENTERTAINMENT</a>
+                <a class="nav-a-shop" href="{%url 'entertainment'%}">SHOP</a>
                 <a class="nav-a-search"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
             </nav>
             <nav class="min-nav">
@@ -69,6 +70,8 @@
                                                  alt="SCIENCE"></a>
                 <a href="{%url 'entertainment'%}"><img class="min-icon" src="{% static 'entertainment_menu.png' %}"
                                                        alt="ENTERTAINMENT"></a>
+                <a href="{%url 'entertainment'%}"><img class="min-icon" src="{% static 'shop_menu.png' %}"
+                                                       alt="SHOP"></a>
                 <a class="min-icon"><img class="nav-a-search-img" src="{% static 'search_icon.png' %}" alt="search"></a>
             </nav>
         </header>
@@ -97,6 +100,9 @@
                 <a href="{%url 'entertainment'%}" class="mob-list-item"><img class="mob-icon"
                                                                              src="{% static 'entertainment_icon.png' %}"
                                                                              alt="ENTERTAINMENT"></a>
+                <a href="{%url 'entertainment'%}" class="mob-list-item"><img class="mob-icon"
+                                                                             src="{% static 'shop_icon.png' %}"
+                                                                             alt="SHOP"></a>
             </div>
         </div>
     </div>
