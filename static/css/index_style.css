@@ -10,7 +10,34 @@ html {
 a {
     text-decoration: none;
 }
+div.nav-drop-down{
+    display: none;
+}
+.carousel-background-main{
+    width: 100%;
+    background-color: #f0932b;
+}
+.carousel-background-entertainment{
+    width: 100%;
+    background-color: #a73594;
+}
 
+.carousel-background-science {
+    width: 100%;
+    background-color: #f2bf2c;
+}
+.carousel-background-literature {
+    width: 100%;
+    background-color: #62bcea;
+}
+.carousel-background-art {
+    width: 100%;
+    background-color: #e9549f;
+}
+.carousel-background-about {
+    width: 100%;
+    background-color: #35ac49;
+}
 .header-container {
     width: 80%;
     height: 70px;

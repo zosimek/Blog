@@ -505,3 +505,47 @@ a.thumbnail-detail-book-volume{
     background-color: #62bcea;
     color: white;
 }
+@media screen and (max-width: 975px) {
+.art-thumbnail{
+    width: 80%;
+    height: fit-content;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(35vw, 35vw));
+    grid-gap: 5px;
+    margin-bottom: 20px;
+}
+.art-detail-thumbnail{
+    height: 35vw;
+    aspect-ratio: 1 / 1;
+
+}
+.art-one-thumbnail{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+.art-thumbnail-image{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.image-container img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+}
+@media screen and (max-width: 520px){
+    .art-thumbnail{
+        width: 80%;
+        height: fit-content;
+        margin: 0 auto;
+        display: inline-table;
+        margin-bottom: 5px;
+    }
+    .art-detail-thumbnail{
+        height: fit-content;
+        aspect-ratio: unset;
+    }
+}
