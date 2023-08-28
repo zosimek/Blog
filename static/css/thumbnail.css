@@ -508,18 +508,25 @@ a.thumbnail-detail-book-volume{
 @media screen and (max-width: 1000px){
     .one-thumbnail-book-volume{
         display: block;
-        width: 75vw;
+        margin: 20px auto;
+        /*width: 75vw;*/
     }
     .thumbnail-book-volume-image-div{
         display: block;
+        margin: 0 auto
     }
     .thumbnail-book-volume-image{
         display: flex;
         margin: 0 auto;
-        width: 75vw;
+        width: 50vw;
+        max-width: 350px;
+        min-width: 225px;
     }
-    .thumbnail-info-book{
+    .thumbnail-info-book {
         display: block;
+        height: fit-content;
+        width: fit-content;
+        margin: 20px auto;
     }
 }
 

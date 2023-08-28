@@ -794,6 +794,10 @@ div#records-found-text{
         height: fit-content;
         width: 100%;
     }
+    .section2{
+        width: fit-content;
+        margin: 10px;
+    }
     .nav-a-search-img{
         position: relative;
         bottom: -5px;

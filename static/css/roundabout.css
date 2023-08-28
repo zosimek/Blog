@@ -8,6 +8,7 @@
     margin-left: 11%;
     margin-right: 11%;
     width: 76%;
+    max-height: 40vh;
     background-color: rgba(241, 241, 241, 0.60);
 }
 a.detail-carousel{
@@ -17,6 +18,9 @@ a.detail-carousel{
 .wrapper{
     padding: 5px;
     width: 300px;
+    max-width: 20vw;
+    min-width: 200px;
+    max-height: 35vh;
     position: relative;
     margin: 10px;
 }
@@ -24,8 +28,8 @@ a.detail-carousel{
     scale: 105%;
 }
 .image{
-    width: 100%;
-    height: 200px;
+    width: 20vw;
+    height: 18vh;
     object-fit: cover;
 }
 .post_info{
