@@ -8,23 +8,23 @@ from .models import Expertise, CategoryArt, CategoryLiterature, CategoryScience,
 
 @admin.register(Expertise)
 class ExpertiseAdmin(admin.ModelAdmin):
-    list_display = ['expertise']
+    list_display = ['expertise_en']
 
 @admin.register(CategoryArt)
 class ExpertiseAdmin(admin.ModelAdmin):
-    list_display = ['category']
+    list_display = ['category_en']
 
 @admin.register(CategoryLiterature)
 class ExpertiseAdmin(admin.ModelAdmin):
-    list_display = ['category']
+    list_display = ['category_en']
 
 @admin.register(CategoryScience)
 class ExpertiseAdmin(admin.ModelAdmin):
-    list_display = ['category']
+    list_display = ['category_en']
 
 @admin.register(CategoryPost)
 class ExpertiseAdmin(admin.ModelAdmin):
-    list_display = ['category']
+    list_display = ['category_en']
 
 ##############################################       MODELS      #######################################################
 

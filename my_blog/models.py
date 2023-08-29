@@ -8,33 +8,38 @@ from django.utils import timezone
 
 class Expertise(models.Model):
     expertise = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
+    expertise_en = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
 
     def __str__(self):
-        return self.expertise
+        return self.expertise_en
 
 class CategoryArt(models.Model):
     category = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
+    category_en = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
 
     def __str__(self):
-        return self.category
+        return self.category_en
 
 class CategoryLiterature(models.Model):
     category = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
+    category_en = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
 
     def __str__(self):
-        return self.category
+        return self.category_en
 
 class CategoryScience(models.Model):
     category = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
+    category_en = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
 
     def __str__(self):
-        return self.category
+        return self.category_en
 
 class CategoryPost(models.Model):
     category = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
+    category_en = models.CharField(default='', max_length=64, unique=False, blank=False, null=False)
 
     def __str__(self):
-        return self.category
+        return self.category_en
 #############################################       MODELS      ########################################################
 
 class Author(models.Model):
