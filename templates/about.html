@@ -27,23 +27,23 @@
                     {% if seat.image.url != null %}
                     <img class="image" src="{{seat.image.url}}" alt="{{seat.image.name}}" class="title_image">
                     {% else %}
-                    {% if seat.expertise.expertise == 'literature' %}
+                    {% if seat.expertise.expertise_en == 'literature' %}
                     <img class="image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
-                    {% elif seat.expertise.expertise == 'art' %}
+                    {% elif seat.expertise.expertise_en == 'art' %}
                     <img class="image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
-                    {% elif seat.expertise.expertise == 'science' %}
-                    {% elif seat.expertise.expertise == 'entertainment' %}
+                    {% elif seat.expertise.expertise_en == 'science' %}
+                    {% elif seat.expertise.expertise_e.expertise.expertise_en == 'entertainment' %}
                     {% endif %}
                     {% endif %}
                     <div class="post_info">
-                        {% if seat.expertise.expertise == 'literature' %}
-                        <p class="latest-category-blue">{{seat.expertise.expertise}}</p>
-                        {% elif seat.expertise.expertise == 'art' %}
-                        <p class="latest-category-pink">{{seat.expertise.expertise}}</p>
-                        {% elif seat.expertise.expertise == 'entertainment'%}
-                        <p class="latest-category-purple">{{seat.expertise.expertise}}</p>
-                        {% elif seat.expertise.expertise == 'science' %}
-                        <p class="latest-category-yellow">{{seat.expertise.expertise}}</p>
+                        {% if seat.expertise.expertise_en == 'literature' %}
+                        <p class="latest-category-blue">{{seat.expertise.expertise_en}}</p>
+                        {% elif seat.expertise.expertise_en == 'art' %}
+                        <p class="latest-category-pink">{{seat.expertise.expertise_en}}</p>
+                        {% elif seat.expertise.expertise_en == 'entertainment'%}
+                        <p class="latest-category-purple">{{seat.expertise.expertise_en}}</p>
+                        {% elif seat.expertise.expertise_en == 'science' %}
+                        <p class="latest-category-yellow">{{seat.expertise.expertise_en}}</p>
                         {% endif %}
                         <div class="title">
                             <p>{{seat.title|truncatechars:35}}</p>
@@ -94,7 +94,7 @@
         </div>
         <div class="author-info">
             <p class="author-name">{{author.full_name}}</p>
-            <p class="author-expertise">{{author.expertise}}</p>
+            <p class="author-expertise">{{author.expertise.expertise_en}}</p>
             <div class="author-description">
                 <p>{{author.info|safe}}</p>
             </div>

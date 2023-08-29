@@ -250,11 +250,11 @@ class Entertainment(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        expertise1 = Expertise.objects.get(expertise='entertainment')
-        expertise2 = Expertise.objects.get(expertise='art')
-        expertise3 = Expertise.objects.get(expertise='literature')
-        expertise4 = Expertise.objects.get(expertise='science')
-        category_science = CategoryPost.objects.get(category='science')
+        expertise1 = Expertise.objects.get(expertise_en='entertainment')
+        expertise2 = Expertise.objects.get(expertise_en='art')
+        expertise3 = Expertise.objects.get(expertise_en='literature')
+        expertise4 = Expertise.objects.get(expertise_en='science')
+        category_science = CategoryPost.objects.get(category_en='science')
 
         roundabout1 = Post.objects.filter(readyToLaunch=True, promote=True, expertise=expertise1.id).order_by('-date')[
                       :5]
@@ -331,7 +331,7 @@ class SciencePost(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        expertise = Expertise.objects.get(expertise='science')
+        expertise = Expertise.objects.get(expertise_en='science')
 
         roundabout1 = Science.objects.filter(readyToLaunch=True, promote=True, expertise=expertise.id).order_by(
             '-date')[:8]

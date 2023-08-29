@@ -29,7 +29,7 @@
                 <img class="image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
             {% endif %}
             <div class="post_info">
-                <p class="latest-category-pink">{{seat.category}}</p>
+                <p class="latest-category-pink">{{seat.category.category_en}}</p>
                 <div class="title">
                     <p>{{seat.title|truncatechars:35}}</p>
                 </div>
@@ -69,13 +69,13 @@
                 {% if post.image.url != null %}
                     <img class="latest-image" src="{{post.image.url}}" alt="{{post.image.name}}" class="title_image">
                 {% else %}
-                    {% if post.expertise.expertise == 'literature' %}
+                    {% if post.expertise.expertise_en == 'literature' %}
                         <img class="latest-image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
-                    {% elif post.expertise.expertise == 'art' %}
+                    {% elif post.expertise.expertise_en == 'art' %}
                         <img class="latest-image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
-                    {% elif post.expertise.expertise == 'science' %}
+                    {% elif post.expertise.expertise_en == 'science' %}
                         <img class="latest-image" src="{% static 'science_img.png' %}" alt="art" class="title_image">
-                    {% elif post.expertise.expertise == 'entertainment' %}
+                    {% elif post.expertise.expertise_en == 'entertainment' %}
                         <img class="latest-image" src="{% static 'entertainment_img.png' %}" alt="art" class="title_image">
                     {% endif %}
                 {% endif %}
@@ -95,7 +95,7 @@
                 </div>
                 <br>
                 <h3 class="latest-title">{{post.title}}</h3>
-                <p class="latest-art-category">{{post.category}}</p>
+                <p class="latest-art-category">{{post.category.category_en}}</p>
                     <div id="latest-content" class="latest-content">
                             <table class="latest-art-table">
                                 <tr>
@@ -104,7 +104,7 @@
                                 </tr>
                                 <tr>
                                     <td class="latest-art-col1">Dimentions: </td>
-                                    <td class="latest-art-col2">{{post.dimentionX}}x{{post.dimentionY}} mm</td>
+                                    <td class="latest-art-col2">{{post.dimentionX}} x {{post.dimentionY}} mm</td>
                                 </tr>
                             </table>
                             <div class="latest-content">
@@ -140,8 +140,8 @@
         <div class="art-overlay-info">
             <div class="thumbnail-category_author_date">
                     <div class="thumbnail-expertise-date">
-                        {% if thumb.expertise.expertise == 'art' %}
-                            <p class="art-thumbnail-art-category">{{thumb.category}}</p>
+                        {% if thumb.expertise.expertise_en == 'art' %}
+                            <p class="art-thumbnail-art-category">{{thumb.category.category_en}}</p>
                         {% endif %}
                         <p class="art-thumbnail-date">{{thumb.date|date:"d.m.Y"}}</p>
                     </div>

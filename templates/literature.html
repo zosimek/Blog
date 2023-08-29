@@ -26,23 +26,27 @@
             {% if seat.image.url != null %}
             <img class="image" src="{{seat.image.url}}" alt="{{seat.image.name}}" class="title_image">
             {% else %}
-                {% if seat.expertise.expertise == 'literature' %}
+                {% if seat.expertise.expertise_en == 'literature' %}
                 <img class="image" src="{% static 'literature_img.png' %}" alt="literature" class="title_image">
-                {% elif seat.expertise.expertise == 'art' %}
+                {% elif seat.expertise.expertise_en == 'art' %}
                 <img class="image" src="{% static 'art_img.png' %}" alt="art" class="title_image">
-                {% elif seat.expertise.expertise == 'science' %}
-                {% elif seat.expertise.expertise == 'entertainment' %}
+                {% elif seat.expertise.expertise_en == 'science' %}
+                {% elif seat.expertise.expertise_en == 'entertainment' %}
                 {% endif %}
             {% endif %}
             <div class="post_info">
-                {% if  seat.expertise.expertise == 'literature' %}
-                    <p class="latest-category-blue">{{seat.expertise.expertise}}</p>
-                {% elif seat.expertise.expertise == 'art' %}
-                    <p class="latest-category-pink">{{seat.expertise.expertise}}</p>
-                {% elif seat.expertise.expertise == 'entertainment'%}
-                    <p class="latest-category-purple">{{seat.expertise.expertise}}</p>
-                {% elif seat.expertise.expertise == 'science' %}
-                    <p class="latest-category-yellow">{{seat.expertise.expertise}}</p>
+                {% if  seat.expertise.expertise_en == 'literature' %}
+                    {%  if seat.class_name == "Chapter"%}
+                        <p class="latest-category-blue">chapter</p>
+                    {%  elif seat.class_name == "Poem"%}
+                        <p class="latest-category-blue">poem</p>
+                    {% endif %}
+                {% elif seat.expertise.expertise_en == 'art' %}
+                    <p class="latest-category-pink">{{seat.expertise.expertise_en}}</p>
+                {% elif seat.expertise.expertise_en == 'entertainment'%}
+                    <p class="latest-category-purple">{{seat.expertise.expertise_en}}</p>
+                {% elif seat.expertise.expertise_en == 'science' %}
+                    <p class="latest-category-yellow">{{seat.expertise.expertise_en}}</p>
                 {% endif %}
                 <div class="title">
                     <p>{{seat.title|truncatechars:35}}</p>
@@ -90,6 +94,15 @@
 <!--            <a style=" text-decoration: none; float: left"  href="{%url 'details' post.class_name post.id%}">Read on...</a>-->
             <div class="latest-post-info">
                 <div class="latest-category-author-date">
+                    <div class="latest-genre">
+                        {% if post.class_name == "Chapter"%}
+                            <p class="thumbnail-book-genre">{{post.genre.category_en}}</p>
+                        {% elif post.class_name == "Poem"%}
+                            <p class="thumbnail-book-genre">poem</p>
+                        {% endif %}
+                    </div>
+                    <br>
+                    <br>
                     <div class="latest-date-author">
                         <p class="latest-date">{{post.date|date:"d.m.Y"}}</p>
                         {% if post.author.middleName != null %}
@@ -141,9 +154,9 @@
                 <div class="thumbnail-book-volume-genre">
                     {% if book_volume.class_name == "Book"%}
                         <p class="thumbnail-book-genre">{{book_volume.class_name}}</p>
-                        <p class="thumbnail-book-genre">{{book_volume.genre}}</p>
+                        <p class="thumbnail-book-genre">{{book_volume.genre.category_en}}</p>
                     {% elif book_volume.class_name == "Volume"%}
-                        <p class="thumbnail-book-genre">{{book_volume.class_name}}</p>
+                        <p class="thumbnail-book-genre">Poems</p>
                     {% endif %}
                 </div>
                 <div style="height: 3px; width: 100%; display: inline-block"></div>
