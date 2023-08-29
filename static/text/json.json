@@ -1,0 +1,107 @@
+{
+  "pl":{
+    "nav-bar": {
+      "about": "O nas",
+      "art": "sztuka",
+      "literature": "literatura",
+      "science": "nauka",
+      "entertainment": "rozrywka",
+      "shop": "sklep"
+    },
+    "categories":{
+      "art": "sztuka",
+      "literature": "literatura",
+      "science": "nauka",
+      "entertainment": "rozrywka"
+    },
+    "read-the-article": {
+      "post": "Czytaj dalej",
+      "literature": "Czytaj dalej",
+      "art": "Dowiedz się więcej"
+    },
+    "search": {
+      "category": {
+        "choose-category": "Wybierz kategorię:",
+        "all": "wszystko",
+        "art": "sztuka",
+        "literature": "literatura",
+        "science": "nauka",
+        "entertainment": "rozrywka"
+      },
+      "where": {
+        "choose-where": "Gdzie szukać:",
+        "all": "wszystko",
+        "title": "tytuł",
+        "content": "post"
+      },
+      "search-sentence": "Szukana fraza...",
+      "search": "szykaj"
+    },
+    "mail": {
+      "description": "Jakeś pytanie, opinia, propozycja współpracy albo powiedzmy... zlecenie?\n\nNapisz do nas :-)",
+      "address": "Adres",
+      "your-email": "Twój email",
+      "title": "Tytuł",
+      "mail": "Wiadomość",
+      "mail-content": "Napisz wiadomość...",
+      "send": "Wyślij"
+    },
+    "art": {
+      "materials": "materiały",
+      "dimentions": "wymiary"
+    }
+  },
+
+  "en":{
+    "nav-bar": {
+      "about": "about",
+      "art": "art",
+      "literature": "literature",
+      "science": "science",
+      "entertainment": "entertainment",
+      "shop": "shop"
+    },
+    "categories":{
+      "art": "art",
+      "literature": "literature",
+      "science": "science",
+      "entertainment": "entertainment"
+    },
+    "read-the-article": {
+      "post": "read the article",
+      "literature": "read the piece here",
+      "art": "see more"
+    },
+    "search": {
+      "category": {
+        "choose-category": "Choose the category:",
+        "all": "all",
+        "art": "art",
+        "literature": "literature",
+        "science": "science",
+        "entertainment": "entertainment"
+      },
+      "where": {
+        "choose-where": "Choose where to search:",
+        "all": "all",
+        "title": "title",
+        "content": "content"
+      },
+      "search-sentence": "Search sentence...",
+      "search": "search"
+    },
+    "mail": {
+      "description": "Any questions, feedback, collaboration proposal or lets say... commision?\n\nWrite to us :-)",
+      "address": "Address",
+      "your-email": "Your email",
+      "title": "Title",
+      "mail": "Mail",
+      "mail-content": "Write the mail here...",
+      "send": "Send"
+    },
+    "art": {
+      "materials": "materials",
+      "dimentions": "dimentions"
+    }
+  }
+}
