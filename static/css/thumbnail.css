@@ -198,9 +198,9 @@ a.detail-thumbnail > div:hover{
     font-size: 20px !important;
     line-height: 25px !important;
 }
-.thumbnail-post-content-small{
+.thumbnail-post-content-small > span, .thumbnail-post-content-small p > span, .thumbnail-post-content-small p > span > span{
     display: none;
-    font-size: 18px;
+    font-size: 18px!important;
 }
 .thumbnail-literature-content-small{
     display: none;
@@ -236,6 +236,9 @@ a.detail-thumbnail > div:hover{
     margin: 10px 20px 10px 10px;
 }
 .thumbnail-literature-content-small{
+    display: unset;
+}
+.thumbnail-post-content-small > span, .thumbnail-post-content-small p > span, .thumbnail-post-content-small p > span > span{
     display: unset;
 }
 .thumbnail-post-content-small{
