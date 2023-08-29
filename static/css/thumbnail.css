@@ -292,6 +292,21 @@ a.detail-thumbnail > div:hover{
     width: 90%;
     margin: 10px auto;
 }
+.thumbnail-literature-content-small{
+    display: none;
+}
+.thumbnail-post-content-small > span, .thumbnail-post-content-small p > span, .thumbnail-post-content-small p > span > span{
+    display: none;
+}
+.thumbnail-post-content-small{
+    display: none;
+}
+.thumbnail-literature-content{
+    display: unset;
+}
+.thumbnail-post-content{
+    display: unset;
+}
 }
 @media screen and (max-width: 250px) {
 .one-thumbnail {
